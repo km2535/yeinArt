@@ -1,0 +1,43 @@
+.title{
+  text-align: center;
+  margin: 50px;
+}
+.slick-list{
+  width:1000px;
+  height: auto;
+  overflow: hidden;
+  margin: 20px auto;
+}
+.container{
+  width: 1000px;
+  height: 800px;
+  text-align: center;
+}
+.subContainer{
+  text-align: center;
+}
+.img{
+  text-align: center;
+  margin: 0 auto;
+}
+.subimg{
+  margin: 0 auto;
+  object-fit: contain;
+}
+.slick-prev,.slick-next{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  color: rgb(139, 134, 134);
+}
+.slick-prev{
+  left: 10vw;
+}
+.slick-next{
+  left: 85vw;
+
+}
+.slick-prev:hover ,.slick-next:hover{
+  color: rgb(88, 88, 88)
+}

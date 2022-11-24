@@ -1,0 +1,73 @@
+@import url(../../common/styles/common.css);
+
+
+.palleraxImg{
+  min-height: 80vh; 
+  filter: brightness(60%);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.background::before{
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 80vh;
+  backdrop-filter: blur(4px);
+}
+.title{
+  width: 100%;
+  position: absolute;
+  top: 12vh;
+  z-index: 3;
+}
+.mainTitle{
+  width: 80vw;
+  margin: 0 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 3;
+}
+.yein{
+  color: #fff;
+  font-variant: small-caps;
+  font-size: 180px;
+  font-weight: bold;
+  margin-right: 30px;
+}
+.y{
+  font-size: 200px;
+}
+.mainSub{
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 70px;
+}
+.subTitle{
+  width: 80vw;
+  margin: 0 auto;
+  color: #fff;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nav{
+  position: absolute;
+  top: 70vh;
+  z-index: 4;
+  left: 50vw;
+  transform: translateX(-50%);
+  width: 1000px;
+}
+.btnContent{
+  position: absolute;
+  top: 58vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 99;
+}

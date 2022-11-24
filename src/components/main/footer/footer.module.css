@@ -1,0 +1,73 @@
+.container{
+  position: relative;
+  width: 100%;
+  height: 25vh;
+}
+.palleraxImg{
+  min-height: 25vh; 
+  filter: brightness(40%);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+.background::before{
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 25vh;
+  backdrop-filter: blur(10px);
+}
+.ftContent{
+  position: absolute;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+.ftCopy{
+  display: flex;
+  flex-direction: row;
+  margin-left: 70%;
+}
+.ftCopy a, .ftLogo a{
+  text-decoration: none;
+  color: #fff;
+}
+.ftCont, .ftIndi{
+  cursor: pointer;
+}
+.ftCont::after{
+  content: "|";
+  margin: 0 20px;
+}
+.ftInfo{
+  width: 100vw;
+  height: 12vh;
+  display: flex;
+  font-family: var(--font-basic);
+  flex-direction: row;
+  align-items: center;
+}
+.ftLogo{
+  width: 30vw;
+  font-size: 45px;
+  font-family: var(--font-logo);
+  text-align: center;
+}
+.ftAddr{
+  width: 80vw;
+}
+.ftCompany{
+  width: 100vw;
+  height: 5vh;
+  text-align: center;
+  font-family: var(--font-basic);
+  font-weight: 700;
+  line-height: 60px;
+}

@@ -1,0 +1,76 @@
+.background{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center; 
+  background-color: #F9F8FF;
+}
+.container{
+  width: 40vw;
+  height: 80vh;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px #a9a5a5;
+}
+.logo{
+  text-align: center;
+  padding: 30px;
+  height: 35%;
+}
+.logo canvas{
+  border: 1px solid #000;
+  cursor: pointer;
+}
+.btns{
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  justify-content: space-evenly;
+  height: 40%;
+}
+.kakaobtn{
+  text-align: center;
+  width: 380px;
+  height: 90px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px #a9a5a5;
+  transition: scale 0.2s;
+}
+.kakaobtn img{
+  width: 380px;
+  height: 90px;
+  cursor: pointer;
+}
+
+.googlebtn{
+  width: 380px;
+  height: 90px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px #a9a5a5;
+  transition: scale 0.2s;
+}
+.google{
+  display: flex;
+  align-items: center;
+  height: 90px;
+  cursor: pointer;
+}
+.googleLogo{
+  width: 25%;
+  text-align: center;
+}
+.google img{
+  width: 40px;
+  height: 40px;
+}
+.txt{
+  width: 60%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 30px
+}
+.kakaobtn:hover,.googlebtn:hover{
+  scale: 1.02;
+}

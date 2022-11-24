@@ -1,0 +1,41 @@
+.title{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  height: 15vh;
+}
+.mainTxt{
+  font-family: var(--font-basic);
+  font-feature-settings: "smcp";
+  font-variant: small-caps;
+  font-size: 50px;
+  font-weight: 700;
+   margin: 10px 0 0 0;
+}
+.line{
+  width: 400px;
+  height: 10px;
+  margin: 0 auto;
+  border-top: 5px solid black;
+}
+.map{
+  width: 85vw;
+  height: 70vh;
+  margin: 0 auto;
+}
+.info{
+  width: 85vw;
+  margin: 0 auto;
+  height: 15vh;
+  text-align: left;
+  font-family: var(--font-sub);
+  font-weight: 900;
+}
+.addrTxt{
+  font-size: 36px;
+  margin: 10px 0;
+}
+.addr,.phoneNumber{
+  margin: 0;
+}

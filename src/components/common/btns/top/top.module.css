@@ -1,0 +1,38 @@
+.top{
+  text-decoration: none;
+}
+.topBtn{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  margin-top: 20px;
+  top: 100px;
+  left: 92vw;
+  float: left;
+  transition: all 0.2s;
+  cursor: pointer;
+  z-index: 9;
+}
+.arrow{
+  font-size: 30px;
+  height: 40%;
+  color: #fff;
+}
+.text{
+  font-size: 20px;
+  font-variant: small-caps;
+  color: #fff;
+}
+.topBtn:hover .arrow, .topBtn:hover .text{
+  color: #000;
+}
+.topBtn:hover{
+  background-color: #fff;
+  box-shadow: 1px 2px 10px #000;
+}

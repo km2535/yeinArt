@@ -1,0 +1,40 @@
+.mainSection{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+}
+.imgList{
+  width: 30%;
+  height: 550px;
+  text-align: center;
+  padding: 1rem;
+  overflow: hidden;
+}
+.imgDetail{
+  width: 400px;
+  height: 550px;
+  object-fit: fill;
+  transition: filter 0.2s;
+}
+.container{
+  height: 550px;
+  cursor: pointer;
+}
+.container:hover .imgDetail{
+  filter: blur(5px) brightness(50%);
+}
+.des{
+  opacity: 0;
+}
+.container:hover .des{
+  opacity: 1;
+  transform: translateY(-20rem);
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  font-family: var( --font-sub);
+  font-weight: 500;
+}

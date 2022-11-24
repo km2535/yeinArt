@@ -1,0 +1,8 @@
+.copy{
+  position: absolute;
+  margin: 0 auto;
+  color: #fff;
+  bottom: 2vh;
+  left: 20vw;
+  z-index: 999;
+}

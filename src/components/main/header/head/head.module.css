@@ -1,0 +1,31 @@
+.head{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute; 
+}
+.imgContent, .img{
+  margin: 10px;
+  width: 150px;
+  z-index: 3;
+}
+.form, .login, .join{
+  text-decoration: none;
+  color: #fff;
+  font-size: 22px;
+  font-family: var(--font-basic);
+  font-variant: small-caps;
+  font-weight: 700;
+  margin: 10px;
+  z-index: 3;
+}
+.login::after{
+  content: "|";
+  margin: 0 0 0 20px;
+}
+.welcome{
+  font-size: 16px;
+}
+.logout{
+  cursor: pointer; 
+}

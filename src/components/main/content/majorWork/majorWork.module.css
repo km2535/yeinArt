@@ -1,0 +1,85 @@
+.title{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; 
+  justify-content: center;
+  height: 20vh;
+}
+.mainTxt{
+  font-family: var(--font-basic);
+  font-variant: small-caps;
+  font-size: 50px;
+  font-weight: 700;
+  margin: 10px 0 0 0;
+}
+
+.line{
+  width: 400px;
+  height: 10px;
+  margin: 0 auto;
+  border-top: 5px solid black;
+}
+.subTxt{
+  font-family: var(--font-sub);
+  font-size: 24px;
+  font-weight: 700;
+  margin:0 0 20px 0;
+}
+.container{
+  position: relative;
+}
+.palleraxImg{
+  min-height: 80vh; 
+  filter: brightness(60%);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+}
+.background::before{
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80vh;
+  backdrop-filter: blur(4px);
+}
+
+.description{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0vh;
+  z-index: 3;
+}
+
+.mainTitle, .subTitle{
+  font-family: var(--font-sub);
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 50%;
+  padding: 30px;
+  color: #fff;
+}
+
+.mainTitle{
+  text-align: left;
+  font-size: 80px;
+  font-weight: 500;
+  line-height: 50px;
+}
+.subTitle{
+  text-align: right;
+  line-height: 30px;
+  font-size: 25px;
+  top: 45%;
+  margin-right: 4rem;
+}

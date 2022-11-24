@@ -1,0 +1,44 @@
+.ul{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+}
+.li{
+  width: 25%;
+}
+.ul a, .li a{
+  text-decoration: none;
+  width: 25%;
+  color: #fff;
+}
+.li, .community{
+  font-size: 25px;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  font-family: var(--font-sub);
+  cursor: pointer;
+}
+.submenu{
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 200px;
+  font-size: 20px;
+  visibility: hidden;
+}
+.community:hover .submenu{
+  visibility: visible;
+}
+.board, .gallery{
+  padding: 5px;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+.board:hover, .gallery:hover{
+  background-color: #fff;
+}
+.board:hover a, .gallery:hover a{
+  color: #000;
+}

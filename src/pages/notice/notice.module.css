@@ -1,0 +1,64 @@
+.palleraxImg{
+  min-height: 150px; 
+  filter: brightness(60%);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.background::before{
+  content: "";
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 150px;
+  backdrop-filter: blur(4px);
+}
+
+.nav{
+  position: absolute;
+  top: 50px;
+  z-index: 4;
+  left: 50vw;
+  transform: translateX(-30%);
+  width: 1000px;
+}
+.content{
+  width: 100vw;
+  height: 20vh;
+  text-align: center;
+}
+.subTitle{
+  margin: 0 auto;
+  transform: translateY(30%);
+}
+.mainTxt{
+  color: #000;
+  font-family: var(--font-basic);
+  font-variant: small-caps;
+  font-size: 50px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.line{
+  width: 400px;
+  height: 10px;
+  margin: 0 auto;
+  border-top: 5px solid black;
+}
+.subTxt{
+  font-family: var(--font-sub);
+  color: #000;
+  font-size: 24px;
+  font-weight: 700;
+  margin:0 0 20px 0;
+}
+
+.warnning{
+  font-family: var(--font-main);
+  text-align: center;
+  padding: 20px;
+  font-size: 50px;
+}
