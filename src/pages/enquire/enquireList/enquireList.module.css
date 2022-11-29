@@ -14,9 +14,7 @@
 .thead tr th{
   border-bottom: 4px solid #000; 
 }
-.tfoot tr td{
-  border-top: 4px solid #000;
-}
+
 .tbody tr{
   height: 50px;
 }
@@ -26,8 +24,20 @@
   font-family: var(--font-sub);
 }
 .title{
+  width: 40%;
   cursor: pointer;
 }
 .title:hover{
   color:#0d6efd;
+}
+.enquireBtn{
+  width: 80vw;
+  text-align: right;
+  margin: 0 auto;
+}
+.search{
+  height: 80px;
+}
+.tfoot tr:first-child td{
+  border-top: 4px solid #000;
 }

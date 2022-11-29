@@ -39,13 +39,6 @@ export default function AddNotice({ prevdata }) {
       navigate("/");
     });
   };
-  // useEffect(() => {
-  //   if (prevdata[0]) {
-  //     //console.log(prevdata[0].value.title);
-  //     setTitle(prevdata[0].value.title);
-  //     setTextarea(prevdata[0].value.content);
-  //   }
-  // }, [prevdata]);
   return (
     <div>
       <form onSubmit={uploadHandler}>

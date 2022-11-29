@@ -20,6 +20,7 @@ import NoticeDetail from "./pages/notice/noticeDetail/noticeDetail";
 import AddNotice from "./pages/notice/addNotice/addNotice";
 import NoticeEdit from "./pages/notice/noticeEdit/noticeEdit";
 import EnquireList from "./pages/enquire/enquireList/enquireList";
+import EnquireDetail from "./pages/enquire/enquireDetail/enquireDetail";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: "/enquire",
             element: <EnquireList />,
+          },
+          {
+            path: "/enquire/:id",
+            element: <EnquireDetail />,
           },
         ],
       },

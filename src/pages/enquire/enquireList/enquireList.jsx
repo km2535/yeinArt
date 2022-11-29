@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import EnquireBtn from "../../../components/common/btns/enquireBtn/enquireBtn";
 import Loading from "../../../components/common/loading/loading";
 import Pagination from "../../../components/common/pagination/pagination";
+import Search from "../../../components/common/search/search";
 import styles from "./enquireList.module.css";
 
 export default function EnquireList() {
-  const { totalData, fbuser, isLoading } = useOutletContext();
+  const { totalData, kauser, fbuser, isLoading } = useOutletContext();
   const [pageData, setPageDate] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    // const firstData = totalData.slice(0, 10);
-    // setPageDate(firstData);
+    const firstData = totalData.slice(0, 10);
+    setPageDate(firstData);
   }, [totalData]);
+  //console.log(pageData);
   return (
     <>
       <div className={styles.container}>
@@ -19,33 +22,40 @@ export default function EnquireList() {
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr>
-              <th>번호</th>
               <th>제목</th>
               <th>글쓴이</th>
               <th>작성일</th>
-              <th>조회수</th>
+              <th>작업요청일</th>
             </tr>
           </thead>
           <tbody className={styles.tbody}>
-            {/* {pageData.map((v) => (
+            {pageData.map((v) => (
               <tr key={v.id}>
-                <td>{v.value.num}</td>
                 <td
                   className={styles.title}
                   id={v.id}
                   onClick={() => {
-                    navigate(`/notice/${v.id}`, { state: v });
+                    navigate(`/enquire/${v.id}`, { state: v });
                   }}
                 >
                   {v.value.title}
                 </td>
-                <td>예인아트 관리자</td>
+                <td>{v.value.userEmail}</td>
                 <td>{v.value.date}</td>
-                <td>{v.value.read}</td>
+                <td>{v.value.workdate}</td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
           <tfoot className={styles.tfoot}>
+            <tr className={styles.search}>
+              <td colSpan={5}>
+                <Search totalData={totalData} setPageDate={setPageDate} />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
             <tr>
               <td colSpan={5}>
                 <Pagination
@@ -58,10 +68,14 @@ export default function EnquireList() {
               <td></td>
               <td></td>
               <td></td>
-              <td></td>
             </tr>
           </tfoot>
         </table>
+        {(fbuser || kauser) && (
+          <div className={styles.enquireBtn}>
+            <EnquireBtn />
+          </div>
+        )}
       </div>
     </>
   );

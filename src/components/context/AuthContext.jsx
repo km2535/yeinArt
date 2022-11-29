@@ -28,8 +28,8 @@ export default function AuthContextProvider({ children }) {
     }
     if (onUserStateChange) {
       onUserStateChange((user) => {
-        setFbuser(user);
         navigate("/");
+        setFbuser(user);
       });
     }
   }, []);

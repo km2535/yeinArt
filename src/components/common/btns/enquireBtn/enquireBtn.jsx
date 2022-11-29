@@ -1,8 +1,8 @@
 import React from "react";
 import { useEnquireContext } from "../../../context/EnquireContext";
-import styles from "./reqbtn.module.css";
+import styles from "../addContents/addContents.module.css";
 
-export default function Reqbtn() {
+export default function EnquireBtn() {
   const { setEnquire } = useEnquireContext();
 
   const enquireHandler = () => {

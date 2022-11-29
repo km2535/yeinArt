@@ -11,6 +11,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import db from "./firebase";
+import { v4 as uuidv4 } from "uuid";
 
 export const writeImage = async (id, title, url, date) => {
   await setDoc(doc(db, "gallery", id), {
@@ -86,4 +87,52 @@ export const deleteNotice = async (id) => {
     num: deleteField(),
     read: deleteField(),
   }).then(() => deleteDoc(doc(db, "notice", id)));
+};
+
+export const readProduct = async (collectionName, sessionName) => {
+  console.log("reading readProduct[0] 발생");
+  const q = query(collection(db, collectionName));
+  const querySnapshot = await getDocs(q);
+  const data = [];
+  querySnapshot.forEach((doc) => {
+    data.push(doc.data());
+  });
+  data.length !== 0 &&
+    window.sessionStorage.setItem(sessionName, JSON.stringify(data));
+  return data;
+};
+
+export const writeEnquire = async (product) => {
+  const id = uuidv4();
+  const now = new Date();
+  await setDoc(doc(db, "enquire", id), {
+    date: now.toISOString(),
+    workdate: product[0].workdate,
+    title: product[0].title,
+    content: product[0].content,
+    userEmail: product[0].userEmail,
+    departAddress: product[0].departAddress,
+    arrivalAddress: product[0].arrivalAddress,
+    distanceTo: product[0].distanceTo,
+    durationTo: product[0].durationTo,
+    datas: product[0].datas,
+    totalPrice: product[0].totalPrice,
+  });
+};
+export const deleteEnquire = async (id) => {
+  console.log(id);
+  await updateDoc(doc(db, "enquire", id), {
+    date: deleteField(),
+    workdate: deleteField(),
+    title: deleteField(),
+    urls: deleteField(),
+    content: deleteField(),
+    userEmail: deleteField(),
+    departAddress: deleteField(),
+    arrivalAddress: deleteField(),
+    distanceTo: deleteField(),
+    durationTo: deleteField(),
+    datas: deleteField(),
+    totalPrice: deleteField(),
+  }).then(() => deleteDoc(doc(db, "enquire", id)));
 };

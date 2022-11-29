@@ -1,3 +1,9 @@
+.rockPage{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .palleraxImg{
   min-height: 150px; 
   filter: brightness(60%);

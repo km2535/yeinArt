@@ -1,9 +1,12 @@
 import React from "react";
+import "./home.css";
 import { useAuthContext } from "../components/context/AuthContext";
+import { useEnquireContext } from "../components/context/EnquireContext";
 import Content from "../components/main/content/content";
 import Footer from "../components/main/footer/footer";
 import Header from "../components/main/header/header";
 import workList from "../service/workList";
+import AddEnquire from "./enquire/addEnquire/addEnquire";
 
 export default function Home() {
   const {
@@ -14,9 +17,10 @@ export default function Home() {
     historiesRef,
     majorWorkRef,
   } = useAuthContext();
-
+  const { enquire } = useEnquireContext();
   return (
-    <div>
+    <div className={enquire ? "rockPage" : "home"}>
+      <AddEnquire />
       <header>
         <Header
           historiesRef={historiesRef}
