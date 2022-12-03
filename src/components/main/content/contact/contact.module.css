@@ -38,7 +38,7 @@
   margin: 15px auto 0;
   background-repeat: no-repeat;
   background-size: contain;
-
+  transition: scale 0.2s;
 }
 .snsTitle{
   width: 60%;
@@ -61,11 +61,13 @@
   color: #fff;
   width: 30%;
   z-index: 99;
+  transition: scale 0.2s;
 }
 .kakaoContainer{
   display: flex;
   align-items: center;
-  width: 60%;
+  width: 50%;
+  margin-top: 50px;
   border-bottom: 3px solid #fff;
 }
 .kakao{
@@ -74,18 +76,23 @@
   margin: 15px auto 0;
   background-repeat: no-repeat;
   background-size: contain;
+  transition: scale 0.2s;
+  cursor: pointer;
 }
 .kakaoId{
-  width: 70%;
+  width: 60%;
+  text-align: center;
   color: #fff;
   font-size: 40px;
-  text-align: left;
   font-family: var(--font-basic);
   cursor: pointer;
 }
 .facebookA{
   color: #fff;
   text-decoration: none;
+}
+.facebook:hover, .blog:hover, .mail:hover, .kakao:hover{
+  scale: 1.1;
 }
 .mailIcon{
   cursor: pointer;

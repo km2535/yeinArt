@@ -4,37 +4,35 @@ import styles from "./contact.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Mail from "../../../mail/mail";
 import Copy from "../../../common/copy/copy";
+import kakaoMessage from "../../../../service/kakaoChannel";
 
 export default function Contact() {
-  //메일 기능 ,카카오 아이디 복사하기 기능 추후 추가
-  const [copy, setCopy] = useState(null);
+  const [isMail, setIsMail] = useState(false);
+  const [copy, setCopy] = useState("");
   const [isCopy, setisCopy] = useState(false);
-  const copySomting = (e) => {
-    let value = e.currentTarget.id;
-    switch (value) {
-      case "mail":
-        setCopy("yeinart22@naver.com");
-        break;
-      case "kakao":
-        setCopy("dinelkim");
-        break;
-      default:
-        break;
-    }
+  const copySomting = () => {
+    setCopy("dinelkim");
   };
   useEffect(() => {
-    if (copy) {
-      navigator.clipboard.writeText(copy);
-      setisCopy(true);
-      setTimeout(() => {
-        setisCopy((prev) => !prev);
-      }, 2000);
-    }
+    navigator.clipboard.writeText(copy);
+    setisCopy(true);
+    setTimeout(() => {
+      setisCopy((prev) => !prev);
+    }, 2000);
   }, [copy]);
-
+  useEffect(() => {
+    if (!window.Kakao.isInitialized()) {
+      window.Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
+    }
+  }, []);
+  const mailInput = () => {
+    setIsMail((prev) => !prev);
+  };
   return (
     <>
+      {isMail && <Mail setIsMail={setIsMail} />}
       <div className={styles.container}>
         <div className={styles.background}>
           <div
@@ -68,19 +66,22 @@ export default function Contact() {
                 ></div>
               </a>
             </div>
-            <div className={styles.mail} onClick={copySomting} id="mail">
+            <div className={styles.mail} onClick={mailInput} id="mail">
               <FontAwesomeIcon
                 icon={faEnvelope}
                 className={styles.mailIcon}
               ></FontAwesomeIcon>
             </div>
             <div className={styles.kakaoContainer}>
+              <div id="chat-channel-button"></div>
               <div
                 className={styles.kakao}
                 style={{ backgroundImage: 'url("./images/kakao.png")' }}
+                id="kakao-linkbtn"
+                onClick={kakaoMessage}
               ></div>
               <div className={styles.kakaoId} onClick={copySomting} id="kakao">
-                dinelkim
+                yeinartdev
               </div>
             </div>
           </div>

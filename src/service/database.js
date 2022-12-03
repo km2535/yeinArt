@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import db from "./firebase";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment/moment";
 
 export const writeImage = async (id, title, url, date) => {
   await setDoc(doc(db, "gallery", id), {
@@ -28,7 +29,7 @@ export const writeImage = async (id, title, url, date) => {
 
 export const readData = async (collectionName, sessionName) => {
   console.log("reading 발생");
-  const q = query(collection(db, collectionName), orderBy("date", "asc"));
+  const q = query(collection(db, collectionName), orderBy("date", "desc"));
   const querySnapshot = await getDocs(q);
   const data = [];
   querySnapshot.forEach((doc) => {
@@ -41,7 +42,7 @@ export const readData = async (collectionName, sessionName) => {
 
 export const firstRead = async (setPageData) => {
   console.log("처음 reading 발생");
-  const q = query(collection(db, "gallery"), orderBy("date", "asc"), limit(6));
+  const q = query(collection(db, "gallery"), orderBy("date", "desc"), limit(6));
   const querySnapshot = await getDocs(q);
   const data = [];
   querySnapshot.forEach((doc) => {
@@ -89,6 +90,12 @@ export const deleteNotice = async (id) => {
   }).then(() => deleteDoc(doc(db, "notice", id)));
 };
 
+// 조회수 상승 함수
+export const noticeRead = async (id, readcnt) => {
+  await updateDoc(doc(db, "notice", id), {
+    read: readcnt,
+  });
+};
 export const readProduct = async (collectionName, sessionName) => {
   console.log("reading readProduct[0] 발생");
   const q = query(collection(db, collectionName));
@@ -104,9 +111,9 @@ export const readProduct = async (collectionName, sessionName) => {
 
 export const writeEnquire = async (product) => {
   const id = uuidv4();
-  const now = new Date();
+  const now = moment().format("YY-MM-DD HH:mm:ss");
   await setDoc(doc(db, "enquire", id), {
-    date: now.toISOString(),
+    date: now,
     workdate: product[0].workdate,
     title: product[0].title,
     content: product[0].content,

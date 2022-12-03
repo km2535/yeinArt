@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
 import history from "../../../components/common/history/history";
+import { noticeRead } from "../../../service/database";
 import { deleteData } from "../../../service/delete";
 import styles from "./noticeDetail.module.css";
 
@@ -29,13 +30,13 @@ export default function NoticeDetail() {
       v.imgUrl && setImgTag(v.imgUrl);
       v.fileUrl && urlDecoding(v.fileUrl);
     });
-    return history.listen((action) => {
-      //console.log(action);
+    return history.listen(() => {
       if (history.action === "POP") {
         history.push("/notice");
       }
     });
   }, [value.urls]);
+
   const urlDecoding = (fileUrl) => {
     const url = decodeURI(fileUrl);
     const fileName = url.split("file%2F")[1].split("?alt")[0];
@@ -44,7 +45,12 @@ export default function NoticeDetail() {
   };
 
   // 조회수 상승 컨트롤러
-
+  // 게시판을 detail 화면을 보면 조회수를 증가시키고 세션의 스토리지를 업데이트 시킨다.
+  useEffect(() => {
+    noticeRead(id, Number(value.read) + 1).then(() => {
+      window.sessionStorage.removeItem("allItems");
+    });
+  }, [id, value]);
   // 삭제 컨트롤러
   const deleteHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {

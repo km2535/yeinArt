@@ -13,9 +13,9 @@ export default function Notice() {
   const [bg, setBg] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const session = window.sessionStorage.getItem("allItems");
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
-    const session = window.sessionStorage.getItem("allItems");
     if (fbuser !== null && fbuser.isAdmin === true) {
       setIsLoading(true);
       readData("notice", "allItems")
@@ -29,7 +29,7 @@ export default function Notice() {
         .then((v) => setTotalData(v))
         .then(() => setIsLoading(false));
     }
-  }, [fbuser, kauser]);
+  }, [fbuser, kauser, session]);
   return (
     <div>
       <Head
@@ -50,7 +50,7 @@ export default function Notice() {
           <p className={styles.line}></p>
         </div>
       </div>
-      <Outlet context={{ totalData, fbuser, isLoading }} />
+      <Outlet context={{ totalData, fbuser, isLoading, setTotalData }} />
       <div>
         <Footer />
       </div>

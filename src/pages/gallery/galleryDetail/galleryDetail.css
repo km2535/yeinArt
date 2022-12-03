@@ -36,8 +36,12 @@
 }
 .slick-next{
   left: 85vw;
-
 }
 .slick-prev:hover ,.slick-next:hover{
   color: rgb(88, 88, 88)
+}
+.slick-prev::before,.slick-next::before{
+  display: none;
+  opacity: 0;
+  visibility: hidden;
 }

@@ -58,7 +58,12 @@
   top: 0vh;
   z-index: 3;
 }
-
+.mainInnerTitle{
+  opacity: 0;
+  height: 250px;
+  transform: translateY(15%);
+  transition: opacity, transform 0.8s, 0.5s ;
+}
 .mainTitle, .subTitle{
   font-family: var(--font-sub);
   position: relative;
@@ -81,5 +86,9 @@
   line-height: 30px;
   font-size: 25px;
   top: 45%;
-  margin-right: 4rem;
+}
+.subInnerTitle{
+  opacity: 0;
+  margin-right: 0rem;
+  transition: opacity, margin 0.5s, 0.8s;
 }

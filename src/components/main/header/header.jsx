@@ -26,12 +26,14 @@ export default function Header({
           style={{ backgroundImage: 'url("./images/main.jpg")' }}
         ></div>
       </div>
-      <div className={styles.title}>
+      <div className={styles.title} id="title">
         <div className={styles.mainTitle}>
-          <span className={styles.yein}>
+          <div className={styles.yein}>
             <span className={styles.y}>Y</span>ein art
-          </span>
-          <span className={styles.mainSub}>미술품 포장, 운송, 설치서비스</span>
+          </div>
+          <div className={styles.mainSub}>
+            <span>미술품 포장, 운송, 설치서비스</span>
+          </div>
         </div>
         <div className={styles.subTitle}>
           <span>

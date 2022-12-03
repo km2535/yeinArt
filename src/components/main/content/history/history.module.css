@@ -47,14 +47,19 @@
   overflow: hidden;
   color: #fff;
 }
+
+.mainTitle{
+  opacity: 0;
+  transform: translateY(-40%);
+}
 .mainTitle, .subTitle{
   font-family: var(--font-sub);
   position: relative;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  transform: translateY(-50%);
-
+  transition: opacity,transform 0.8s, 0.5s ; 
+  
 }
 .mainTitle{
   font-size: 80px;
@@ -64,10 +69,14 @@
   font-weight: 500;
 }
 .subTitle{
+  opacity: 0;
+}
+.subTitle{
   font-size: 24px;
   top: 40%;
   text-align: right;
-  margin-right: 10rem;
+  margin-right: 0rem;
+  transform: translateY(-50%) ;
 }
 
 @keyframes wave {

@@ -25,7 +25,9 @@ export const Authkakao = () => {
       );
 
       // Kakao Javascript SDK 초기화
-      window.Kakao.init(REST_API_KEY);
+      if (!window.Kakao.isInitialized()) {
+        window.Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
+      }
       // access token 설정
       window.Kakao.Auth.setAccessToken(res.data.access_token);
       //access token 받음

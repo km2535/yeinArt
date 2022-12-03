@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./addEnquire.module.css";
 import { useEnquireContext } from "../../../components/context/EnquireContext";
 import DatePicker from "react-datepicker";
@@ -14,6 +14,7 @@ import EnquireProduct from "./enquireProduct";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { writeEnquire } from "../../../service/database";
+import emailjs from "@emailjs/browser";
 
 export default function AddEnquire() {
   const { enquire, setEnquire } = useEnquireContext();
@@ -28,6 +29,8 @@ export default function AddEnquire() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [products, setProducts] = useState([]);
+  const [isBtn, setIsBtn] = useState(true);
+  const form = useRef();
   const closeHandelre = () => {
     setEnquire(false);
   };
@@ -108,19 +111,43 @@ export default function AddEnquire() {
         totalPrice,
       },
     ]);
+    //이메일 보내기
   };
   useEffect(() => {
     if (enquire && products.length !== 0) {
-      writeEnquire(products);
-      setEnquire(false);
-      navigate("/enquire");
+      setIsBtn(false);
+      emailjs
+        .sendForm(
+          "service_za8zoeg",
+          "template_c9cdzlr",
+          form.current,
+          "zz2biNpfYwsfyRgAw"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        )
+        .then(() => {
+          writeEnquire(products)
+            .then(() => {
+              setEnquire(false);
+              navigate("/enquire");
+            })
+            .finally(() => {
+              setIsBtn(true);
+            });
+        });
     }
   }, [products, navigate, setEnquire, enquire]);
   return (
     <>
       {enquire && (
         <div className={styles.container}>
-          <form className={styles.form} onSubmit={uploadHandler}>
+          <form className={styles.form} onSubmit={uploadHandler} ref={form}>
             <div className={styles.content}>
               <div className={styles.close}>
                 <FontAwesomeIcon icon={faClose} onClick={closeHandelre} />
@@ -144,6 +171,13 @@ export default function AddEnquire() {
               <div className={styles.user}>
                 <div className={styles.name}>의뢰인</div>
                 <div className={styles.userEmail}>{userEmail}</div>
+                <input
+                  type="text"
+                  hidden
+                  onChange={textHandler}
+                  value={userEmail}
+                  name="name"
+                />
               </div>
               <div className={styles.title}>
                 <div className={styles.name}>제목</div>
@@ -151,6 +185,7 @@ export default function AddEnquire() {
                   type="text"
                   id="title"
                   onChange={textHandler}
+                  name="title"
                   placeholder="제목을 입력하세요"
                   className={styles.titleInput}
                   required
@@ -162,6 +197,7 @@ export default function AddEnquire() {
                   type="text"
                   id="textarea"
                   placeholder="내용을 입력하세요"
+                  name="content"
                   className={styles.contentInput}
                   required
                   onChange={textHandler}
@@ -173,6 +209,7 @@ export default function AddEnquire() {
                 <input
                   type="text"
                   id="departure"
+                  name="departAddress"
                   value={addressDepart.addr || ""}
                   disabled
                   placeholder="우측 아이콘을 눌러 주소를 검색해주세요"
@@ -192,6 +229,7 @@ export default function AddEnquire() {
                 <input
                   type="text"
                   id="arrival"
+                  name="arrivalAddress"
                   value={addressArr.addr || ""}
                   disabled
                   placeholder="우측 아이콘을 눌러 주소를 검색해주세요"
@@ -240,9 +278,11 @@ export default function AddEnquire() {
               </div>
               <div className={styles.summation}></div>
               <div className={styles.btnContainer}>
-                <button type="submit" className={styles.uploadBtn}>
-                  문의하기
-                </button>
+                {isBtn && (
+                  <button type="submit" className={styles.uploadBtn}>
+                    문의하기
+                  </button>
+                )}
               </div>
             </div>
           </form>
