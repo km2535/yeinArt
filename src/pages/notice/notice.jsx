@@ -13,10 +13,10 @@ export default function Notice() {
   const [bg, setBg] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const session = window.sessionStorage.getItem("allItems");
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
-    if (fbuser !== null && fbuser.isAdmin === true) {
+    const session = window.sessionStorage.getItem("allItems");
+    if (fbuser !== null) {
       setIsLoading(true);
       readData("notice", "allItems")
         .then((v) => setTotalData(v))
@@ -29,7 +29,7 @@ export default function Notice() {
         .then((v) => setTotalData(v))
         .then(() => setIsLoading(false));
     }
-  }, [fbuser, kauser, session]);
+  }, [fbuser, kauser]);
   return (
     <div>
       <Head

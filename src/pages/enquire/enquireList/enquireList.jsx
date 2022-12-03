@@ -40,7 +40,10 @@ export default function EnquireList() {
                 >
                   {v.value.title}
                 </td>
-                <td>{v.value.userEmail}</td>
+                <td>
+                  {v.value.userName &&
+                    v.value.userName.replace(v.value.userName.charAt(1), "*")}
+                </td>
                 <td>{v.value.date}</td>
                 <td>{v.value.workdate}</td>
               </tr>

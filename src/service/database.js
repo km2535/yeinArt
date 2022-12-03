@@ -118,6 +118,7 @@ export const writeEnquire = async (product) => {
     title: product[0].title,
     content: product[0].content,
     userEmail: product[0].userEmail,
+    userName: product[0].userName,
     departAddress: product[0].departAddress,
     arrivalAddress: product[0].arrivalAddress,
     distanceTo: product[0].distanceTo,
@@ -127,7 +128,6 @@ export const writeEnquire = async (product) => {
   });
 };
 export const deleteEnquire = async (id) => {
-  console.log(id);
   await updateDoc(doc(db, "enquire", id), {
     date: deleteField(),
     workdate: deleteField(),

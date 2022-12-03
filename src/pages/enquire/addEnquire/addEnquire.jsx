@@ -20,6 +20,7 @@ export default function AddEnquire() {
   const { enquire, setEnquire } = useEnquireContext();
   const { kauser, fbuser } = useAuthContext();
   const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [addressDepart, setAddressDepart] = useState("");
   const [addressArr, setAddressArr] = useState("");
   const [distance, setDistance] = useState("");
@@ -41,6 +42,8 @@ export default function AddEnquire() {
       setEnquire(false);
       navigate("/login");
     }
+    fbuser && setUserName(fbuser.displayName);
+    kauser && setUserName(kauser.properties.nickname);
     fbuser && setUserEmail(fbuser.email);
     kauser && setUserEmail(kauser.kakao_account.email);
     addressDepart &&
@@ -103,6 +106,7 @@ export default function AddEnquire() {
         title,
         content,
         userEmail,
+        userName,
         departAddress,
         arrivalAddress,
         distanceTo,
@@ -170,7 +174,7 @@ export default function AddEnquire() {
               </div>
               <div className={styles.user}>
                 <div className={styles.name}>의뢰인</div>
-                <div className={styles.userEmail}>{userEmail}</div>
+                <div className={styles.userEmail}>{userName} 님</div>
                 <input
                   type="text"
                   hidden
