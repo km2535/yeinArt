@@ -14,17 +14,18 @@ export default function NoticeDetail() {
   const { fbuser } = useOutletContext();
   const preventClose = (e) => {
     e.preventDefault();
-    //e.returnValue = ""; // chrome에서는 설정이 필요해서 넣은 코드
   };
   const {
     state: { id, value },
   } = useLocation();
+
   useEffect(() => {
     (() => {
       window.addEventListener("beforeunload", preventClose);
     })();
     history.push("/notice");
   }, []);
+
   useEffect(() => {
     value.urls.forEach((v) => {
       v.imgUrl && setImgTag(v.imgUrl);
@@ -44,14 +45,12 @@ export default function NoticeDetail() {
     setFileTag(fileUrl);
   };
 
-  // 조회수 상승 컨트롤러
-  // 게시판을 detail 화면을 보면 조회수를 증가시키고 세션의 스토리지를 업데이트 시킨다.
   useEffect(() => {
     noticeRead(id, Number(value.read) + 1).then(() => {
       window.sessionStorage.removeItem("allItems");
     });
   }, [id, value]);
-  // 삭제 컨트롤러
+
   const deleteHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       deleteData(id);
@@ -67,13 +66,14 @@ export default function NoticeDetail() {
             <div className={styles.subject}>번호</div>
             <div className={styles.subdata}>{value.num}</div>
           </div>
-          <div className={styles.sub}>
-            <div className={styles.subject}>작성일</div>
-            <div className={styles.subdata}>{value.date}</div>
-          </div>
+
           <div className={styles.sub}>
             <div className={styles.subject}>글쓴이</div>
             <div className={styles.subdata}>관리자</div>
+          </div>
+          <div className={styles.sub}>
+            <div className={styles.subject}>작성일</div>
+            <div className={styles.subdata}>{value.date}</div>
           </div>
           <div className={styles.sub}>
             <div className={styles.subject}>조회수</div>
@@ -93,29 +93,31 @@ export default function NoticeDetail() {
           )}
           {imgTag && (
             <div className={styles.img}>
-              <img src={imgTag} alt="img" />
+              <img src={imgTag} className={styles.imgSrc} alt="img" />
             </div>
           )}
           <div className={styles.content}>{value.content}</div>
         </div>
       </div>
-      {fbuser && fbuser.isAdmin && (
-        <div style={{ height: "50px" }}>
-          <MoveControl
-            imgId={id}
-            moveRoot={"noticeEdit"}
-            styleOption={[{ top: "0" }, { left: "43%" }]}
-            buttonName={"수정하기"}
-          />
-          <MoveControl
-            doNotMove={true}
-            galleryEdit={"/"}
-            styleOption={[{ top: "0" }, { left: "48%" }]}
-            buttonName={"삭제하기"}
-            deleteHandler={deleteHandler}
-          />
-        </div>
-      )}
+      <div style={{ height: "50px" }} className={styles.btn}>
+        {fbuser && fbuser?.isAdmin && (
+          <>
+            <MoveControl
+              imgId={id}
+              moveRoot={"noticeEdit"}
+              styleOption={[{ top: "0" }, { left: "43%" }]}
+              buttonName={"수정하기"}
+            />
+            <MoveControl
+              doNotMove={true}
+              galleryEdit={"/"}
+              styleOption={[{ top: "0" }, { left: "48%" }]}
+              buttonName={"삭제하기"}
+              deleteHandler={deleteHandler}
+            />
+          </>
+        )}
+      </div>
     </>
   );
 }

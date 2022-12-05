@@ -13,10 +13,10 @@ export default function Contact() {
   const [copy, setCopy] = useState("");
   const [isCopy, setisCopy] = useState(false);
   const copySomting = () => {
-    setCopy("dinelkim");
+    setCopy("yeinartdev");
   };
   useEffect(() => {
-    navigator.clipboard.writeText(copy);
+    copy && navigator.clipboard?.writeText(copy);
     setisCopy(true);
     setTimeout(() => {
       setisCopy((prev) => !prev);

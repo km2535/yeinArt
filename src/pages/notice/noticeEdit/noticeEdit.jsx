@@ -39,12 +39,10 @@ export default function NoticeEdit() {
   } = useLocation();
   // console.log(imgId);
   useEffect(() => {
-    const session = window.sessionStorage.getItem("allItems");
-    setPrev(JSON.parse(session).filter((v) => v.id === imgId));
-  }, [imgId]);
+    setPrev(totalData.filter((v) => v.id === imgId));
+  }, [imgId, totalData]);
   useEffect(() => {
     if (prev[0]) {
-      //console.log(prevdata[0].value.title);
       setTitle(prev[0].value.title);
       setTextarea(prev[0].value.content);
     }
@@ -56,8 +54,6 @@ export default function NoticeEdit() {
       uploadNotice(file, title, textarea, totalData.length + 1, imgId);
       navigate("/");
     });
-    // uploadNotice(file, title, textarea, totalData.length + 1).then(() => {
-    // });
   };
   return (
     <>

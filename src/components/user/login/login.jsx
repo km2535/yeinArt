@@ -49,12 +49,12 @@ export default function Login() {
         {img.length !== 0 && (
           <Slider {...mainSettings}>
             {img.map((v) => (
-              <div key={v} className="container">
+              <div key={v} className={styles.imgContent}>
                 <img
                   src={v}
                   alt="img"
                   className="img"
-                  style={{ width: "750px", height: "800px" }}
+                  // style={{ width: "750px", height: "800px" }}
                 />
               </div>
             ))}
@@ -62,6 +62,11 @@ export default function Login() {
         )}
       </div>
       <div className={styles.container}>
+        <div className={styles.mblogoContainer}>
+          <a href="/" className={styles.mblogo}>
+            <img src="/images/logo.jpg" alt="kakao" />
+          </a>
+        </div>
         <div className={styles.logo}>
           <Link to={"/"}>
             <Logo props={{ width: "300", height: "220" }} />

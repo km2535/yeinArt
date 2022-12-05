@@ -21,9 +21,9 @@ export default function Search({ totalData, setPageDate }) {
           totalData.filter((v) => v.value.title.includes(searchValue))
         );
         break;
-      case "userEmail":
+      case "userName":
         setPageDate(
-          totalData.filter((v) => v.value.userEmail.includes(searchValue))
+          totalData.filter((v) => v.value.userName.includes(searchValue))
         );
         break;
       case "content":
@@ -44,7 +44,7 @@ export default function Search({ totalData, setPageDate }) {
           className={styles.search}
         >
           <option value="title">제목</option>
-          <option value="userEmail">글쓴이</option>
+          <option value="userName">글쓴이</option>
           <option value="content">내용</option>
         </select>
         <input type="text" onChange={inputSearch} className={styles.input} />

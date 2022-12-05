@@ -18,7 +18,7 @@
 .tbody tr{
   height: 50px;
 }
-.tbody tr td {
+.title, .userName, .date, .workdate {
   font-size: 18px;
   font-weight: 800;
   font-family: var(--font-sub);
@@ -40,4 +40,32 @@
 }
 .tfoot tr:first-child td{
   border-top: 4px solid #000;
+}
+.editBtn{
+  height: 50px;
+}
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+
+.thead{
+  font-size: 18px;
+}
+.table{
+  width: 100vw;
+}
+.title{
+  width: 35%;
+}
+.title, .userName {
+  font-size: 15px;
+}
+.date, .workdate{
+  font-size: 10px;
+}
+.editBtn{
+  height: 30px;
+}
+.enquireBtn{
+  text-align: right;
+}
 }

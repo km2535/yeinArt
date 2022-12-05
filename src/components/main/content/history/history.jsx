@@ -84,7 +84,7 @@ export default function History({ workList, historiesRef }) {
               subTitle
                 ? {
                     opacity: "1",
-                    marginRight: " 10rem",
+                    marginRight: " 5rem",
                   }
                 : {}
             }

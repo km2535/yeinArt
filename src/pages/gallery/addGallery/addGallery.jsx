@@ -42,7 +42,7 @@ export default function AddGallery() {
   };
   return (
     <div>
-      <form onSubmit={uploadHandler}>
+      <form onSubmit={uploadHandler} className={styles.form}>
         <div className={styles.subject}>
           <span className={styles.title}>제목 :</span>
           <div className={styles.input}>

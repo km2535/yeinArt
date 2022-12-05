@@ -16,12 +16,7 @@ export default function Notice() {
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
     const session = window.sessionStorage.getItem("allItems");
-    if (fbuser !== null) {
-      setIsLoading(true);
-      readData("notice", "allItems")
-        .then((v) => setTotalData(v))
-        .then(() => setIsLoading(false));
-    } else if (JSON.parse(session) !== null) {
+    if (JSON.parse(session) !== null) {
       setTotalData(JSON.parse(session));
     } else if (JSON.parse(session) === null) {
       setIsLoading(true);

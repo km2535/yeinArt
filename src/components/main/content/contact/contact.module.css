@@ -97,3 +97,42 @@
 .mailIcon{
   cursor: pointer;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.content{
+  flex-direction: column;
+  justify-content: center;
+}
+.snsTitle{
+  width: 100vw;
+}
+.snstxt{
+  font-size: 30px;
+  margin: 10px 0 0;
+}
+.facebook,.mail{
+  font-size: 50px;
+}
+.blog{
+ width: 70px;
+ height: 70px;
+ margin-top: 20px;
+}
+.kakaoContainer{
+  width: 80%;
+  margin-top: 20px;
+}
+.kakao{
+  width: 70px;
+  height: 70px;
+}
+.btnContent{
+  margin-top: 20px;
+  padding: 20px;
+}
+.palleraxImg{
+  background: center no-repeat;
+  background-size: 100% 80vh;
+  }
+}

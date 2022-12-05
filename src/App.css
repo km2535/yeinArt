@@ -1,3 +1,11 @@
 html{
   scroll-behavior: smooth;
 }
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+ html{
+  width: 100vw;
+  overflow-x: hidden;
+  touch-action: pan-y;
+ }
+}

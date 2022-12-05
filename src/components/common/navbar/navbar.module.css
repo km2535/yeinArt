@@ -42,3 +42,41 @@
 .board:hover a, .gallery:hover a{
   color: #000;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.ul{
+  flex-direction: column;
+  margin-top: 40%;
+  padding: 0;
+}
+.li,.community{
+  height: 100px;
+  text-decoration: none;
+  width: 100%;
+  color: #000;
+}
+.community span{
+  display: none;
+}
+.community, .submenu{
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.board, .gallery{
+  height: 100px;
+
+}
+ .board a, .gallery a{
+  color: #000;
+  font-size: 25px;
+}
+.li:first-child{
+  display: none;
+}
+.li:nth-child(2){
+  display: none;
+}
+}

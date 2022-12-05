@@ -5,6 +5,7 @@ import styles from "./galleryLists.module.css";
 import Pagination from "../../../components/common/pagination/pagination";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
 import Loading from "../../../components/common/loading/loading";
+import MbEditBtn from "../../../components/common/btns/mbEditBtn/mbEditBtn";
 
 export default function GalleryLists() {
   const { totalData, fbuser, isLoading } = useOutletContext();
@@ -16,18 +17,28 @@ export default function GalleryLists() {
   }, [totalData]);
   return (
     <>
-      {fbuser && fbuser.isAdmin && (
-        <MoveControl
-          moveRoot={"addGallery"}
-          styleOption={[{ top: "-100px" }, { left: "85%" }]}
-          buttonName={"이미지 추가하기"}
-        />
-      )}
       {isLoading && <Loading />}
       <div className={styles.mainSection}>
         {pageData != null
           ? pageData.map((img) => <List key={img.id} img={img} />)
           : ""}
+      </div>
+      <div className={styles.deskTopBtn}>
+        {fbuser && fbuser?.isAdmin && (
+          <MoveControl
+            moveRoot={"addGallery"}
+            styleOption={[{ top: "0px" }, { left: "85%" }]}
+            buttonName={"이미지 추가하기"}
+          />
+        )}
+      </div>
+      <div className={styles.mobileBtn}>
+        {fbuser && fbuser?.isAdmin && (
+          <MbEditBtn
+            moveRoot={"addGallery"}
+            styleOption={[{ top: "-20px" }, { left: "85%" }]}
+          />
+        )}
       </div>
       <Pagination totalData={totalData} setPageDate={setPageDate} showCnt={6} />
     </>

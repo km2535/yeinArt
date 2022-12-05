@@ -87,3 +87,26 @@
     transform: translate3d(0, -151%, 0);
   }
 }
+
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.histories{
+  display: none;
+}
+.palleraxImg{
+  background: center no-repeat;
+  background-size: 100% 80vh;
+}
+.description{
+  width: 100%;
+}
+.txt, .mainSub{
+  font-size: 45px;
+  margin-left: 10px;
+}
+.subTitle{
+  font-size: 20px;
+  text-align: right;
+}
+}

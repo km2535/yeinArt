@@ -1,0 +1,8 @@
+.btn{
+  position: relative;
+  font-size: 25px;
+  color:#6c757d;
+}
+.btn:hover{
+  color: #0d6efd;
+}

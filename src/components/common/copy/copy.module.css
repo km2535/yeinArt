@@ -6,3 +6,9 @@
   left: 20vw;
   z-index: 999;
 }
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.copy{
+  display: none;
+}
+}

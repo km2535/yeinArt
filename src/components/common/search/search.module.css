@@ -53,3 +53,13 @@
   color: #fff;
   background-color: #6c757d;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.container{
+  width: 100vw;
+}
+.content,.search,.searchBtn{
+  height: 40px;
+}
+}

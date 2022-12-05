@@ -4,3 +4,12 @@ body{
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+ body{
+  overflow-x: hidden;
+  width: 100vw;
+  touch-action: pan-y;
+ }
+}

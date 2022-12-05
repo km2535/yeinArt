@@ -4,7 +4,7 @@ import { auth, database, provider } from "./firebase";
 import { ref, get } from "firebase/database";
 
 const REST_API_KEY = process.env.REACT_APP_KAKAO_LOGIN_REST_API;
-const REDIRECT_URI = "http://localhost:3000/oauth/callback";
+const REDIRECT_URI = "http://172.20.10.4:3000/oauth/callback";
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 export default KAKAO_AUTH_URL;

@@ -174,3 +174,28 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 #Message{
     resize: none;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.fcf-container{
+    touch-action: pan-y;
+    width: 80vw;
+    height: 70vh;
+}
+.fcf-closeBtn{
+    font-size: 30px
+}
+.fcf-form-className,
+.fcf-form-group,
+.fcf-input-group,
+.fcf-form-control{
+    touch-action: pan-y;
+}
+.fcf-form-className{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     height: 100%;
+}
+
+}

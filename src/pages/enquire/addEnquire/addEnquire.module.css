@@ -149,3 +149,49 @@
   font-family: var(--font-sub);
   color: #6c757d;
 }
+.distance ~ .name{
+    width: 90%;
+  }
+.info{
+    font-size: 15px;
+  }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+  .container,.content, .form,.contentInput{
+    touch-action: pan-y;
+  }
+  .name{
+    width: 15%;
+  }
+  .form{
+    width: 95vw;
+  }
+  .content{
+    padding: 5px;
+  }
+  
+.enquireContent textarea[type="text"]{
+    padding: 2px 2px;
+  }
+  .departure .name, 
+  .arrival .name
+{
+    font-size: 15px;
+    width: 20%;
+  }
+  .distance{
+    display: none;
+  }
+  .distance ~ .name{
+    font-size: 15px;
+    width: 90%;
+  }
+  .departure input[type="text"],
+  .arrival input[type="text"]{
+  width: 60%;
+} 
+  .info{
+    font-size: 12px;
+  }
+}

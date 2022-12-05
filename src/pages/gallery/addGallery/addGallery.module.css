@@ -84,3 +84,43 @@ input[type=text] {
   background-color: #6c757d;
   border-color: #6c757d;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.form{
+  width: 100vw;
+}
+.subject{
+  width: 90%;
+}
+.otherwise{
+  width: 100vw;
+}
+.otherwise .title{
+  margin-left: 20px;
+}
+.title{
+  width: 25%;
+}
+.input{
+  width: 90%;
+}
+.subject .input{
+  width: 90%;
+  text-align: center;
+}
+.inputTitle{
+  width: 85%;
+}
+.inputFile{
+  width: 80%;
+}
+.input label{
+ margin-left: 5px;
+}
+.btnContainer{
+  width: 90vw;
+  text-align: right;
+}
+
+}

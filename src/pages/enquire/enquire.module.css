@@ -50,3 +50,16 @@
   margin: 0 auto 50px;
   border-top: 5px solid black;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.nav{
+  display: none;
+}
+.mainTxt{
+  font-size: 30px;
+}
+.line{
+  width: 50%;
+}
+}

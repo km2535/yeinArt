@@ -90,32 +90,23 @@ export default function GalleryDetail() {
         >
           {img.map((v) => (
             <div key={v} className="container">
-              <img
-                src={v}
-                alt="img"
-                className="img"
-                style={{ width: "1000px", height: "800px" }}
-              />
+              <img src={v} alt="img" className="galleryImg" />
             </div>
           ))}
         </Slider>
-        <Slider
-          asNavFor={slide.nav1}
-          ref={(slider) => (slide2 = slider)}
-          {...subSettings}
-        >
-          {img.map((v) => (
-            <div key={v} className="subContainer">
-              <img
-                src={v}
-                key={v}
-                alt="img"
-                className="subimg"
-                style={{ width: "300px", height: "300px" }}
-              />
-            </div>
-          ))}
-        </Slider>
+        <div className="subGalleryContainer">
+          <Slider
+            asNavFor={slide.nav1}
+            ref={(slider) => (slide2 = slider)}
+            {...subSettings}
+          >
+            {img.map((v) => (
+              <div key={v} className="subContainer">
+                <img src={v} key={v} alt="img" className="subGalleryImg" />
+              </div>
+            ))}
+          </Slider>
+        </div>
       </div>
       {fbuser && fbuser.isAdmin && (
         <div style={{ height: "50px" }}>

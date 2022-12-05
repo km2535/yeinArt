@@ -48,7 +48,7 @@ export default function Enquire() {
           <Navbar />
         </div>
         <div className={styles.subTitle}>
-          <p className={styles.mainTxt}>Enquire</p>
+          <p className={styles.mainTxt}>운송의뢰&문의</p>
           <p className={styles.line}></p>
         </div>
       </div>

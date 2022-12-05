@@ -56,14 +56,18 @@ export default function EnquireProduct({
               ))}
         </select>
         <div className={styles.countName}>수량</div>
-        <input
-          className={styles.count + " count"}
-          type="number"
-          step={1}
-          min={1}
-          defaultValue={1}
-          onChange={countSetting}
-        />
+        <select className={styles.count + " count"} onChange={countSetting}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
         <div className={styles.countName}>무게</div>
         <select
           className={styles.selectWeight + " weight"}

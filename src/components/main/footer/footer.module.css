@@ -71,3 +71,30 @@
   font-weight: 700;
   line-height: 60px;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.ftCopy{
+  margin: 5px 10px 0 10px;
+}
+.ftInfo{
+  flex-direction: column;
+}
+.ftLogo{
+  width: 100vw;
+  font-size: 30px;
+  margin: 0;
+  text-align: left;
+}
+.ftAddr{
+  width: 100vw;
+  font-size: 10px;
+  margin: 0 5px 0 5px;
+}
+.ftAddr p{
+  margin-left: 5px;
+}
+.ftCompany{
+  line-height: normal;
+}
+}

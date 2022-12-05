@@ -74,3 +74,42 @@
 .kakaobtn:hover,.googlebtn:hover{
   scale: 1.02;
 }
+.imgContent img{
+  width: 750px;
+  height: 800px;
+}
+.mblogoContainer{
+  display: none;
+}
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+  .imgContainer{
+    display: none;
+  }
+  .background,.container{
+    height: 100vh;
+    overflow: hidden;
+    touch-action: none;
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .logo{
+    display: none;
+  }
+  .mblogoContainer{
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .background{
+    flex-direction: column;
+  }
+  .imgContent img{
+    width: 50vw;
+    height: 20vh;
+  }
+}

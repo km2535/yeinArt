@@ -39,3 +39,10 @@
 .addr,.phoneNumber{
   margin: 0;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.info{
+  margin-bottom: 20px;
+}
+}

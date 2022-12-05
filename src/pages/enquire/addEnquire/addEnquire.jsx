@@ -260,7 +260,12 @@ export default function AddEnquire() {
                   disabled
                 />
               </div>
-              <div className={styles.name}>제품 정보</div>
+              <div className={styles.name}>
+                제품 정보
+                <span className={styles.info}>
+                  (가격이 안보이는 경우 다시 선택해주세요)
+                </span>
+              </div>
               {addProduct.map((id) => (
                 <EnquireProduct
                   key={id}

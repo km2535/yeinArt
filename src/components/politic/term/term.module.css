@@ -46,3 +46,18 @@
 .ul{
   list-style: lower-alpha;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.bg,.container{
+  touch-action: pan-y;
+
+}
+.container{
+  width: 95vw;
+  left: 0;
+}
+.close{
+  left: 80vw;
+}
+}

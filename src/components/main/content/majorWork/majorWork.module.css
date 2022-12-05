@@ -92,3 +92,46 @@
   margin-right: 0rem;
   transition: opacity, margin 0.5s, 0.8s;
 }
+
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+  .mainTxt{
+    width: 100vw;
+    font-size: 40px;
+    text-align: center;
+  }
+  .palleraxImg{
+  background: center no-repeat;
+  background-size: 100% 80vh;
+  }
+  .line{
+    width: 250px;
+  }
+  .subTxt{
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+  }
+  .description{
+    flex-direction: column;
+  }
+  .mainTitle,.subTitle{
+    width: 100%;
+    transform: translateY(5%);
+  }
+  .mainTitle{
+    font-size: 35px;
+    text-align: left;
+    overflow: visible;
+  }
+  .mainInnerTitle{
+    height: 100px;
+  }
+  .subTitle{
+    top: 0;
+    font-size: 16px;
+    line-height: 15px;
+    text-align: right;
+  }
+}

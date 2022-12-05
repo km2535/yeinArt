@@ -103,3 +103,21 @@
   background-color: #6c757d;
   border-color: #6c757d;
 }
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.txtareaInput textarea[name="content"]{
+  font-size: 15px;
+}
+.inputFile{
+  width: 120px;
+  height: 30px;
+}
+.file{
+  width: 90vw;
+}
+.input label {
+  font-size: 20px;
+  padding: 5px 10px;
+  margin-left: 6px;
+}
+}

@@ -29,3 +29,60 @@
 .logout{
   cursor: pointer; 
 }
+.mbMenu{
+  display: none;
+}
+.mbContainer{
+  display: none;
+}
+.mbForm{
+  display: none;
+}
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+  .head{
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    z-index: 9999;
+  }
+  .mbMenu{
+    display: block;
+    z-index: 999;
+    color: #fff;
+    margin: 20px;
+    font-size: 30px;
+  }
+ .form{
+  display: none;
+ }
+ .imgContent,.img{
+  width: 100px;
+  z-index: 999;
+ }
+ .mbContainer{
+  display: block;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;  
+  z-index: 999;
+  transform: translateX(150%);
+  transition: 1s;
+  touch-action: none;
+ }
+ .close{
+  text-align: right;
+  padding: 20px;
+  font-size: 30px;
+ }
+ .mbForm,.login, .join{
+  display: flex;
+  justify-content: flex-end;
+  color: #000;
+ }
+ .mbForm{
+  margin-right: 20px;
+ }
+}

@@ -59,3 +59,49 @@
   font-size: 20px;
   font-family: var(--font-basic);
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.container{
+  padding: 10px;
+}
+.title{
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+.subTitle{
+  width: 100%;
+}
+.subject{
+  width: 40%;
+}
+.subject,.subdata{
+  font-size: 13px;
+}
+.subdata{
+  text-align: left;
+}
+.fileTitle{
+  width: 30%;
+}
+ .sub:nth-child(3){
+  display: none;
+}
+.sub{
+  width: 33%;
+}
+.img{
+  width: 85vw;
+}
+.imgSrc{
+  width: 85vw;
+  height: 45vh;
+}
+.content{
+  font-size: 15px;
+}
+.btn{
+  text-align: center;
+  transform: translateX(-45%);
+}
+}

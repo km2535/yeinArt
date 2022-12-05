@@ -62,3 +62,19 @@
   padding: 20px;
   font-size: 50px;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.content{
+  height: 12vh;
+}
+.nav{
+  display: none;
+}
+.mainTxt{
+  font-size: 30px;
+}
+.line{
+  width: 50%;
+}
+}

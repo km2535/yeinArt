@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
+import MbEditBtn from "../../../components/common/btns/mbEditBtn/mbEditBtn";
 import Loading from "../../../components/common/loading/loading";
 import Pagination from "../../../components/common/pagination/pagination";
 import styles from "./noticeList.module.css";
@@ -14,13 +15,6 @@ export default function NoticeList() {
   }, [totalData]);
   return (
     <>
-      {fbuser && fbuser.isAdmin && (
-        <MoveControl
-          moveRoot={"addNotice"}
-          styleOption={[{ top: "-100px" }, { left: "85%" }]}
-          buttonName={"게시글 추가하기"}
-        />
-      )}
       <div className={styles.container}>
         {isLoading && <Loading />}
         <table className={styles.table}>
@@ -36,7 +30,7 @@ export default function NoticeList() {
           <tbody className={styles.tbody}>
             {pageData.map((v) => (
               <tr key={v.id}>
-                <td>{v.value.num}</td>
+                <td className={styles.num}>{v.value.num}</td>
                 <td
                   className={styles.title}
                   id={v.id}
@@ -46,26 +40,52 @@ export default function NoticeList() {
                 >
                   {v.value.title}
                 </td>
-                <td>예인아트 관리자</td>
-                <td>{v.value.date}</td>
-                <td>{v.value.read}</td>
+                <td className={styles.userName}>관리자</td>
+                <td className={styles.date}>{v.value.date}</td>
+                <td className={styles.read}>{v.value.read}</td>
               </tr>
             ))}
           </tbody>
           <tfoot className={styles.tfoot}>
             <tr>
               <td colSpan={5}>
-                <Pagination
-                  totalData={totalData}
-                  setPageDate={setPageDate}
-                  showCnt={10}
-                />
+                <div className={styles.deskTopBtn}>
+                  {fbuser && fbuser.isAdmin && (
+                    <MoveControl
+                      moveRoot={"addNotice"}
+                      styleOption={[{ top: "0" }, { left: "45%" }]}
+                      buttonName={"게시글 추가하기"}
+                    />
+                  )}
+                </div>
+                <div className={styles.mobileBtn}>
+                  {fbuser && fbuser.isAdmin && (
+                    <MbEditBtn
+                      moveRoot={"addNotice"}
+                      styleOption={[{ top: "0" }, { left: "45%" }]}
+                    />
+                  )}
+                </div>
               </td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
+            </tr>
+            <tr>
+              <td colSpan={5} style={{ border: "none" }}>
+                <Pagination
+                  totalData={totalData}
+                  setPageDate={setPageDate}
+                  showCnt={10}
+                />
+              </td>
+              <td style={{ border: "none" }}></td>
+              <td style={{ border: "none" }}></td>
+              <td style={{ border: "none" }}></td>
+              <td style={{ border: "none" }}></td>
+              <td style={{ border: "none" }}></td>
             </tr>
           </tfoot>
         </table>

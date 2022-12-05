@@ -40,19 +40,34 @@ export default function EnquireList() {
                 >
                   {v.value.title}
                 </td>
-                <td>
+                <td className={styles.userName}>
                   {v.value.userName &&
                     v.value.userName.replace(v.value.userName.charAt(1), "*")}
                 </td>
-                <td>{v.value.date}</td>
-                <td>{v.value.workdate}</td>
+                <td className={styles.date}>{v.value.date}</td>
+                <td className={styles.workdate}>{v.value.workdate}</td>
               </tr>
             ))}
           </tbody>
           <tfoot className={styles.tfoot}>
-            <tr className={styles.search}>
+            <tr className={styles.search} style={{ height: "55px" }}>
               <td colSpan={5}>
                 <Search totalData={totalData} setPageDate={setPageDate} />
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr className={styles.editBtn}>
+              <td colSpan={5}>
+                {(fbuser || kauser) && (
+                  <>
+                    <div className={styles.enquireBtn}>
+                      <EnquireBtn />
+                    </div>
+                  </>
+                )}
               </td>
               <td></td>
               <td></td>
@@ -74,11 +89,6 @@ export default function EnquireList() {
             </tr>
           </tfoot>
         </table>
-        {(fbuser || kauser) && (
-          <div className={styles.enquireBtn}>
-            <EnquireBtn />
-          </div>
-        )}
       </div>
     </>
   );

@@ -62,7 +62,7 @@ export default function MajorWork({ majorWorkRef }) {
             <div
               className={styles.subInnerTitle}
               id="subMajorTitle"
-              style={subTitle ? { opacity: "1", marginRight: " 4rem" } : {}}
+              style={subTitle ? { opacity: "1", marginRight: " 3rem" } : {}}
             >
               <p className={styles.subtxt}>
                 작가 작업실 이사는 더욱 전문 작업자가 필요합니다.

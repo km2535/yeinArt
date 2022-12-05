@@ -122,3 +122,54 @@
   margin-right: 20px;
   text-align: right;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.container .content{
+  touch-action: pan-y;
+  padding: 10px;
+}
+.name{
+  font-size: 18px;
+}
+.contContent{
+  width: 60%;
+}
+.workdateContent,
+.contContent,
+.arrAddrContent,
+.depAddrContent{
+  width: 60%;
+  font-size: 15px;
+}
+.distance .name{
+  width: 30%;
+  font-size: 15px;
+}
+.productsInfo{
+  width: 100%;
+  margin: 0;
+}
+.countName{
+  width: 8%;
+  font-size: 15px;
+  text-align: right;
+}
+.productInfo{
+  width: 20%;
+}
+.productInfo, .count, .weight{
+  font-size: 13px;
+}
+.totalInfo{
+  align-items: center;
+}
+.totalInfoContent{
+  width: 35%;
+  font-size: 24px;
+}
+.deletBtn{
+  margin-top: 20px;
+  width: 90%;
+}
+}

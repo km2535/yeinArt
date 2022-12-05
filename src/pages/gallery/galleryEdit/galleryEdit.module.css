@@ -84,3 +84,29 @@ input[type=text] {
   background-color: #6c757d;
   border-color: #6c757d;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.deskTopBtn{
+  display: none;
+}
+.mobileBtn{
+  display: block;
+}
+.mainSection{
+  flex-direction: row;
+}
+.imgList{
+  width: 50%;
+  padding: 0;
+  height: 30vh;
+}
+.imgDetail{
+  width: 95%;
+  margin-right: 5px;
+  height: 40%;
+}
+.container:hover .des{
+  transform: translateY(-150px);
+}
+}

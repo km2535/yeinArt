@@ -37,3 +37,30 @@
   justify-content: space-evenly;
   align-items: center;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+ .title{
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+ }
+ .mainTxt{
+  width: 100vw;
+  font-size: 40px;
+  text-align: center;
+ }
+ .line{
+  width: 250px;
+ }
+ .subTxt{
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+ }
+ .galleryList{
+  margin-top: 0;
+  flex-direction: column;
+ }
+}

@@ -16,7 +16,7 @@ export default function Gallery() {
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
     const session = window.sessionStorage.getItem("allImgs");
-    if (fbuser !== null && fbuser.isAdmin === true) {
+    if (fbuser !== null && fbuser?.isAdmin === true) {
       setIsLoading(true);
       readData("gallery", "allImgs")
         .then((v) => setTotalData(v))
@@ -50,7 +50,7 @@ export default function Gallery() {
             <span className={styles.mainSub}>갤러리</span>
           </div>
           <div className={styles.subTitle}>
-            <span>
+            <span className={styles.describe}>
               우리가 추구하는 가치는 당신의 작품이 어디서든 그 가치를 지킬 수
               있도록 작가를 위해 헌신하는 겁니다.
               <br /> 수년간 추구해온 가치로 오늘도 당신의 작품을 위해

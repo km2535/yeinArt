@@ -36,7 +36,7 @@ export const readData = async (collectionName, sessionName) => {
     data.push({ id: doc.id, value: doc.data() });
   });
   data.length !== 0 &&
-    window.sessionStorage.setItem(sessionName, JSON.stringify(data));
+    window.sessionStorage?.setItem(sessionName, JSON.stringify(data));
   return data;
 };
 
@@ -50,7 +50,7 @@ export const firstRead = async (setPageData) => {
   });
   setPageData(data);
   data.length !== 0 &&
-    window.sessionStorage.setItem("firstImgs", JSON.stringify(data));
+    window.sessionStorage?.setItem("firstImgs", JSON.stringify(data));
 };
 
 export const deleteImg = async (id) => {
@@ -105,7 +105,7 @@ export const readProduct = async (collectionName, sessionName) => {
     data.push(doc.data());
   });
   data.length !== 0 &&
-    window.sessionStorage.setItem(sessionName, JSON.stringify(data));
+    window.sessionStorage?.setItem(sessionName, JSON.stringify(data));
   return data;
 };
 

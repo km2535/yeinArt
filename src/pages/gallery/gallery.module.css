@@ -127,3 +127,44 @@
   font-weight: 700;
   margin:0 0 20px 0;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.yein{
+  font-size: 55px;
+}
+.g{
+  font-size: 60px;
+}
+.mainSub{
+  font-size: 40px;
+}
+.palleraxImg{
+  min-height: 30vh;
+  height: 30vh;
+  background: center;
+}
+.background::before{
+ height: 30vh;
+}
+.nav{
+  display: none;
+}
+.mainTxt{
+  font-size: 40px;
+}
+.line{
+  width: 50%;
+}
+.subTxt{
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+.content{
+  height: 15vh;
+}
+.describe{
+  display: none;
+}
+}

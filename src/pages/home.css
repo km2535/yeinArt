@@ -3,3 +3,9 @@
   height: 100vh;
   overflow: hidden;
 }
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.rockPage{
+  touch-action: pan-y;
+}
+}

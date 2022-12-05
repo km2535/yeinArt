@@ -18,13 +18,11 @@ export default function EnquireDetail() {
     if (fbuser === null && kauser === undefined) {
       alert("로그인 후 이용해주세요");
       navigate("/login");
-    }
-    if (fbuser !== null && fbuser.isAdmin === true) {
-      console.log("관리자님 환영합니다.");
+    } else if (fbuser?.isAdmin === true) {
       setIsAdmin(true);
     } else if (
-      (fbuser !== null && fbuser.email) !== value.userEmail &&
-      (kauser !== undefined && kauser.kakao_account.email) !== value.userEmail
+      fbuser?.email !== value.userEmail &&
+      (kauser !== undefined && kauser.kakao_account?.email) !== value.userEmail
     ) {
       alert("본인의 게시물만 확인이 가능합니다.");
       navigate("/enquire");
@@ -91,8 +89,10 @@ export default function EnquireDetail() {
           ))}
           <div className={styles.totalInfo}>
             예상비용
-            <div className={styles.totalInfoContent}>{value.totalPrice}</div>원
-            입니다.
+            <div className={styles.totalInfoContent}>
+              {value.totalPrice} + a
+            </div>
+            원 입니다.
           </div>
           <div className={styles.deletBtn}>
             {(currentUser === value.userEmail || isAdmin) && (

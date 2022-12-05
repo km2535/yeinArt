@@ -31,7 +31,7 @@ export default function Navbar({ historiesRef, majorWorkRef }) {
           운송의뢰·문의
         </li>
         <li className={styles.community} id="community">
-          커뮤니티
+          <span>커뮤니티</span>
           <div className={styles.submenu}>
             <div className={styles.board}>
               <Link to="/notice">공지사항</Link>

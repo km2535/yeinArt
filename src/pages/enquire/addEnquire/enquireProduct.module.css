@@ -53,3 +53,25 @@
 .remove:hover{
   color: #f00;
 }
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+  .countName{
+    font-size: 14px;
+  }
+  .selectProduct,.count,.selectWeight, .price input[type="text"]{
+    font-size: 12px;
+  }
+  .selectProduct{
+    width: 25%;
+  }
+  .count{
+    width: 10%;
+  }
+  .selectWeight{
+    width: 15%;
+  }
+  .price {
+    width: 20%;
+  }
+}
