@@ -1,3 +1,7 @@
+.galleryDetail{
+  position: relative;
+  z-index: 6;
+}
 .title{
   text-align: center;
   margin: 50px;

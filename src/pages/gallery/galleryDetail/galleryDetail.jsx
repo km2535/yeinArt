@@ -81,7 +81,7 @@ export default function GalleryDetail() {
   };
   return (
     <>
-      <div>
+      <div className="galleryDetail">
         <h1 className="title">{title}</h1>
         <Slider
           asNavFor={slide.nav2}

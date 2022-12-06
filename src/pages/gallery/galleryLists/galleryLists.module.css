@@ -5,6 +5,8 @@
   justify-content: space-around;
   align-items: center;
   width: 100vw;
+  position: relative;
+  z-index: 6;
 }
 .imgList{
   width: 30%;

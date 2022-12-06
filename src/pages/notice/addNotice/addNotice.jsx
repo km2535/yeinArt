@@ -40,7 +40,7 @@ export default function AddNotice({ prevdata }) {
     });
   };
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={uploadHandler}>
         <div className={styles.content}>
           <div className={styles.subject}>

@@ -7,6 +7,7 @@ import styles from "./head.module.css";
 import { useState } from "react";
 import Navbar from "../../../common/navbar/navbar";
 import { useEffect } from "react";
+import { useEnquireContext } from "../../../context/EnquireContext";
 export default function Head({
   fbuser,
   kauser,
@@ -15,6 +16,7 @@ export default function Head({
 }) {
   const [isMenu, setIsMenu] = useState(false);
   const [logo, setLogo] = useState([]);
+  const { enquire } = useEnquireContext();
   const onMenu = () => {
     setIsMenu((prev) => !prev);
   };
@@ -27,9 +29,14 @@ export default function Head({
       style={isMenu ? { overflow: "visible" } : { overflow: "hidden" }}
     >
       <Link className={styles.imgContent} to="/">
-        <img className={styles.img} src={logo} alt="" />
+        <img
+          className={styles.img}
+          style={enquire ? { zIndex: "5" } : {}}
+          src={logo}
+          alt=""
+        />
       </Link>
-      <div className={styles.mbMenu}>
+      <div className={styles.mbMenu} style={enquire ? { zIndex: "5" } : {}}>
         <FontAwesomeIcon icon={faBars} onClick={onMenu} />
       </div>
       <div

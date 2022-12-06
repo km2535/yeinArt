@@ -1,5 +1,7 @@
 .container{
   min-height: 40vh;
+  position: relative;
+  z-index: 6;
 }
 .table{
   text-align: center;  

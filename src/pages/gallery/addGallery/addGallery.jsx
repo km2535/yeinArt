@@ -41,7 +41,7 @@ export default function AddGallery() {
     });
   };
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={uploadHandler} className={styles.form}>
         <div className={styles.subject}>
           <span className={styles.title}>제목 :</span>

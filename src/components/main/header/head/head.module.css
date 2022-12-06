@@ -43,7 +43,6 @@
   .head{
     width: 100vw;
     height: 100vh;
-    
     overflow: hidden;
   }
   .mbMenu{
@@ -51,6 +50,7 @@
     z-index: 999;
     color: #fff;
     margin: 20px;
+    height: 20px;
     font-size: 30px;
   }
  .form{
@@ -59,7 +59,7 @@
  .imgContent,.img{
   width: 100px;
   height: 70px;
-  z-index: 999;
+  z-index: 9;
  }
  .mbContainer{
   display: block;
