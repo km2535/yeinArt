@@ -24,11 +24,7 @@ export default function Head({
   return (
     <div
       className={styles.head}
-      style={
-        isMenu
-          ? { transform: "translateX(0)" }
-          : { height: "10vh", zIndex: "5" }
-      }
+      style={isMenu ? { overflow: "visible" } : { overflow: "hidden" }}
     >
       <Link className={styles.imgContent} to="/">
         <img className={styles.img} src={logo} alt="" />
@@ -41,7 +37,7 @@ export default function Head({
         style={
           isMenu
             ? { transform: "translateX(0)" }
-            : { transform: "translateX(150%)", height: "20vh" }
+            : { transform: "translateX(150%)" }
         }
       >
         <div className={styles.close}>

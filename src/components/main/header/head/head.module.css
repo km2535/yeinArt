@@ -43,8 +43,8 @@
   .head{
     width: 100vw;
     height: 100vh;
-    overflow-x: hidden;
-    z-index: 9999;
+    
+    overflow: hidden;
   }
   .mbMenu{
     display: block;
@@ -58,17 +58,18 @@
  }
  .imgContent,.img{
   width: 100px;
+  height: 70px;
   z-index: 999;
  }
  .mbContainer{
   display: block;
   position: absolute;
   top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-color: #fff;  
   z-index: 999;
-  transform: translateX(150%);
   transition: 1s;
   touch-action: none;
  }

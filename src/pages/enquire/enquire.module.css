@@ -25,7 +25,7 @@
 .nav{
   position: absolute;
   top: 50px;
-  z-index: 4;
+  z-index: 20;
   left: 50vw;
   transform: translateX(-30%);
   width: 1000px;

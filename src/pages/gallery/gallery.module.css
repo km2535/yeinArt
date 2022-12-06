@@ -81,7 +81,7 @@
 .nav{
   position: absolute;
   top: 45vh;
-  z-index: 4;
+  z-index: 20;
   left: 50vw;
   transform: translateX(-50%);
   width: 1000px;

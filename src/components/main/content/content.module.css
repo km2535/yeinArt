@@ -1,5 +1,7 @@
 .container{
   text-align: center;
+  position: relative;
+  z-index: 6;
 }
 .content{
   width: 100vw;

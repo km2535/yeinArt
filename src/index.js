@@ -2,7 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import "./service/firebase";
 import Gallery from "./pages/gallery/gallery";
 import Home from "./pages/home";
@@ -25,13 +29,13 @@ import EnquireDetail from "./pages/enquire/enquireDetail/enquireDetail";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "",
     element: <App />,
     children: [
-      { index: true, path: "/", element: <Home /> },
+      { index: true, path: "", element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/join", element: <Login /> },
-      { path: "/oauth/callback", element: <Authkakao /> },
+      { path: "/oauth", element: <Authkakao />, redirect },
       {
         path: "/enquire",
         element: <Enquire />,

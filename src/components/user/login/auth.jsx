@@ -5,7 +5,7 @@ import { getProfile } from "../../../service/login";
 
 export const Authkakao = () => {
   const REST_API_KEY = process.env.REACT_APP_KAKAO_LOGIN_REST_API;
-  const REDIRECT_URI = "http://172.20.10.4:3000/oauth/callback";
+  const REDIRECT_URI = "http://www.kangmin.shop";
   const CLIENT_SECRET = process.env.REACT_APP_KAKAO_CLIENT_SECRET;
   const AUTHORIZE_CODE = new URL(window.location.href).searchParams.get("code");
 

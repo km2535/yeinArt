@@ -63,7 +63,7 @@ export default async function kakaoMessage() {
         } else {
           console.log("권한");
           window.Kakao.Auth.authorize({
-            redirectUri: `http://localhost:3000/oauth/callback`,
+            redirectUri: `http://www.kangmin.shop`,
             scope: "talk_message",
           });
         }
@@ -71,7 +71,7 @@ export default async function kakaoMessage() {
       .catch(function (error) {
         console.log(error);
         window.Kakao.Auth.authorize({
-          redirectUri: "http://localhost:3000/oauth/callback",
+          redirectUri: "http://www.kangmin.shop",
           scope: "talk_message",
         });
       });

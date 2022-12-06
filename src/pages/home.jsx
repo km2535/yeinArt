@@ -7,8 +7,12 @@ import Footer from "../components/main/footer/footer";
 import Header from "../components/main/header/header";
 import workList from "../service/workList";
 import AddEnquire from "./enquire/addEnquire/addEnquire";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Authkakao } from "../components/user/login/auth";
 
 export default function Home() {
+  const [kakaoLogin, setKakaoLogin] = useState(undefined);
   const {
     fbuser,
     kauser,
@@ -18,29 +22,38 @@ export default function Home() {
     majorWorkRef,
   } = useAuthContext();
   const { enquire } = useEnquireContext();
+  useEffect(() => {
+    const AUTHORIZE_CODE = new URL(window.location.href).searchParams.get(
+      "code"
+    );
+    AUTHORIZE_CODE && setKakaoLogin(true);
+  }, []);
   return (
-    <div className={enquire ? "rockPage" : "home"}>
-      <AddEnquire />
-      <header>
-        <Header
-          historiesRef={historiesRef}
-          majorWorkRef={majorWorkRef}
-          fbuser={fbuser}
-          kauser={kauser}
-          firebaseLogout={firebaseLogout}
-          sessionLogout={sessionLogout}
-        />
-      </header>
-      <section>
-        <Content
-          workList={workList}
-          historiesRef={historiesRef}
-          majorWorkRef={majorWorkRef}
-        />
-      </section>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+    <>
+      {kakaoLogin && <Authkakao />}
+      <div className={enquire ? "rockPage" : "home"}>
+        <AddEnquire />
+        <header>
+          <Header
+            historiesRef={historiesRef}
+            majorWorkRef={majorWorkRef}
+            fbuser={fbuser}
+            kauser={kauser}
+            firebaseLogout={firebaseLogout}
+            sessionLogout={sessionLogout}
+          />
+        </header>
+        <section>
+          <Content
+            workList={workList}
+            historiesRef={historiesRef}
+            majorWorkRef={majorWorkRef}
+          />
+        </section>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
+    </>
   );
 }
