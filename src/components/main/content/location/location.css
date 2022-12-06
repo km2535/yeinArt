@@ -27,10 +27,10 @@
       font-family: var(--font-logo);
     }
     .overlay_info .desc {
-      padding:14px;
+      padding:14px 5px;
       position: relative;
       display: flex;
-      min-width: 190px; 
+      min-width: 210px; 
       height: 56px;
       align-items: center;
     }

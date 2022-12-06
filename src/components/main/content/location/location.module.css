@@ -1,3 +1,6 @@
+.mapFrame{
+  height: max-content;
+}
 .title{
   display: flex;
   flex-direction: column;
@@ -43,6 +46,10 @@
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .info{
+  height: 18vh;
   margin-bottom: 20px;
+}
+.map{
+  height: 50vh;
 }
 }
