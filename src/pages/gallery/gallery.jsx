@@ -44,10 +44,10 @@ export default function Gallery() {
         </div>
         <div className={styles.title}>
           <div className={styles.mainTitle}>
-            <span className={styles.yein}>
+            <div className={styles.yein}>
               <span className={styles.g}>G</span>ellary
-            </span>
-            <span className={styles.mainSub}>갤러리</span>
+            </div>
+            <div className={styles.mainSub}>갤러리</div>
           </div>
           <div className={styles.subTitle}>
             <span className={styles.describe}>
@@ -63,7 +63,7 @@ export default function Gallery() {
           </div>
         </div>
         <div className={styles.content}>
-          <div className={styles.subTitle}>
+          <div className={styles.subTitleContent}>
             <p className={styles.mainTxt}>Gallery</p>
             <p className={styles.line}></p>
             <p className={styles.subTxt}>

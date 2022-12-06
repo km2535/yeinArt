@@ -114,13 +114,16 @@
  }
  .yein{
   font-size: 50px;
-  animation: mainTitle 2s forwards;
+  opacity: 1;
+  animation: none;
 }
 .y{
   font-size: 70px;
 }
 .mainSub{
   font-size: 25px;
+  opacity: 1;
+  animation: none;
 }
 .subTitle{
   display: none;
