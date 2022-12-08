@@ -7,11 +7,13 @@ import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import Mail from "../../../mail/mail";
 import Copy from "../../../common/copy/copy";
 import kakaoMessage from "../../../../service/kakaoChannel";
+import MessageLoading from "../../../common/messageLoading/messageLoading";
 
 export default function Contact() {
   const [isMail, setIsMail] = useState(false);
   const [copy, setCopy] = useState("");
   const [isCopy, setisCopy] = useState(false);
+  const [isSendingMessage, setIsSendingMessage] = useState(false);
   const copySomting = () => {
     setCopy("yeinartdev");
   };
@@ -29,6 +31,10 @@ export default function Contact() {
   }, []);
   const mailInput = () => {
     setIsMail((prev) => !prev);
+  };
+  const sendingMessage = () => {
+    setIsSendingMessage(true);
+    kakaoMessage(setIsSendingMessage);
   };
   return (
     <>
@@ -73,13 +79,18 @@ export default function Contact() {
               ></FontAwesomeIcon>
             </div>
             <div className={styles.kakaoContainer}>
-              <div id="chat-channel-button"></div>
-              <div
-                className={styles.kakao}
-                style={{ backgroundImage: 'url("./images/kakao.png")' }}
-                id="kakao-linkbtn"
-                onClick={kakaoMessage}
-              ></div>
+              {isSendingMessage ? (
+                <div className={styles.kakaoLoading}>
+                  <MessageLoading />
+                </div>
+              ) : (
+                <div
+                  className={styles.kakao}
+                  style={{ backgroundImage: 'url("./images/kakao.png")' }}
+                  id="kakao-linkbtn"
+                  onClick={sendingMessage}
+                ></div>
+              )}
               <div className={styles.kakaoId} onClick={copySomting} id="kakao">
                 yeinartdev
               </div>

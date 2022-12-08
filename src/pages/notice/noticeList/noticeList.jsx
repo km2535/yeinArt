@@ -4,19 +4,32 @@ import MoveControl from "../../../components/common/btns/addContents/addContents
 import MbEditBtn from "../../../components/common/btns/mbEditBtn/mbEditBtn";
 import Loading from "../../../components/common/loading/loading";
 import Pagination from "../../../components/common/pagination/pagination";
+import { readData } from "../../../service/database";
 import styles from "./noticeList.module.css";
 export default function NoticeList() {
-  const { totalData, fbuser, isLoading } = useOutletContext();
+  const { totalData, fbuser, isLoading, setTotalData, setIsLoading } =
+    useOutletContext();
   const [pageData, setPageDate] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
     const firstData = totalData.slice(0, 10);
     setPageDate(firstData);
   }, [totalData]);
+  useEffect(() => {
+    const session = window.sessionStorage.getItem("allItems");
+    if (JSON.parse(session) !== null) {
+      setTotalData(JSON.parse(session));
+    } else if (JSON.parse(session) === null) {
+      setIsLoading(true);
+      readData("notice", "allItems")
+        .then((v) => setTotalData(v))
+        .then(() => setIsLoading(false));
+    }
+  }, [setIsLoading, setTotalData]);
   return (
     <>
+      {isLoading && <Loading />}
       <div className={styles.container}>
-        {isLoading && <Loading />}
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr>

@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import styles from "./galleryEdit.module.css";
 import { v4 as uuidv4 } from "uuid";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import { upload } from "../../../service/upload";
 import { deleteImage } from "../../../service/delete";
+import { readData } from "../../../service/database";
 export default function GalleryEdit() {
+  const { setTotalData, setIsLoading } = useOutletContext();
   const navigate = useNavigate();
   const valueRef = useRef([]);
   const [file, setFile] = useState([]);
@@ -39,14 +41,30 @@ export default function GalleryEdit() {
   const uploadHandler = async (e) => {
     e.preventDefault();
     //수정하는 함수
-    deleteImage(imgId)
-      .then(() => {
-        upload(file, title, imgId);
+    setIsLoading(true);
+    deleteImage(imgId).then(() =>
+      upload(file, title, imgId).then(() => {
+        window.sessionStorage?.removeItem("allImgs");
+        window.sessionStorage?.removeItem("firstRead");
+        navigate("/gallery");
+        setTimeout(
+          () =>
+            readData("gallery", "allImgs")
+              .then((v) => {
+                setTotalData(v);
+                window.sessionStorage?.setItem(
+                  "firstRead",
+                  JSON.stringify(v.slice(0, 5))
+                );
+              })
+              .finally(() => setIsLoading(false)),
+          4500
+        );
       })
-      .then(() => navigate("/", { replace: true }));
+    );
   };
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={uploadHandler}>
         <div className={styles.subject}>
           <span className={styles.title}>제목 :</span>

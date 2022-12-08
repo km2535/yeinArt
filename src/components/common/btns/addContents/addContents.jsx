@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./addContents.module.css";
 export default function MoveControl({
   imgId,
+  value,
   moveRoot,
   styleOption,
   buttonName,
@@ -26,7 +27,7 @@ export default function MoveControl({
           {buttonName}
         </button>
       ) : (
-        <Link to={`${root}`} state={{ imgId }}>
+        <Link to={`${root}`} state={{ imgId, value }}>
           <button
             type="button"
             style={{ top: top.top, left: left.left }}

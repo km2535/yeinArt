@@ -25,6 +25,7 @@ import AddNotice from "./pages/notice/addNotice/addNotice";
 import NoticeEdit from "./pages/notice/noticeEdit/noticeEdit";
 import EnquireList from "./pages/enquire/enquireList/enquireList";
 import EnquireDetail from "./pages/enquire/enquireDetail/enquireDetail";
+import NotFound from "./pages/notFound/notFound";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, path: "", element: <Home /> },
       { path: "/login", element: <Login /> },
+      { path: "*", element: <NotFound /> },
       { path: "/join", element: <Login /> },
       { path: "/oauth", element: <Authkakao />, redirect },
       {

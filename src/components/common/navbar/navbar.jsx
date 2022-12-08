@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./navbar.module.css";
-export default function Navbar({ historiesRef, majorWorkRef }) {
+export default function Navbar({ historiesRef, majorWorkRef, onMenu }) {
   const navigate = useNavigate();
   const historyView = () => {
     navigate("/#companyIntro", { replace: true });
@@ -14,6 +14,7 @@ export default function Navbar({ historiesRef, majorWorkRef }) {
       majorWorkRef.current.scrollIntoView({ behavior: "smooth" });
   };
   const contract = () => {
+    onMenu();
     navigate("/enquire", { replace: true });
   };
   return (
@@ -34,9 +35,11 @@ export default function Navbar({ historiesRef, majorWorkRef }) {
           <span>커뮤니티</span>
           <div className={styles.submenu}>
             <div className={styles.board}>
-              <Link to="/notice">공지사항</Link>
+              <Link to="/notice" onClick={onMenu}>
+                공지사항
+              </Link>
             </div>
-            <div className={styles.gallery}>
+            <div className={styles.gallery} onClick={onMenu}>
               <Link to="/gallery">갤러리</Link>
             </div>
           </div>

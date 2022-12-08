@@ -70,6 +70,9 @@
   margin-top: 50px;
   border-bottom: 3px solid #fff;
 }
+.kakaoLoading{
+  width: 40%;
+}
 .kakao{
   width: 80px;
   height: 80px;
@@ -81,6 +84,8 @@
 }
 .kakaoId{
   width: 60%;
+  height: 80px;
+  line-height: 90px;
   text-align: center;
   color: #fff;
   font-size: 40px;
@@ -124,8 +129,11 @@
   margin-top: 20px;
 }
 .kakao{
-  width: 70px;
-  height: 70px;
+  width: 55px;
+  height: 55px;
+}
+.kakaoId{
+  font-size: 30px;
 }
 .btnContent{
   margin-top: 20px;

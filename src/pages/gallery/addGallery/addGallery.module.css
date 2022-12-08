@@ -95,6 +95,7 @@ input[type=text] {
   width: 100vw;
 }
 .subject{
+  flex-direction: column;
   width: 90%;
 }
 .otherwise{
@@ -111,7 +112,11 @@ input[type=text] {
 }
 .subject .input{
   width: 90%;
-  text-align: center;
+  text-align: left;
+}
+.subject .title{
+  width: 100%;
+  text-align: left;
 }
 .inputTitle{
   width: 85%;

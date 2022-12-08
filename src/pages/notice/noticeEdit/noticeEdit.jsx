@@ -5,6 +5,7 @@ import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import styles from "./noticeEdit.module.css";
 import { deleteData } from "../../../service/delete";
 import { uploadNotice } from "../../../service/upload";
+import { readData } from "../../../service/database";
 export default function NoticeEdit() {
   const [file, setFile] = useState([]);
   const [title, setTitle] = useState("");
@@ -12,7 +13,7 @@ export default function NoticeEdit() {
   const valueRef = useRef([]);
   const [prev, setPrev] = useState({});
   const navigate = useNavigate();
-  const { totalData } = useOutletContext();
+  const { totalData, setIsLoading, setTotalData } = useOutletContext();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -37,7 +38,7 @@ export default function NoticeEdit() {
   const {
     state: { imgId },
   } = useLocation();
-  // console.log(imgId);
+
   useEffect(() => {
     setPrev(totalData.filter((v) => v.id === imgId));
   }, [imgId, totalData]);
@@ -50,14 +51,54 @@ export default function NoticeEdit() {
 
   const uploadHandler = async (e) => {
     e.preventDefault();
-    deleteData(imgId).then(() => {
-      uploadNotice(file, title, textarea, totalData.length + 1, imgId);
-      navigate("/");
-    });
+    setIsLoading(true);
+    if (file.length === 0) {
+      uploadNotice(
+        file,
+        title,
+        textarea,
+        totalData[0]?.value.num + 1,
+        imgId
+      ).then(() => {
+        window.sessionStorage?.removeItem("allItems");
+        navigate("/notice");
+        setTimeout(
+          () =>
+            readData("notice", "allItems")
+              .then((v) => {
+                setTotalData(v);
+              })
+              .finally(() => setIsLoading(false)),
+          3000
+        );
+      });
+    } else {
+      deleteData(imgId).then(() =>
+        uploadNotice(
+          file,
+          title,
+          textarea,
+          totalData[0]?.value.num + 1,
+          imgId
+        ).then(() => {
+          window.sessionStorage?.removeItem("allItems");
+          navigate("/notice");
+          setTimeout(
+            () =>
+              readData("notice", "allItems")
+                .then((v) => {
+                  setTotalData(v);
+                })
+                .finally(() => setIsLoading(false)),
+            4500
+          );
+        })
+      );
+    }
   };
   return (
     <>
-      <form onSubmit={uploadHandler}>
+      <form onSubmit={uploadHandler} className={styles.container}>
         <div className={styles.content}>
           <div className={styles.subject}>
             <span className={styles.title}>제목 </span>

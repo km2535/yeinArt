@@ -10,10 +10,12 @@ import {
 import history from "../../../components/common/history/history";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
 import { deleteImage } from "../../../service/delete";
+import { readData } from "../../../service/database";
+import styles from "./galleryDetail.module.css";
 
 export default function GalleryDetail() {
   const navigate = useNavigate();
-  const { fbuser } = useOutletContext();
+  const { fbuser, setTotalData, setIsLoading } = useOutletContext();
   const preventClose = (e) => {
     e.preventDefault();
     e.returnValue = ""; // chrome에서는 설정이 필요해서 넣은 코드
@@ -22,11 +24,10 @@ export default function GalleryDetail() {
     (() => {
       window.addEventListener("beforeunload", preventClose);
     })();
-    history.push("/gallery");
+    history.push("/");
   }, []);
   useEffect(() => {
-    return history.listen((action) => {
-      //console.log(action);
+    return history.listen(() => {
       if (history.action === "POP") {
         history.push("/gallery");
       }
@@ -58,7 +59,7 @@ export default function GalleryDetail() {
   }, [tumbnailUrl, subUrl1, subUrl2, subUrl3, subUrl4, subUrl5]);
 
   const subSettings = {
-    slidesToShow: img.length > 3 ? 3 : 2,
+    slidesToShow: img.length > 3 ? 3 : img.length > 1 ? 2 : 1,
     swipeToSlide: true,
     focusOnSelect: true,
     nextArrow: <ArrowNone />,
@@ -75,8 +76,17 @@ export default function GalleryDetail() {
   // 삭제 컨트롤러
   const deleteHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      deleteImage(id);
-      navigate("/");
+      setIsLoading(true);
+      deleteImage(id).then(() => {
+        navigate("/gallery");
+        setTimeout(
+          () =>
+            readData("gallery", "allImgs")
+              .then((v) => setTotalData(v))
+              .finally(() => setIsLoading(false)),
+          1000
+        );
+      });
     }
   };
   return (
@@ -89,11 +99,12 @@ export default function GalleryDetail() {
           {...mainSettings}
         >
           {img.map((v) => (
-            <div key={v} className="container">
+            <div key={v} className="imgContainer">
               <img src={v} alt="img" className="galleryImg" />
             </div>
           ))}
         </Slider>
+
         <div className="subGalleryContainer">
           <Slider
             asNavFor={slide.nav1}
@@ -108,23 +119,44 @@ export default function GalleryDetail() {
           </Slider>
         </div>
       </div>
-      {fbuser && fbuser.isAdmin && (
-        <div style={{ height: "50px" }}>
-          <MoveControl
-            imgId={id}
-            moveRoot={"galleryEdit"}
-            styleOption={[{ top: "0" }, { left: "43%" }]}
-            buttonName={"수정하기"}
-          />
-          <MoveControl
-            doNotMove={true}
-            galleryEdit={"/"}
-            styleOption={[{ top: "0" }, { left: "48%" }]}
-            buttonName={"삭제하기"}
-            deleteHandler={deleteHandler}
-          />
-        </div>
-      )}
+      <div className={styles.deskTopBtn}>
+        {fbuser && fbuser.isAdmin && (
+          <div style={{ height: "50px" }}>
+            <MoveControl
+              imgId={id}
+              moveRoot={"galleryEdit"}
+              styleOption={[{ top: "0" }, { left: "43%" }]}
+              buttonName={"수정하기"}
+            />
+            <MoveControl
+              doNotMove={true}
+              galleryEdit={"/"}
+              styleOption={[{ top: "0" }, { left: "48%" }]}
+              buttonName={"삭제하기"}
+              deleteHandler={deleteHandler}
+            />
+          </div>
+        )}
+      </div>
+      <div className={styles.mobileBtn}>
+        {fbuser && fbuser.isAdmin && (
+          <div style={{ height: "50px" }}>
+            <MoveControl
+              imgId={id}
+              moveRoot={"galleryEdit"}
+              styleOption={[{ top: "0" }, { left: "25%" }]}
+              buttonName={"수정하기"}
+            />
+            <MoveControl
+              doNotMove={true}
+              galleryEdit={"/"}
+              styleOption={[{ top: "0" }, { left: "30%" }]}
+              buttonName={"삭제하기"}
+              deleteHandler={deleteHandler}
+            />
+          </div>
+        )}
+      </div>
     </>
   );
 }

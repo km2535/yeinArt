@@ -1,6 +1,6 @@
 .endMent{
-  width: 100vw;
-  height: 12vh;
+  width: 100%;
+  height: 125px;
 }
 .title, .sub{
   font-variant: small-caps;

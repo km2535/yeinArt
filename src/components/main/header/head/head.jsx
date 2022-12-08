@@ -88,7 +88,7 @@ export default function Head({
           )}
         </div>
         <div>
-          <Navbar />
+          <Navbar onMenu={onMenu} />
         </div>
       </div>
       <div className={styles.form}>

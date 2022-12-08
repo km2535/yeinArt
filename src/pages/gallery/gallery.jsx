@@ -16,12 +16,8 @@ export default function Gallery() {
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
     const session = window.sessionStorage.getItem("allImgs");
-    if (fbuser !== null && fbuser?.isAdmin === true) {
-      setIsLoading(true);
-      readData("gallery", "allImgs")
-        .then((v) => setTotalData(v))
-        .then(() => setIsLoading(false));
-    } else if (JSON.parse(session) !== null) {
+
+    if (JSON.parse(session) !== null) {
       setTotalData(JSON.parse(session));
     } else if (JSON.parse(session) === null) {
       setIsLoading(true);
@@ -71,7 +67,9 @@ export default function Gallery() {
             </p>
           </div>
         </div>
-        <Outlet context={{ totalData, fbuser, isLoading }} />
+        <Outlet
+          context={{ totalData, setTotalData, fbuser, isLoading, setIsLoading }}
+        />
         <div className={styles.footer}>
           <Footer />
         </div>

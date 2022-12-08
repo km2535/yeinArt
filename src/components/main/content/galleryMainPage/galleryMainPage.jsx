@@ -10,10 +10,10 @@ export default function GalleryMainPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const session = window.sessionStorage.getItem("firstImgs");
-    if (JSON.parse(session) !== null && JSON.parse(session).length > 0) {
+    const session = window.sessionStorage?.getItem("firstRead");
+    if (JSON.parse(session) !== null) {
       setPageData(JSON.parse(session));
-    } else {
+    } else if (JSON.parse(session) === null) {
       setIsLoading(true);
       firstRead(setPageData).then(() => {
         setIsLoading(false);

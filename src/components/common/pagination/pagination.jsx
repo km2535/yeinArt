@@ -21,7 +21,8 @@ export default function Pagination({ totalData, setPageDate, showCnt }) {
         previousLabel="&laquo;"
         previousLinkClassName="page-link"
         nextLinkClassName="page-link"
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={4}
+        marginPagesDisplayed={2}
         pageCount={totalPage}
         containerClassName="pagination"
         pageClassName="page-item"

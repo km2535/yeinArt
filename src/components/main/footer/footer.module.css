@@ -1,10 +1,10 @@
 .container{
   position: relative;
   width: 100%;
-  height: 25vh;
+  height: 230px;
 }
 .palleraxImg{
-  min-height: 25vh; 
+  min-height: 230px; 
   filter: brightness(40%);
   background-attachment: fixed;
   background-position: center;
@@ -19,10 +19,12 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 25vh;
+  height: 230px;
   backdrop-filter: blur(10px);
 }
 .ftContent{
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   z-index: 4;
@@ -32,6 +34,7 @@
 }
 .ftCopy{
   display: flex;
+  height: 50px;
   flex-direction: row;
   margin-left: 70%;
 }
@@ -47,29 +50,34 @@
   margin: 0 20px;
 }
 .ftInfo{
-  width: 100vw;
-  height: 12vh;
+  width: 100%;
+  height: 110px;
   display: flex;
   font-family: var(--font-basic);
   flex-direction: row;
   align-items: center;
 }
 .ftLogo{
-  width: 30vw;
+  width: 30%;
   font-size: 45px;
   font-family: var(--font-logo);
   text-align: center;
 }
 .ftAddr{
-  width: 80vw;
+  width: 80%;
 }
 .ftCompany{
-  width: 100vw;
+  width: 100%;
   height: 5vh;
   text-align: center;
   font-family: var(--font-basic);
   font-weight: 700;
   line-height: 60px;
+}
+.phone1,.phone2{
+  text-decoration: none;
+  color: #fff;
+  margin: 0 10px;
 }
 
 /* 모바일 버전 */
@@ -79,22 +87,24 @@
 }
 .ftInfo{
   flex-direction: column;
+  height: 110px;
 }
 .ftLogo{
-  width: 100vw;
+  width: 100%;
   font-size: 30px;
-  margin: 0;
+  margin: 0 0 0 10px;
   text-align: left;
 }
 .ftAddr{
   width: 100vw;
   font-size: 10px;
-  margin: 0 5px 0 5px;
+  margin: 0 5px 0 10px;
 }
 .ftAddr p{
   margin-left: 5px;
 }
 .ftCompany{
+  height: 40px;
   line-height: 40px;
 }
 }

@@ -25,8 +25,7 @@ export default function Location() {
           content +=
             '    <a href="http://kko.to/1iu2Akb-jO" target="_blank"><strong>예 인 아 트</strong></a>';
           content += '    <div class="desc">';
-          content +=
-            '        <img src="http://www.yeinart.co.kr/img/logo.jpg" alt="">';
+          content += '        <img src="./images/logo.jpg" alt="">';
           content +=
             '        <span class="address">서울특별시 성북구 성북로 4길 52 스카이프라자 상가 동관 631호</span>';
           content += "    </div>";
@@ -60,7 +59,15 @@ export default function Location() {
         <p className={styles.addr}>
           서울특별시 성북구 성북로 4길 52 스카이프라자 상가 동관 631호
         </p>
-        <p className={styles.phoneNumber}>(02)764-3931 | 010-3725-2211</p>
+        <p className={styles.phoneNumber}>
+          <a className={styles.phone1} href="tel:02-764-3931">
+            (02)764-3931
+          </a>
+          |
+          <a className={styles.phone2} href="tel:010-3725-2211">
+            010-3725-2211
+          </a>
+        </p>
       </div>
     </div>
   );

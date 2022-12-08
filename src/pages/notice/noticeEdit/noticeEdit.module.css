@@ -1,8 +1,10 @@
+  .container{
+    position: relative;
+    z-index: 6;
+  }
   .content{
     display: flex;
     flex-direction: column;
-    position: relative;
-    z-index: 6;
   }
   .subject{
     display: flex;

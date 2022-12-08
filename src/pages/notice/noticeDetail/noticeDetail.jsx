@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
 import history from "../../../components/common/history/history";
-import { noticeRead } from "../../../service/database";
+import { noticeRead, readData } from "../../../service/database";
 import { deleteData } from "../../../service/delete";
 import styles from "./noticeDetail.module.css";
 
@@ -11,7 +11,7 @@ export default function NoticeDetail() {
   const [fileTag, setFileTag] = useState(false);
   const [fileName, setfileName] = useState("");
   const [imgTag, setImgTag] = useState(false);
-  const { fbuser } = useOutletContext();
+  const { fbuser, setTotalData, setIsLoading } = useOutletContext();
   const preventClose = (e) => {
     e.preventDefault();
   };
@@ -23,7 +23,7 @@ export default function NoticeDetail() {
     (() => {
       window.addEventListener("beforeunload", preventClose);
     })();
-    history.push("/notice");
+    history.push("/");
   }, []);
 
   useEffect(() => {
@@ -53,8 +53,17 @@ export default function NoticeDetail() {
 
   const deleteHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      deleteData(id);
-      navigate("/", { replace: true });
+      setIsLoading(true);
+      deleteData(id).then(() => {
+        navigate("/notice");
+        setTimeout(
+          () =>
+            readData("notice", "allItems")
+              .then((v) => setTotalData(v))
+              .finally(() => setIsLoading(false)),
+          1000
+        );
+      });
     }
   };
   return (
@@ -104,6 +113,7 @@ export default function NoticeDetail() {
           <>
             <MoveControl
               imgId={id}
+              value={value}
               moveRoot={"noticeEdit"}
               styleOption={[{ top: "0" }, { left: "43%" }]}
               buttonName={"수정하기"}

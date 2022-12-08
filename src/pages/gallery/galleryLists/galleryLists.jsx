@@ -36,7 +36,7 @@ export default function GalleryLists() {
         {fbuser && fbuser?.isAdmin && (
           <MbEditBtn
             moveRoot={"addGallery"}
-            styleOption={[{ top: "-20px" }, { left: "85%" }]}
+            styleOption={[{ top: "0px" }, { left: "85%" }]}
           />
         )}
       </div>

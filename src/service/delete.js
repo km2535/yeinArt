@@ -44,6 +44,9 @@ export const deleteData = async (id) => {
   const allFolder = [];
   listAll(dataRef)
     .then((res) => {
+      if (res.items.length === 0 && res.prefixes.length === 0) {
+        deleteNotice(id);
+      }
       res.prefixes.forEach((folder) => {
         allFolder.push(folder.fullPath);
       });

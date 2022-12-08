@@ -5,13 +5,18 @@ import "moment/locale/ko";
 import moment from "moment/moment";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { uploadNotice } from "../../../service/upload";
-export default function AddNotice({ prevdata }) {
+import { useEffect } from "react";
+import { readData } from "../../../service/database";
+export default function AddNotice() {
   const [file, setFile] = useState([]);
   const [title, setTitle] = useState("");
   const [textarea, setTextarea] = useState("");
   const valueRef = useRef([]);
-  const { totalData } = useOutletContext();
+  const { totalData, setTotalData, setIsLoading } = useOutletContext();
   const navigate = useNavigate();
+  useEffect(() => {
+    setFile([]);
+  }, []);
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     const now = moment().format("YY-MM-DD HH:mm:ss");
@@ -32,12 +37,25 @@ export default function AddNotice({ prevdata }) {
       setFile((prev) => [...prev, option]);
     }
   };
+  console.log(totalData[0]?.value.num);
   const uploadHandler = async (e) => {
     e.preventDefault();
-    //prevdata[0]
-    uploadNotice(file, title, textarea, totalData.length + 1).then(() => {
-      navigate("/");
-    });
+    setIsLoading(true);
+    uploadNotice(file, title, textarea, totalData[0]?.value.num + 1).then(
+      () => {
+        window.sessionStorage?.removeItem("allItems");
+        navigate("/notice");
+        setTimeout(
+          () =>
+            readData("notice", "allItems")
+              .then((v) => {
+                setTotalData(v);
+              })
+              .finally(() => setIsLoading(false)),
+          3000
+        );
+      }
+    );
   };
   return (
     <div className={styles.container}>

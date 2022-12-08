@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   position: relative;
   z-index: 6;
 }
@@ -61,12 +61,15 @@
 .imgList{
   width: 50%;
   padding: 0;
-  height: 32vh;
+  height: 20vh;
 }
 .imgDetail{
   width: 95%;
   margin-right: 5px;
-  height: 40%;
+  height: 90%;
+}
+.container{
+height: 100%;
 }
 .container:hover .des{
   transform: translateY(-150px);

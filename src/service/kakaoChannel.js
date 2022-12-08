@@ -1,8 +1,9 @@
-export default async function kakaoMessage() {
+export default async function kakaoMessage(setIsSendingMessage) {
   if (!window.Kakao.isInitialized()) {
     window.Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
   }
   try {
+    setIsSendingMessage(true);
     window.Kakao.API.request({
       url: "/v2/user/scopes",
       data: {
@@ -10,7 +11,7 @@ export default async function kakaoMessage() {
       },
     })
       .then(function (response) {
-        console.log(response.scopes.length > 0);
+        //console.log(response.scopes.length > 0);
         if (response.scopes.length > 0) {
           window.Kakao.API.request({
             url: "/v2/api/talk/memo/default/send",
@@ -56,6 +57,7 @@ export default async function kakaoMessage() {
             .then(function (response) {
               console.log(response);
               alert("카카오톡을 확인해주세요");
+              setIsSendingMessage(false);
             })
             .catch(function (error) {
               console.log(error);
@@ -63,7 +65,7 @@ export default async function kakaoMessage() {
         } else {
           console.log("권한");
           window.Kakao.Auth.authorize({
-            redirectUri: `http://www.kangmin.shop`,
+            redirectUri: `https://www.kangmin.shop`,
             scope: "talk_message",
           });
         }
@@ -71,7 +73,7 @@ export default async function kakaoMessage() {
       .catch(function (error) {
         console.log(error);
         window.Kakao.Auth.authorize({
-          redirectUri: "http://www.kangmin.shop",
+          redirectUri: "https://www.kangmin.shop",
           scope: "talk_message",
         });
       });

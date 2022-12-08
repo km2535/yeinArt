@@ -45,7 +45,9 @@ export default function Notice() {
           <p className={styles.line}></p>
         </div>
       </div>
-      <Outlet context={{ totalData, fbuser, isLoading, setTotalData }} />
+      <Outlet
+        context={{ totalData, fbuser, isLoading, setTotalData, setIsLoading }}
+      />
       <div>
         <Footer />
       </div>

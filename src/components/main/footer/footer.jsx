@@ -46,7 +46,16 @@ export default function Footer() {
                 예인아트 | 사업자등록번호 : 123-02-215632 | 대표 : 김영수 |
                 서울특별시 성북구 성북로4길 52 스카이프라자 상가 동관 631호
               </p>
-              <p>전화 : (02)764-3931 | 010-3725-2211</p>
+              <p>
+                전화 :
+                <a className={styles.phone1} href="tel:02-764-3931">
+                  (02)764-3931
+                </a>
+                |
+                <a className={styles.phone2} href="tel:010-3725-2211">
+                  010-3725-2211
+                </a>
+              </p>
             </div>
           </div>
           <div className={styles.ftCompany}>

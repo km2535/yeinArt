@@ -42,11 +42,18 @@
 .addr,.phoneNumber{
   margin: 0;
 }
-
+.phone1,.phone2{
+  text-decoration: none;
+  color: #000;
+  margin: 0 10px;
+}
+.phone1{
+  margin-left: 0;
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .info{
-  height: 18vh;
+  height: 150px;
   margin-bottom: 20px;
 }
 .map{

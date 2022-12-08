@@ -48,9 +48,9 @@ export const firstRead = async (setPageData) => {
   querySnapshot.forEach((doc) => {
     data.push({ id: doc.id, value: doc.data() });
   });
-  setPageData(data);
   data.length !== 0 &&
-    window.sessionStorage?.setItem("firstImgs", JSON.stringify(data));
+    window.sessionStorage?.setItem("firstRead", JSON.stringify(data));
+  setPageData(data);
 };
 
 export const deleteImg = async (id) => {
@@ -70,8 +70,8 @@ export const dbNotice = async (id, title, date, content, num, urls) => {
   await setDoc(doc(db, "notice", id), {
     id: id,
     title: title,
-    date: date,
-    urls: urls,
+    date: date || "",
+    urls: urls || "",
     content: content,
     num: num,
     read: 0,

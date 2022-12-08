@@ -2,15 +2,20 @@ import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { upload } from "../../../service/upload";
 import styles from "./addGallery.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import { readData } from "../../../service/database";
+import { useEffect } from "react";
 
 export default function AddGallery() {
+  const { setTotalData, setIsLoading } = useOutletContext();
   const navigate = useNavigate();
   // 파일 업로드
   const [file, setFile] = useState([]);
   const [title, setTitle] = useState("");
   const valueRef = useRef([]);
-
+  useEffect(() => {
+    setFile([]);
+  }, []);
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     valueRef.current.forEach((v) =>
@@ -36,8 +41,24 @@ export default function AddGallery() {
   };
   const uploadHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     upload(file, title).then(() => {
-      navigate("/");
+      window.sessionStorage?.removeItem("allImgs");
+      window.sessionStorage?.removeItem("firstRead");
+      navigate("/gallery");
+      setTimeout(
+        () =>
+          readData("gallery", "allImgs")
+            .then((v) => {
+              setTotalData(v);
+              window.sessionStorage?.setItem(
+                "firstRead",
+                JSON.stringify(v.slice(0, 5))
+              );
+            })
+            .finally(() => setIsLoading(false)),
+        4500
+      );
     });
   };
   return (

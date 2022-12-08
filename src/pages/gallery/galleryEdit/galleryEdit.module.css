@@ -1,3 +1,7 @@
+.container{
+  position: relative;
+  z-index: 6;
+}
 .subject{
   display: flex;
   justify-content: center;
@@ -87,26 +91,44 @@ input[type=text] {
 
 /* 모바일 버전 */
 @media screen and (max-width:768px){
-.deskTopBtn{
-  display: none;
+.form{
+  width: 100vw;
 }
-.mobileBtn{
-  display: block;
+.subject{
+  flex-direction: column;
+  width: 90%;
 }
-.mainSection{
-  flex-direction: row;
+.otherwise{
+  width: 100vw;
 }
-.imgList{
-  width: 50%;
-  padding: 0;
-  height: 30vh;
+.otherwise .title{
+  margin-left: 20px;
 }
-.imgDetail{
-  width: 95%;
-  margin-right: 5px;
-  height: 40%;
+.title{
+  width: 25%;
 }
-.container:hover .des{
-  transform: translateY(-150px);
+.input{
+  width: 90%;
+}
+.subject .input{
+  width: 90%;
+  text-align: left;
+}
+.subject .title{
+  width: 100%;
+  text-align: left;
+}
+.inputTitle{
+  width: 85%;
+}
+.inputFile{
+  width: 80%;
+}
+.input label{
+ margin-left: 5px;
+}
+.btnContainer{
+  width: 90vw;
+  text-align: right;
 }
 }

@@ -1,0 +1,16 @@
+.mobileBtn{
+  display: none;
+}
+.deskTopBtn{
+  display: block;
+}
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+.deskTopBtn{
+display: none;
+}
+.mobileBtn{
+  display: block;
+}
+
+}

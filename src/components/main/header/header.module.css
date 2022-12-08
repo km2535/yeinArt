@@ -15,13 +15,13 @@
   position: absolute;
   top: 0;
   width: 100%;
-  height: 80vh;
+  height: 80%;
   backdrop-filter: blur(4px);
 }
 .title{
   width: 100%;
   position: absolute;
-  top: 12vh;
+  top: 120px;
   z-index: 3;
 }
 .mainTitle{
@@ -101,11 +101,11 @@
     display: none;
   }
  .palleraxImg{
-  min-height: 50vh;
+  min-height: 400px;
   background: center;
  }
  .background::before{
-  height: 50vh;
+  height: 400px;
  }
  .mainTitle{
   flex-direction: column;
@@ -129,6 +129,6 @@
   display: none;
 }
 .btnContent{
-  top: 35vh;
+  top: 300px;
 }
 }
