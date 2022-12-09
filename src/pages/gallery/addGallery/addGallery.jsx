@@ -53,7 +53,7 @@ export default function AddGallery() {
               setTotalData(v);
               window.sessionStorage?.setItem(
                 "firstRead",
-                JSON.stringify(v.slice(0, 5))
+                JSON.stringify(v.slice(0, 6))
               );
             })
             .finally(() => setIsLoading(false)),

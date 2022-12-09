@@ -47,7 +47,7 @@
   z-index: 3;
 }
 .mainTitle{
-  width: 80vw;
+  width: 95%;
   margin: 0 auto;
   white-space: nowrap;
   overflow: hidden;
@@ -91,7 +91,7 @@
   z-index: 20;
   left: 50vw;
   transform: translateX(-50%);
-  width: 1000px;
+  width: 95%;
 }
 
 .warnning{

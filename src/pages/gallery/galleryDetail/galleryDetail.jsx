@@ -92,7 +92,7 @@ export default function GalleryDetail() {
   return (
     <>
       <div className="galleryDetail">
-        <h1 className="title">{title}</h1>
+        <h1 className="galleryTitle">{title}</h1>
         <Slider
           asNavFor={slide.nav2}
           ref={(slider) => (slide1 = slider)}
@@ -121,17 +121,17 @@ export default function GalleryDetail() {
       </div>
       <div className={styles.deskTopBtn}>
         {fbuser && fbuser.isAdmin && (
-          <div style={{ height: "50px" }}>
+          <div className={styles.deskTopBtn}>
             <MoveControl
               imgId={id}
               moveRoot={"galleryEdit"}
-              styleOption={[{ top: "0" }, { left: "43%" }]}
+              styleOption={[{ top: "0" }, { left: "0" }]}
               buttonName={"수정하기"}
             />
             <MoveControl
               doNotMove={true}
               galleryEdit={"/"}
-              styleOption={[{ top: "0" }, { left: "48%" }]}
+              styleOption={[{ top: "0" }, { left: "0" }]}
               buttonName={"삭제하기"}
               deleteHandler={deleteHandler}
             />
@@ -140,17 +140,17 @@ export default function GalleryDetail() {
       </div>
       <div className={styles.mobileBtn}>
         {fbuser && fbuser.isAdmin && (
-          <div style={{ height: "50px" }}>
+          <div className={styles.mobileBtn}>
             <MoveControl
               imgId={id}
               moveRoot={"galleryEdit"}
-              styleOption={[{ top: "0" }, { left: "25%" }]}
+              styleOption={[{ top: "0" }, { left: "0" }]}
               buttonName={"수정하기"}
             />
             <MoveControl
               doNotMove={true}
               galleryEdit={"/"}
-              styleOption={[{ top: "0" }, { left: "30%" }]}
+              styleOption={[{ top: "0" }, { left: "0" }]}
               buttonName={"삭제하기"}
               deleteHandler={deleteHandler}
             />
