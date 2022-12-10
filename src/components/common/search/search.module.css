@@ -53,7 +53,22 @@
   color: #fff;
   background-color: #6c757d;
 }
-
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+ .container{
+   width: 90%;
+  }
+  .content,.search,.searchBtn{
+    height: 40px;
+  }
+  .searchBtn{
+    width: 100px;
+  }
+}
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+ 
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .container{

@@ -5,18 +5,38 @@
   background: #FFFFFF;
   border: none;
   border-radius: 19px;
-  font-size: 55px;
+  font-size: 40px;
   font-weight: 700;
   font-family: var(--font-sub);
   line-height: 50%;
   cursor: pointer;
   transition: all 0.2s;
+  color: #000;
 }
 .btn:hover{
   transform: translateY(-5px);
   box-shadow: 2px 2px 10px #000;
   background: #fff1b1;
 }
+
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .btn{
+    font-size: 35px;
+    width: 200px;
+    height: 60px;
+  }
+}
+
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .btn{
+    width: 200px;
+    height: 60px;
+    font-size: 30px;
+  }
+}
+
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .btn{

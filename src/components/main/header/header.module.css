@@ -25,6 +25,7 @@
   z-index: 3;
 }
 .mainTitle{
+  font-family: var(--font-basic);
   width: 80vw;
   margin: 0 auto;
   white-space: nowrap;
@@ -38,7 +39,7 @@
   opacity: 0;
   color: #fff;
   font-variant: small-caps;
-  font-size: 180px;
+  font-size: 150px;
   font-weight: bold;
   margin-right: 30px;
   animation: mainTitle 2s forwards;
@@ -95,6 +96,65 @@
 }
 
 
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .mainTitle{
+    width: 100%;
+    justify-content: center;
+  }
+  .palleraxImg{
+    background: center no-repeat;
+    background-size: cover;
+  }
+  .background::before{
+    height: 100%;
+  }
+  .yein{
+    font-size: 100px;
+  }
+  .y{
+  font-size: 150px;
+  }
+  .mainSub{
+    font-size: 50px;
+  }
+  .subTitle{
+    font-size: 15px;
+  }
+  .nav{
+    width: 90%;
+    top: 68vh;
+  }
+}
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .palleraxImg{
+    min-height: 500px;
+    background: center;
+  }
+  .background::before{
+    height: 80%;
+  }
+  .yein{
+    font-size: 80px;
+  }
+  .y{
+  font-size: 120px;
+  }
+  .mainSub{
+    font-size: 35px;
+  }
+  .subTitle{
+    display: none;
+  }
+  .btnContent{
+    top: 300px;
+  }
+  .nav{
+    width: 90%;
+    top: 400px;
+  }
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
   .nav{
@@ -116,19 +176,19 @@
   font-size: 50px;
   opacity: 1;
   animation: none;
-}
-.y{
-  font-size: 70px;
-}
-.mainSub{
-  font-size: 25px;
-  opacity: 1;
-  animation: none;
-}
-.subTitle{
-  display: none;
-}
-.btnContent{
-  top: 300px;
-}
+  }
+  .y{
+    font-size: 70px;
+  }
+  .mainSub{
+    font-size: 25px;
+    opacity: 1;
+    animation: none;
+  }
+  .subTitle{
+    display: none;
+  }
+  .btnContent{
+    top: 300px;
+  }
 }

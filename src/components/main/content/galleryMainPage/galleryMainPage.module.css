@@ -34,6 +34,29 @@
   transition: all 0.2s;
 }
 
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .imgContent, .container, .img, .des{
+  touch-action: pan-y;
+  }
+}
+
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .imgContent, .container, .img, .des{
+  touch-action: pan-y;
+  }
+  .imgContent{
+  width: 30%;
+  height: 300px;
+  margin:5px 0;
+  }
+  .container,.img{
+    width: 250px;
+    height: 260px;
+  }
+}
+
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .imgContent, .container, .img, .des{

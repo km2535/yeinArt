@@ -43,6 +43,21 @@
   color: #000;
 }
 
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  
+}
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .li, .community{
+    font-size: 20px;
+  }
+  .submenu{
+    width: 150px;
+    font-size: 15px;
+  }
+}
+
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .ul{

@@ -103,6 +103,72 @@
   cursor: pointer;
 }
 
+
+
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .palleraxImg{
+    background: center no-repeat;
+    background-size: 100% 80vh;
+  }
+  .snstxt{
+    font-size: 60px;
+    margin: 10px 0 0;
+  }
+  .facebook,.mail{
+    font-size: 60px;
+  }
+  .blog{
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  }
+  .kakaoContainer{
+    width: 80%;
+    margin-top: 20px;
+  }
+  .kakao{
+    width: 60px;
+    height: 60px;
+  }
+  .kakaoId{
+    font-size: 50px;
+  }
+}
+
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+ .snstxt{
+    font-size: 50px;
+    margin: 10px 0 0;
+  }
+  .facebook,.mail{
+    font-size: 50px;
+  }
+  .blog{
+  width: 70px;
+  height: 70px;
+  margin-top: 20px;
+  }
+  .kakaoContainer{
+    width: 80%;
+    margin-top: 20px;
+  }
+  .kakao{
+    width: 50px;
+    height: 50px;
+  }
+  .kakaoId{
+    font-size: 30px;
+  }
+  .palleraxImg{
+    min-height: 30vh; 
+  }
+  .background::before{
+    height: 30vh;
+  }
+}
+
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .content{
@@ -140,7 +206,11 @@
   padding: 20px;
 }
 .palleraxImg{
+  min-height: 50vh;
   background: center no-repeat;
   background-size: 100% 80vh;
+  }
+  .background::before{
+    height: 50vh;
   }
 }

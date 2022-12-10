@@ -42,6 +42,10 @@ export default function Login() {
     nextArrow: "",
     prevArrow: "",
   };
+  const googleLoginHandler = () => {
+    googleLogin();
+    navigate("/");
+  };
 
   return (
     <div className={styles.background}>
@@ -78,7 +82,7 @@ export default function Login() {
               <img src="/images/kakaologin.png" alt="kakao" />
             </a>
           </div>
-          <div className={styles.googlebtn} onClick={googleLogin}>
+          <div className={styles.googlebtn} onClick={googleLoginHandler}>
             <div className={styles.google}>
               <div className={styles.googleLogo}>
                 <img src="/images/google.png" alt="google" />

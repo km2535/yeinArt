@@ -74,6 +74,9 @@
 .kakaobtn:hover,.googlebtn:hover{
   scale: 1.02;
 }
+.imgContainer{
+  width: 1000px;
+}
 .imgContent img{
   width: 750px;
   height: 800px;
@@ -82,6 +85,12 @@
   display: none;
 }
 
+/* 테블릿 */
+@media screen and (max-width:1300px){
+.imgContainer{
+    display: none;
+  }
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
   .imgContainer{
@@ -108,8 +117,22 @@
   .background{
     flex-direction: column;
   }
-  .imgContent img{
-    width: 50vw;
-    height: 20vh;
+  .kakaobtn{
+    text-align: center;
+    width: 300px;
+    height: 70px;
+  }
+  .kakaobtn img{
+    width: 300px;
+    height: 70px;
+  }
+
+  .googlebtn, .google{
+    width: 300px;
+    height: 70px;
+  }
+  .txt{
+    font-size: 22px;
+    font-weight: 600;
   }
 }

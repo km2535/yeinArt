@@ -89,6 +89,37 @@
 }
 
 
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .imgContent, .container, .img, .des{
+  touch-action: pan-y;
+  }
+  .description{
+    width: 100%;
+  }
+  .histories{
+  display: none;
+  }
+  .palleraxImg{
+  background: center no-repeat;
+  background-size: 100% 80vh;
+  }
+  .mainTitle{
+    font-size: 80px;
+    margin-left: 20px;
+  }
+}
+
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .imgContent, .container, .img, .des{
+  touch-action: pan-y;
+  }
+  .mainTitle{
+    font-size: 70px;
+    margin-left: 20px;
+  }
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .histories{

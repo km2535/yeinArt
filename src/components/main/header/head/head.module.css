@@ -38,6 +38,12 @@
 .mbForm{
   display: none;
 }
+
+/* 테블릿 버전 */
+@media screen and (max-width:1100px){
+  
+}
+
 /* 모바일 버전 */
 @media screen and (max-width:768px){
   .head{

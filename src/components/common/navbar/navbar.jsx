@@ -14,7 +14,7 @@ export default function Navbar({ historiesRef, majorWorkRef, onMenu }) {
       majorWorkRef.current.scrollIntoView({ behavior: "smooth" });
   };
   const contract = () => {
-    onMenu();
+    onMenu && onMenu();
     navigate("/enquire", { replace: true });
   };
   return (

@@ -50,7 +50,16 @@
   margin: 0 auto 50px;
   border-top: 5px solid black;
 }
-
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .nav{
+    width: 70%;
+  }
+}
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+ 
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .nav{

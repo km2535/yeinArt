@@ -48,6 +48,7 @@
 }
 .mainTitle{
   width: 95%;
+  font-family: var(--font-basic);
   margin: 0 auto;
   white-space: nowrap;
   overflow: hidden;
@@ -55,8 +56,6 @@
   display: flex;
   align-items: baseline;
   z-index: 3;
- 
-
 }
 .yein{
   color: #fff;
@@ -149,6 +148,57 @@
     opacity: 1;
   }
 }
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .nav{
+    width: 80%;
+  }
+  .palleraxImg{
+    background: center no-repeat;
+    background-size: cover;
+  }
+  .yein{
+    font-size: 150px;
+  }
+  .g{
+    font-size: 200px;
+  }
+  .mainSub{
+    font-size: 80px;
+  }
+}
+
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .yein{
+    font-size: 100px;
+  }
+  .g{
+    font-size: 150px;
+  }
+  .mainSub{
+    font-size: 60px;
+  }
+  .subTitle{
+    width: 95%;
+  }
+  .describe{
+    width: 100%;
+    font-size: 16px;
+  }
+  .palleraxImg{
+    min-height: 50vh;
+    height: 50vh;
+    background: center;
+  }
+  .background::before{
+    height: 50vh;
+  }
+  .nav{
+    top:28vh
+  }
+}
+
 
 
 /* 모바일 버전 */
