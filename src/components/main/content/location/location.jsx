@@ -6,7 +6,10 @@ export default function Location() {
     let container = document.getElementById("map");
 
     let options = {
-      center: new window.kakao.maps.LatLng(37.5944725333435, 127.012706037821),
+      center: new window.kakao.maps.LatLng(
+        37.597414142094905,
+        127.01305621352618
+      ),
       level: 5,
     };
 
