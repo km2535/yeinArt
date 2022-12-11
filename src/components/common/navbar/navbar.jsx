@@ -1,48 +1,35 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./navbar.module.css";
 export default function Navbar({ historiesRef, majorWorkRef, onMenu }) {
   const navigate = useNavigate();
-  const historyView = () => {
-    navigate("/#companyIntro", { replace: true });
-    if (historiesRef)
-      historiesRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  const majorWorkView = () => {
-    navigate("/#majorWork", { replace: true });
-    if (majorWorkRef)
-      majorWorkRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-  const contract = () => {
+  const clickHandler = (e) => {
     onMenu && onMenu();
-    navigate("/enquire", { replace: true });
+    switch (e.target.innerHTML) {
+      case "홈":
+        navigate("/", { replace: true });
+        break;
+      case "운송의뢰·문의":
+        navigate("/enquire", { replace: true });
+        break;
+      case "갤러리":
+        navigate("/gallery", { replace: true });
+        break;
+      default:
+        break;
+    }
   };
   return (
     <>
       <ul className={styles.ul}>
-        <li className={styles.li} onClick={historyView}>
-          회사소개
+        <li className={styles.li} onClick={clickHandler}>
+          홈
         </li>
-
-        <li className={styles.li} onClick={majorWorkView}>
-          주요업무
-        </li>
-
-        <li className={styles.li} onClick={contract}>
+        <li className={styles.li} onClick={clickHandler}>
           운송의뢰·문의
         </li>
-        <li className={styles.community} id="community">
-          <span>커뮤니티</span>
-          <div className={styles.submenu}>
-            <div className={styles.board}>
-              <Link to="/notice" onClick={onMenu}>
-                공지사항
-              </Link>
-            </div>
-            <div className={styles.gallery} onClick={onMenu}>
-              <Link to="/gallery">갤러리</Link>
-            </div>
-          </div>
+        <li className={styles.community} onClick={clickHandler}>
+          갤러리
         </li>
       </ul>
     </>

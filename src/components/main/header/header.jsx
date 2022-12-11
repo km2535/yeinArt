@@ -1,6 +1,6 @@
 import React from "react";
 import Reqbtn from "../../common/btns/reqbtn/reqbtn";
-import Navbar from "../../common/navbar/navbar";
+import NewNavbar from "../../common/navbar/newNavbar";
 import Head from "./head/head";
 import styles from "./header.module.css";
 
@@ -54,7 +54,22 @@ export default function Header({
         <Reqbtn />
       </div>
       <div className={styles.nav}>
-        <Navbar historiesRef={historiesRef} majorWorkRef={majorWorkRef} />
+        <NewNavbar
+          navigationTo={[
+            {
+              name: "회사소개",
+              to: "/#companyIntro",
+              ref: historiesRef,
+            },
+            {
+              name: "주요업무",
+              to: "/#majorWork",
+              ref: majorWorkRef,
+            },
+            { name: "운송의뢰·문의", to: "/enquire" },
+            { name: "갤러리", to: "/gallery" },
+          ]}
+        />
       </div>
     </div>
   );

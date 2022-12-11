@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import Navbar from "../../components/common/navbar/navbar";
+import NewNavbar from "../../components/common/navbar/newNavbar";
 import { useAuthContext } from "../../components/context/AuthContext";
 import Footer from "../../components/main/footer/footer";
 import Head from "../../components/main/header/head/head";
@@ -55,7 +55,20 @@ export default function Gallery() {
             </span>
           </div>
           <div className={styles.nav}>
-            <Navbar />
+            <NewNavbar
+              navigationTo={[
+                {
+                  name: "회사소개",
+                  to: "/#companyIntro",
+                },
+                {
+                  name: "주요업무",
+                  to: "/#majorWork",
+                },
+                { name: "운송의뢰·문의", to: "/enquire" },
+                { name: "갤러리", to: "/gallery" },
+              ]}
+            />
           </div>
         </div>
         <div className={styles.content}>
