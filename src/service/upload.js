@@ -1,8 +1,7 @@
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import imageCompression from "browser-image-compression";
-import { dbNotice, writeImage } from "./database";
+import { writeEnquire, writeImage } from "./database";
 import { v4 as uuidv4 } from "uuid";
-import moment from "moment/moment";
 
 export const upload = async (file, title, uid) => {
   const id = uid || uuidv4();
@@ -48,44 +47,38 @@ const resizeFile = async (storageRef, img, title, id, date) => {
   });
 };
 
-export const uploadNotice = async (file, title, content, num, uid) => {
-  const id = uid || uuidv4();
+export const enquireUpload = async (file, products) => {
+  const id = uuidv4();
   const storage = getStorage();
-  resizeAndUpload(file, title, content, num, id, storage);
-};
-
-const resizeAndUpload = async (file, title, content, num, id, storage) => {
   const options = {
     maxSizeMB: 0.2,
     maxWidthOrHeight: 800,
     useWebWorker: true,
   };
-  const urls = [];
-  const now = moment().format("YY-MM-DD HH:mm:ss");
+  const imgUrls = [];
+  const fileUrls = [];
   if (file.length === 0) {
-    console.log("들어옴");
-    dbNotice(id, title, now, content, num, urls, 0);
-  } else {
-    file.map((file) =>
-      file.loader === "file1"
-        ? imageCompression(file.file, options).then((v) => {
-            uploadBytes(
-              ref(storage, `notice/${id}/image/${file.file.name}`),
-              v
-            ).then((snapshot) => {
-              getDownloadURL(snapshot.ref)
-                .then((imgUrl) => urls.unshift({ imgUrl: imgUrl }))
-                .then(() => dbNotice(id, title, file.date, content, num, urls));
-            });
-          })
-        : uploadBytes(
-            ref(storage, `notice/${id}/file/${file.file.name}`),
-            file.file
-          ).then((snapshot) => {
-            getDownloadURL(snapshot.ref)
-              .then((fileUrl) => urls.push({ fileUrl: fileUrl }))
-              .then(() => dbNotice(id, title, file.date, content, num, urls));
-          })
-    );
+    writeEnquire(id, imgUrls, fileUrls, products);
   }
+  file.map((file) =>
+    file.type.includes("image")
+      ? imageCompression(file, options).then((v) => {
+          uploadBytes(ref(storage, `enquire/${id}/image/${file.name}`), v).then(
+            (snapshot) => {
+              getDownloadURL(snapshot.ref)
+                .then((imgUrl) => imgUrls.push({ imgUrl: imgUrl }))
+                .then(() => writeEnquire(id, imgUrls, fileUrls, products));
+            }
+          );
+        })
+      : uploadBytes(ref(storage, `enquire/${id}/file/${file.name}`), file).then(
+          (snapshot) => {
+            getDownloadURL(snapshot.ref)
+              .then((fileUrl) =>
+                fileUrls.push({ fileUrl: [file.name, fileUrl] })
+              )
+              .then(() => writeEnquire(id, imgUrls, fileUrls, products));
+          }
+        )
+  );
 };

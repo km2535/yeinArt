@@ -77,4 +77,13 @@
 .content,.search,.searchBtn{
   height: 40px;
 }
+.content{
+  width: 100%;
+}
+.input{
+  width: 50%;
+}
+.searchBtn{
+  width: 20%;
+}
 }

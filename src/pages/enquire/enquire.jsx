@@ -18,12 +18,7 @@ export default function Enquire() {
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/contract.png")' });
     const session = window.sessionStorage.getItem("allEnquire");
-    if (fbuser !== null || kauser !== undefined) {
-      setIsLoading(true);
-      readData("enquire", "allEnquire")
-        .then((v) => setTotalData(v))
-        .then(() => setIsLoading(false));
-    } else if (JSON.parse(session) !== null) {
+    if (JSON.parse(session) !== null) {
       setTotalData(JSON.parse(session));
     } else if (JSON.parse(session) === null) {
       setIsLoading(true);
@@ -66,7 +61,16 @@ export default function Enquire() {
         </div>
       </div>
       <AddEnquire />
-      <Outlet context={{ totalData, kauser, fbuser, isLoading }} />
+      <Outlet
+        context={{
+          totalData,
+          kauser,
+          fbuser,
+          isLoading,
+          setIsLoading,
+          setTotalData,
+        }}
+      />
       <div>
         <Footer />
       </div>

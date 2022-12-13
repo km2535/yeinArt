@@ -5,18 +5,80 @@ import Loading from "../../../components/common/loading/loading";
 import Pagination from "../../../components/common/pagination/pagination";
 import Search from "../../../components/common/search/search";
 import styles from "./enquireList.module.css";
+import crypto from "crypto-js";
+import { useAuthContext } from "../../../components/context/AuthContext";
+import { v4 as uuidv4 } from "uuid";
 
 export default function EnquireList() {
-  const { totalData, kauser, fbuser, isLoading } = useOutletContext();
+  const { fbuser } = useAuthContext();
+  const { totalData, isLoading } = useOutletContext();
   const [pageData, setPageDate] = useState([]);
+  const [isModal, setIsModal] = useState(false);
+  const [inputPassword, setInputPassword] = useState("");
+  const [originPassword, setOriginPassword] = useState("");
+  const [id, setId] = useState("");
+  const [value, setValue] = useState("");
+  const [alerts, setAlerts] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
     const firstData = totalData.slice(0, 10);
     setPageDate(firstData);
   }, [totalData]);
-  //console.log(pageData);
+
+  const detailCheckHandler = (id, v) => {
+    setIsModal(true);
+    setOriginPassword(
+      crypto.AES.decrypt(v.value.password, "abcd").toString(crypto.enc.Utf8)
+    );
+    setId(id);
+    setValue(v);
+    if (fbuser?.isAdmin === true) {
+      navigate(`/enquire/${id}`, { state: v });
+    }
+  };
+
+  const passwordHandler = (e) => {
+    setInputPassword(e.target.value);
+  };
+  const passwordCheck = () => {
+    if (inputPassword !== originPassword) {
+      setAlerts(true);
+      navigate("/enquire");
+    } else {
+      console.log("환영합니다.");
+      navigate(`/enquire/${id}`, { state: value });
+      setIsModal(false);
+    }
+  };
+  const cancleHandler = () => {
+    setAlerts(false);
+    setIsModal(false);
+    navigate("/enquire");
+  };
   return (
     <>
+      {isModal && (
+        <div className={styles.modalContainer}>
+          <div className={styles.isModal}>
+            <div className={styles.passwordTitle}>비밀번호를 입력하세요</div>
+            {alerts && <div>비밀번호가 일치하지 않습니다.</div>}
+            <input
+              type="password"
+              onChange={passwordHandler}
+              className={styles.passwordInput}
+            />
+            <div className={styles.passwordBtns}>
+              <button onClick={passwordCheck} className={styles.passwordBtn}>
+                확인
+              </button>
+              <button onClick={cancleHandler} className={styles.passwordBtn}>
+                취소
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       <div className={styles.container}>
         {isLoading && <Loading />}
         <table className={styles.table}>
@@ -34,8 +96,9 @@ export default function EnquireList() {
                 <td
                   className={styles.title}
                   id={v.id}
+                  key={uuidv4()}
                   onClick={() => {
-                    navigate(`/enquire/${v.id}`, { state: v });
+                    detailCheckHandler(v.id, v);
                   }}
                 >
                   {v.value.title}
@@ -50,7 +113,7 @@ export default function EnquireList() {
             ))}
           </tbody>
           <tfoot className={styles.tfoot}>
-            <tr className={styles.search} style={{ height: "55px" }}>
+            <tr className={styles.search}>
               <td colSpan={5}>
                 <Search totalData={totalData} setPageDate={setPageDate} />
               </td>
@@ -61,13 +124,9 @@ export default function EnquireList() {
             </tr>
             <tr className={styles.editBtn}>
               <td colSpan={5}>
-                {(fbuser || kauser) && (
-                  <>
-                    <div className={styles.enquireBtn}>
-                      <EnquireBtn />
-                    </div>
-                  </>
-                )}
+                <div className={styles.enquireBtn}>
+                  <EnquireBtn />
+                </div>
               </td>
               <td></td>
               <td></td>

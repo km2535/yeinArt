@@ -11,7 +11,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import db from "./firebase";
-import { v4 as uuidv4 } from "uuid";
 import moment from "moment/moment";
 
 export const writeImage = async (id, title, url, date) => {
@@ -109,22 +108,20 @@ export const readProduct = async (collectionName, sessionName) => {
   return data;
 };
 
-export const writeEnquire = async (product) => {
-  const id = uuidv4();
+export const writeEnquire = async (id, imgUrls, fileUrls, product) => {
   const now = moment().format("YY-MM-DD HH:mm:ss");
   await setDoc(doc(db, "enquire", id), {
     date: now,
-    workdate: product[0].workdate,
-    title: product[0].title,
-    content: product[0].content,
-    userEmail: product[0].userEmail,
-    userName: product[0].userName,
-    departAddress: product[0].departAddress,
-    arrivalAddress: product[0].arrivalAddress,
-    distanceTo: product[0].distanceTo,
-    durationTo: product[0].durationTo,
-    datas: product[0].datas,
-    totalPrice: product[0].totalPrice,
+    workdate: product.workdate,
+    title: product.title,
+    content: product.content,
+    userEmail: product.userEmail,
+    userName: product.userName,
+    departAddress: product.departAddress,
+    arrivalAddress: product.arrivalAddress,
+    password: product.password,
+    imgUrls,
+    fileUrls,
   });
 };
 export const deleteEnquire = async (id) => {
@@ -132,14 +129,13 @@ export const deleteEnquire = async (id) => {
     date: deleteField(),
     workdate: deleteField(),
     title: deleteField(),
-    urls: deleteField(),
     content: deleteField(),
     userEmail: deleteField(),
+    userName: deleteField(),
     departAddress: deleteField(),
     arrivalAddress: deleteField(),
-    distanceTo: deleteField(),
-    durationTo: deleteField(),
-    datas: deleteField(),
-    totalPrice: deleteField(),
+    password: deleteField(),
+    imgUrls: deleteField(),
+    fileUrls: deleteField(),
   }).then(() => deleteDoc(doc(db, "enquire", id)));
 };

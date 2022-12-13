@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./addEnquire.module.css";
 import { useEnquireContext } from "../../../components/context/EnquireContext";
 import DatePicker from "react-datepicker";
@@ -6,58 +6,55 @@ import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/esm/locale";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
-import { faClose, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlassLocation } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../../components/context/AuthContext";
-import { calDistance, kakaoPostcode } from "../../../service/address";
-import EnquireProduct from "./enquireProduct";
-import { v4 as uuidv4 } from "uuid";
+import { kakaoPostcode } from "../../../service/address";
 import { useNavigate } from "react-router-dom";
-import { writeEnquire } from "../../../service/database";
-import emailjs from "@emailjs/browser";
+import moment from "moment";
+import crypto from "crypto-js";
+import EmailLoading from "../../../components/common/emailLoading/emailLoading";
+import { useRef } from "react";
+import { enquireUpload } from "../../../service/upload";
 
 export default function AddEnquire() {
+  const valueRef = useRef([]);
   const { enquire, setEnquire } = useEnquireContext();
   const { kauser, fbuser } = useAuthContext();
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [addressDepart, setAddressDepart] = useState("");
   const [addressArr, setAddressArr] = useState("");
-  const [distance, setDistance] = useState("");
-  const [addProduct, setAddProduct] = useState([uuidv4()]);
   const [startDate, setStartDate] = useState(new Date());
-  const [totalPrice, setTotalPrice] = useState([]);
   const [title, setTitle] = useState("");
+  const [password, setPassword] = useState("");
   const [content, setContent] = useState("");
-  const [products, setProducts] = useState([]);
-  const [isBtn, setIsBtn] = useState(true);
-  const form = useRef();
+  const [file, setFile] = useState([]);
+  const [products, setProducts] = useState({
+    workdate: "",
+    title: "",
+    content: "",
+    userEmail: "",
+    userName: "",
+    departAddress: "",
+    arrivalAddress: "",
+    password: "",
+  });
+  const [isBtn, setIsBtn] = useState(false);
   const closeHandelre = () => {
     setEnquire(false);
   };
   const navigate = useNavigate();
+
+  const arrivalAddress = addressArr.addr || "";
+  const departAddress = addressDepart.addr || "";
+  const inputLength = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   useEffect(() => {
-    if (enquire === true && kauser === undefined && fbuser === null) {
-      alert("로그인 후 이용해주세요");
-      setEnquire(false);
-      navigate("/login");
-    }
     fbuser && setUserName(fbuser.displayName);
     kauser && setUserName(kauser.properties.nickname);
     fbuser && setUserEmail(fbuser.email);
     kauser && setUserEmail(kauser.kakao_account.email);
-    addressDepart &&
-      addressArr &&
-      calDistance(addressDepart.coords, addressArr.coords, setDistance);
-  }, [
-    fbuser,
-    kauser,
-    addressDepart,
-    addressArr,
-    navigate,
-    enquire,
-    setEnquire,
-  ]);
+  }, [fbuser, kauser, navigate, enquire, setEnquire]);
 
   const departHandle = () => {
     kakaoPostcode(setAddressDepart);
@@ -65,93 +62,61 @@ export default function AddEnquire() {
   const arrHandle = () => {
     kakaoPostcode(setAddressArr);
   };
-  const addProductHandler = () => {
-    setAddProduct((prev) => [...prev, uuidv4()]);
-  };
   const textHandler = (e) => {
     const { id, value } = e.target;
     id === "title" && setTitle(value);
+    id === "userName" && setUserName(value);
     id === "textarea" && setContent(value);
+    id === "password" && setPassword(value);
   };
+  useEffect(() => {
+    const date = moment(startDate).format("YYYY년MM월DD일");
+    setProducts({
+      workdate: date,
+      title,
+      content,
+      userEmail,
+      userName,
+      departAddress,
+      arrivalAddress,
+      password: crypto.AES.encrypt(password, "abcd").toString(),
+    });
+  }, [
+    startDate,
+    title,
+    content,
+    userEmail,
+    userName,
+    departAddress,
+    arrivalAddress,
+    password,
+  ]);
   const uploadHandler = async (e) => {
     e.preventDefault();
     //문의하기 올리기
-    const datepicker = document.getElementById("datepicker");
-    const productInfo = document.querySelectorAll(".productInfo");
-    const count = document.querySelectorAll(".count");
-    const weight = document.querySelectorAll(".weight");
-    const price = document.querySelectorAll(".price");
-    const date = datepicker.value || "";
-    const arrivalAddress = addressArr.addr || "";
-    const departAddress = addressDepart.addr || "";
-    const distanceTo = distance && distance.distance;
-    const durationTo = distance && distance.duration;
-    const datas = [];
-    productInfo.forEach(
-      (v) =>
-        datas.push({
-          productInfo: v.options[v.options.selectedIndex].innerHTML,
-        })
-      //console.log(v.options[v.options.selectedIndex].innerHTML)
-    );
-    count.forEach((v, i) => (datas[i].count = v.value));
-    weight.forEach(
-      (v, i) => (datas[i].weight = v.options[v.options.selectedIndex].innerHTML)
-    );
-    price.forEach((v, i) => (datas[i].price = v.value));
-
-    setProducts(() => [
-      {
-        workdate: date,
-        title,
-        content,
-        userEmail,
-        userName,
-        departAddress,
-        arrivalAddress,
-        distanceTo,
-        durationTo,
-        datas,
-        totalPrice,
-      },
-    ]);
-    //이메일 보내기
+    let delay = file.length * 1000 + 500;
+    setIsBtn(true);
+    enquireUpload(file, products).finally(() => {
+      window.sessionStorage.removeItem("allEnquire");
+      setTimeout(() => {
+        setEnquire(false);
+        setIsBtn(false);
+        navigate("/enquire");
+      }, delay);
+    });
   };
-  useEffect(() => {
-    if (enquire && products.length !== 0) {
-      setIsBtn(false);
-      emailjs
-        .sendForm(
-          "service_za8zoeg",
-          "template_c9cdzlr",
-          form.current,
-          "zz2biNpfYwsfyRgAw"
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        )
-        .then(() => {
-          writeEnquire(products)
-            .then(() => {
-              setEnquire(false);
-              navigate("/enquire");
-            })
-            .finally(() => {
-              setIsBtn(true);
-            });
-        });
-    }
-  }, [products, navigate, setEnquire, enquire]);
+  const fileHandler = (e) => {
+    const { name, files } = e.target;
+    valueRef.current.forEach((v) =>
+      name === v.name ? (v.value = files[0]?.name) : ""
+    );
+    setFile((prev) => [...prev.filter((v) => v.loader !== name), files[0]]);
+  };
   return (
     <>
       {enquire && (
         <div className={styles.container}>
-          <form className={styles.form} onSubmit={uploadHandler} ref={form}>
+          <form className={styles.form} onSubmit={uploadHandler}>
             <div className={styles.content}>
               <div className={styles.close}>
                 <FontAwesomeIcon icon={faClose} onClick={closeHandelre} />
@@ -168,19 +133,43 @@ export default function AddEnquire() {
                     onChange={(date) => setStartDate(date)}
                   />
                 </div>
-                <label htmlFor="datepicker" className={styles.awsomeIcon}>
-                  <FontAwesomeIcon icon={faCalendarDays} />
-                </label>
+                <div className={styles.awsomeIcon}>
+                  <label htmlFor="datepicker">
+                    <FontAwesomeIcon icon={faCalendarDays} />
+                  </label>
+                </div>
               </div>
               <div className={styles.user}>
                 <div className={styles.name}>의뢰인</div>
-                <div className={styles.userEmail}>{userName} 님</div>
+                <div className={styles.userName}>
+                  <input
+                    type={"text"}
+                    required
+                    value={userName}
+                    placeholder="홍길동"
+                    onChange={textHandler}
+                    id="userName"
+                  />
+                  님
+                </div>
                 <input
                   type="text"
                   hidden
                   onChange={textHandler}
-                  value={userEmail}
+                  value={userName}
                   name="name"
+                />
+              </div>
+              <div className={styles.password}>
+                <div className={styles.passwordTitle}>비밀번호</div>
+                <input
+                  type="password"
+                  onChange={textHandler}
+                  name="password"
+                  id="password"
+                  className={styles.titleInput}
+                  placeholder="게시글 비밀번호를 입력하세요"
+                  required
                 />
               </div>
               <div className={styles.title}>
@@ -196,7 +185,7 @@ export default function AddEnquire() {
                 />
               </div>
               <div className={styles.enquireContent}>
-                <div className={styles.name}>내용</div>
+                <div className={styles.name}>작업내용</div>
                 <textarea
                   type="text"
                   id="textarea"
@@ -206,6 +195,29 @@ export default function AddEnquire() {
                   required
                   onChange={textHandler}
                 />
+              </div>
+              <div className={styles.name}>이미지 / 파일 첨부</div>
+              <div className={styles.fileInputs}>
+                {inputLength.map((v) => (
+                  <div className={styles.input} key={v}>
+                    <input
+                      type="text"
+                      disabled
+                      name={`file${v}`}
+                      className={styles.inputFile}
+                      ref={(el) => (valueRef.current[v - 1] = el)}
+                    />
+                    <input
+                      onChange={fileHandler}
+                      type="file"
+                      accept="*"
+                      style={{ display: "none" }}
+                      name={`file${v}`}
+                      id={`file${v}`}
+                    />
+                    <label htmlFor={`file${v}`}>+</label>
+                  </div>
+                ))}
               </div>
               <div className={styles.board}>아래는 선택사항입니다.</div>
               <div className={styles.departure}>
@@ -249,45 +261,12 @@ export default function AddEnquire() {
                   />
                 </label>
               </div>
-              <div className={styles.distance}>
-                <div className={styles.name}>총 거리 / 이동시간</div>
-                <input
-                  type="text"
-                  placeholder="출발지와 도착지를 먼저 입력하세요"
-                  value={
-                    distance && distance.distance + " / " + distance.duration
-                  }
-                  disabled
-                />
-              </div>
-              <div className={styles.name}>
-                제품 정보
-                <span className={styles.info}>
-                  (가격이 안보이는 경우 다시 선택해주세요)
-                </span>
-              </div>
-              {addProduct.map((id) => (
-                <EnquireProduct
-                  key={id}
-                  setTotalPrice={setTotalPrice}
-                  addProduct={addProduct}
-                  setAddProduct={setAddProduct}
-                  id={id}
-                />
-              ))}
-
-              <div onClick={addProductHandler} className={styles.plus}>
-                <FontAwesomeIcon icon={faPlusCircle} />
-              </div>
-
-              <div className={styles.totalInfo}>
-                예상비용
-                <input type="text" disabled value={totalPrice + " + a"} />원
-                입니다.
-              </div>
-              <div className={styles.summation}></div>
               <div className={styles.btnContainer}>
-                {isBtn && (
+                {isBtn ? (
+                  <div className={styles.loadingContainer}>
+                    <EmailLoading />
+                  </div>
+                ) : (
                   <button type="submit" className={styles.uploadBtn}>
                     문의하기
                   </button>

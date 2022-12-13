@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export function kakaoPostcode(address) {
   new window.daum.Postcode({
     oncomplete: function (data) {
@@ -27,20 +25,20 @@ export function kakaoPostcode(address) {
   }).open();
 }
 
-export const calDistance = async (arr, dest, setDistance) => {
-  const gooleMapAPI = process.env.REACT_APP_GOOGLE_MAP_KEY;
-  const config = {
-    method: "get",
-    url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&mode=transit&origins=${arr}&destinations=${dest}&region=KR&key=${gooleMapAPI}`,
-  };
-  await axios(config)
-    .then(function (response) {
-      return response.data.rows[0].elements[0];
-    })
-    .then((v) =>
-      setDistance({ distance: v.distance.text, duration: v.duration.text })
-    )
-    .catch(function (error) {
-      console.log(error);
-    });
-};
+// export const calDistance = async (arr, dest, setDistance) => {
+//   const gooleMapAPI = process.env.REACT_APP_GOOGLE_MAP_KEY;
+//   const config = {
+//     method: "get",
+//     url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&mode=transit&origins=${arr}&destinations=${dest}&region=KR&key=${gooleMapAPI}`,
+//   };
+//   await axios(config)
+//     .then(function (response) {
+//       return response.data.rows[0].elements[0];
+//     })
+//     .then((v) =>
+//       setDistance({ distance: v.distance.text, duration: v.duration.text })
+//     )
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// };

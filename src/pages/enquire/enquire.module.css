@@ -55,10 +55,17 @@
   .nav{
     width: 70%;
   }
+  .mainTxt{
+    font-size: 40px;
+  }
+  
 }
 /* 테블릿 세로 버전 */
 @media screen and (max-width:1024px){
- 
+  .mainTxt{
+    font-size: 35px;
+  }
+  
 }
 /* 모바일 버전 */
 @media screen and (max-width:768px){

@@ -28,7 +28,7 @@ export default function Navbar({ historiesRef, majorWorkRef, onMenu }) {
         <li className={styles.li} onClick={clickHandler}>
           운송의뢰·문의
         </li>
-        <li className={styles.community} onClick={clickHandler}>
+        <li className={styles.li} onClick={clickHandler}>
           갤러리
         </li>
       </ul>

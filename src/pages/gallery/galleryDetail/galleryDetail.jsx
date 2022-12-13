@@ -68,6 +68,9 @@ export default function GalleryDetail() {
   const mainSettings = {
     centerMode: true,
     centerPadding: "-5px",
+    speed: 1500,
+    autoplay: true,
+    autoplaySpeed: 2500,
     slidesToShow: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,

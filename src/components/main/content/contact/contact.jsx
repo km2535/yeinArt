@@ -86,7 +86,9 @@ export default function Contact() {
               ) : (
                 <div
                   className={styles.kakao}
-                  style={{ backgroundImage: 'url("./images/kakao.png")' }}
+                  style={{
+                    backgroundImage: 'url("./images/kakaoChannelWithe.png")',
+                  }}
                   id="kakao-linkbtn"
                   onClick={sendingMessage}
                 ></div>

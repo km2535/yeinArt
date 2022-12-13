@@ -3,7 +3,6 @@
   z-index: 6;
 }
 .content{
-  width: 100%;
   height: 80%;
   background-color: #fff;
   padding: 30px;
@@ -39,7 +38,7 @@
   transition: color .1s;
 }
 .user, .departure, .arrival, 
-.distance, .title, .enquireContent{
+.title, .enquireContent{
   display: flex;
   height: 37px;
   align-items: center;
@@ -51,8 +50,8 @@
 .titleContent, 
 .contContent, 
 .totalInfoContent,
-.workdateContent,
-.distAndDura{
+.workdateContent
+{
   font-family: var(--font-sub);
   padding: 5px 10px;
   font-size: 20px;
@@ -61,20 +60,6 @@
   border: none;
   background-color:#f0f0f0;
   color: #000;
-}
-.totalInfo{
-  width: 100%;
-  font-size: 24px;
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-.totalInfoContent{
-  text-align: center;
-  width: 30%;
-  font-size: 30px;
-  margin: 0 20px;
-  color: #f00;
 }
 .enquireContent{
   height: 85px;
@@ -96,35 +81,51 @@
 .titleContent,.contContent{
   font-size: 18px;
 }
-.productsInfo{
-  display: flex;
-  margin-bottom: 10px;
-  margin-left: 20%;
-  align-items: center;
-}
 
-.productInfo,
-.count, 
-.weight{
+.imgs{
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  justify-content: center;
+  margin: 20px auto;
+}
+.imgFiles{
+  width: 50%;
+  height: 50%;
+}.img{
+  width: 95%;
+  height: 95%;
+}
+.files{
+  width: 90%;
+  margin: 0 auto;
+}
+.file{
+  list-style: none;
+  width: 20%;
   font-family: var(--font-sub);
-  padding: 5px 10px;
   font-size: 20px;
   font-weight: 700;
-  width: 10%;
-  background-color:#D9D9D9;
   text-align: center;
-  color: #000;
+  line-height: 37px;
+  padding: 0;
 }
-.productInfo{
-  width: 15%;
+
+
+
+
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+ .fileList{
+  font-size: 15px;
+ }
+ .file{
+  width: 25%;
+ }
 }
-.countName{
-  font-size: 22px;
-  font-family: var(--font-sub);
-  font-weight: 700;
-  width: 8%;
-  margin-right: 20px;
-  text-align: right;
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  
 }
 
 /* 모바일 버전 */
@@ -146,7 +147,7 @@
   width: 60%;
   font-size: 15px;
 }
-.distance .name{
+.name{
   width: 30%;
   font-size: 15px;
 }

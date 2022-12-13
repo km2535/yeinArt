@@ -1,46 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../../components/context/AuthContext";
+import React from "react";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import styles from "./enquireDetail.module.css";
-import { v4 as uuidv4 } from "uuid";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
-import { deleteEnquire } from "../../../service/database";
+import { deleteEnquire, readData } from "../../../service/database";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
+import EmailLoading from "../../../components/common/emailLoading/emailLoading";
+
 export default function EnquireDetail() {
-  const { fbuser, kauser } = useAuthContext();
-  const [currentUser, setCurrentUser] = useState();
-  const [isAdmin, setIsAdmin] = useState(false);
-  const {
-    state: { id, value },
-  } = useLocation();
+  const { setTotalData, setIsLoading } = useOutletContext();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (fbuser === null && kauser === undefined) {
-      alert("로그인 후 이용해주세요");
-      navigate("/login");
-    } else if (fbuser?.isAdmin === true) {
-      setIsAdmin(true);
-    } else if (
-      fbuser?.email !== value.userEmail &&
-      (kauser !== undefined && kauser.kakao_account?.email) !== value.userEmail
-    ) {
-      alert("본인의 게시물만 확인이 가능합니다.");
-      navigate("/enquire");
-    }
-  }, [fbuser, kauser, navigate, value.userEmail]);
-
-  useEffect(() => {
-    if (fbuser) {
-      setCurrentUser(fbuser.email);
-    }
-    if (kauser) {
-      setCurrentUser(kauser.kakao_account.email);
-    }
-  }, [fbuser, kauser]);
+  const [isBtn, setIsBtn] = useState(false);
+  const {
+    state: {
+      id,
+      value: {
+        title,
+        workdate,
+        userName,
+        content,
+        arrivalAddress,
+        departAddress,
+        fileUrls,
+        imgUrls,
+      },
+    },
+  } = useLocation();
   const deleteHandler = () => {
-    deleteEnquire(id).then(() => {
-      window.location.replace("/");
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      setIsBtn(true);
+      deleteEnquire(id).finally(() => {
+        setTimeout(() => {
+          setIsBtn(false);
+          navigate("/enquire");
+          readData("enquire", "allEnquire")
+            .then((v) => setTotalData(v))
+            .finally(() => setIsLoading(false));
+        }, 1500);
+      });
+    }
   };
   return (
     <>
@@ -48,54 +46,60 @@ export default function EnquireDetail() {
         <div className={styles.content}>
           <div className={styles.title}>
             <div className={styles.name}>제목</div>
-            <div className={styles.titleContent}>{value.title}</div>
+            <div className={styles.titleContent}>{title}</div>
           </div>
           <div className={styles.date}>
             <div className={styles.name}>작업요청일</div>
-            <div className={styles.workdateContent}>{value.workdate}</div>
+            <div className={styles.workdateContent}>{workdate}</div>
           </div>
           <div className={styles.user}>
             <div className={styles.name}>의뢰인</div>
-            <div className={styles.userEmail}>{value.userName}</div>
+            <div className={styles.userEmail}>{userName}</div>
           </div>
           <div className={styles.enquireContent}>
-            <div className={styles.name}>내용</div>
-            <div className={styles.contContent}>{value.content}</div>
+            <div className={styles.name}>작업내용</div>
+            <div className={styles.contContent}>{content}</div>
           </div>
           <div className={styles.departure}>
             <div className={styles.name}>출발지</div>
-            <div className={styles.arrAddrContent}>{value.arrivalAddress}</div>
+            <div className={styles.arrAddrContent}>{arrivalAddress}</div>
           </div>
           <div className={styles.arrival}>
             <div className={styles.name}>도착지</div>
-            <div className={styles.depAddrContent}>{value.departAddress}</div>
+            <div className={styles.depAddrContent}>{departAddress}</div>
           </div>
-          <div className={styles.distance}>
-            <div className={styles.name}>총 거리 / 이동시간</div>
-            <div className={styles.distAndDura}>
-              {value.distanceTo} / {value.durationTo}
-            </div>
+          <div className={styles.name}>이미지 목록</div>
+          <div className={styles.imgs}>
+            {imgUrls.map((v) => (
+              <div className={styles.imgFiles} key={uuidv4()}>
+                <a href={v.imgUrl} target="_blank" rel="noreferrer">
+                  <img className={styles.img} src={v.imgUrl} alt=""></img>
+                </a>
+              </div>
+            ))}
           </div>
-          <div className={styles.name}>제품 정보</div>
-          {value.datas.map((v) => (
-            <div className={styles.productsInfo} key={uuidv4()}>
-              <div className={styles.countName}>제품</div>
-              <div className={styles.productInfo}>{v.productInfo}</div>
-              <div className={styles.countName}>수량</div>
-              <div className={styles.count}>{v.count}</div>
-              <div className={styles.countName}>무게</div>
-              <div className={styles.weight}>{v.weight}</div>
-            </div>
-          ))}
-          <div className={styles.totalInfo}>
-            예상비용
-            <div className={styles.totalInfoContent}>
-              {value.totalPrice} + a
-            </div>
-            원 입니다.
+          <div className={styles.name}>파일 목록</div>
+          <div className={styles.files}>
+            <ul className={styles.file}>
+              {fileUrls?.map((v) => (
+                <li className={styles.fileList} key={uuidv4()}>
+                  <a
+                    href={v?.fileUrl[1]}
+                    target="_blank"
+                    rel="noreferrer"
+                    download
+                  >
+                    {v?.fileUrl[0]}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
+
           <div className={styles.deletBtn}>
-            {(currentUser === value.userEmail || isAdmin) && (
+            {isBtn ? (
+              <EmailLoading />
+            ) : (
               <MoveControl
                 doNotMove={true}
                 styleOption={[{ top: "0" }, { left: "80%" }]}

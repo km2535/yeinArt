@@ -30,6 +30,7 @@
 }
 .des{
   opacity: 0;
+  font-family: var( --font-sub);
 }
 .container:hover .des{
   opacity: 1;
@@ -82,16 +83,31 @@
   }
   .imgDetail{
     width: 400px;
-    height: 400px;
+    height: 500px;
     object-fit: fill;
     transition: filter 0.2s;
   }
-  .container{
-    height: 100%;
+  .imgDetail{
+    height: 360px;
+  }
+  .container:hover .imgDetail{
+    filter: none;
   }
   .container:hover .des{
     opacity: 1;
-    transform: translateY(-15rem);
+    transform: none;
+    text-align: center;
+    color: #000;
+    font-size: 20px;
+    font-family: var(--font-basic);
+    font-weight: 600;
+  }
+  .des{
+    opacity: 1;
+    font-size: 20px;
+    margin-top: 0;
+    font-family: var(--font-basic);
+    font-weight: 600;
   }
 }
 /* 모바일 버전 */
@@ -108,17 +124,14 @@
   .imgList{
     width: 50%;
     padding: 0;
-    height: 20vh;
+    height: 250px;
   }
   .imgDetail{
     width: 95%;
     margin-right: 5px;
-    height: 90%;
+    height: 80%;
   }
   .container{
     height: 100%;
-  }
-  .container:hover .des{
-    transform: translateY(-150px);
   }
 }
