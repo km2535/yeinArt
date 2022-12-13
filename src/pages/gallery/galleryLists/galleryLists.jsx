@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useOutletContext } from "react-router-dom";
 import styles from "./galleryLists.module.css";
 import Pagination from "../../../components/common/pagination/pagination";
 import MoveControl from "../../../components/common/btns/addContents/addContents";
 import Loading from "../../../components/common/loading/loading";
 import MbEditBtn from "../../../components/common/btns/mbEditBtn/mbEditBtn";
 
-export default function GalleryLists() {
-  const { totalData, fbuser, isLoading } = useOutletContext();
+export default function GalleryLists({ totalData, fbuser, isLoading }) {
   const [pageData, setPageDate] = useState([]);
 
   useEffect(() => {

@@ -6,6 +6,7 @@ import Footer from "../../components/main/footer/footer";
 import Head from "../../components/main/header/head/head";
 import { readData } from "../../service/database";
 import styles from "./gallery.module.css";
+import GalleryLists from "./galleryLists/galleryLists";
 
 export default function Gallery() {
   const { fbuser, kauser, firebaseLogout, sessionLogout } = useAuthContext();
@@ -82,6 +83,11 @@ export default function Gallery() {
         </div>
         <Outlet
           context={{ totalData, setTotalData, fbuser, isLoading, setIsLoading }}
+        />
+        <GalleryLists
+          totalData={totalData}
+          fbuser={fbuser}
+          isLoading={isLoading}
         />
         <div className={styles.footer}>
           <Footer />

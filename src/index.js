@@ -11,7 +11,6 @@ import "./service/firebase";
 import Gallery from "./pages/gallery/gallery";
 import Home from "./pages/home";
 import GalleryDetail from "./pages/gallery/galleryDetail/galleryDetail";
-import GalleryLists from "./pages/gallery/galleryLists/galleryLists";
 import AddGallery from "./pages/gallery/addGallery/addGallery";
 import Login from "./components/user/login/login";
 import Enquire from "./pages/enquire/enquire";
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
         path: "/gallery",
         element: <Gallery />,
         children: [
-          {
-            path: "/gallery",
-            element: <GalleryLists />,
-          },
           {
             path: "/gallery/addGallery",
             element: (

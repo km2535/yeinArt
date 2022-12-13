@@ -15,6 +15,7 @@ import styles from "./galleryDetail.module.css";
 
 export default function GalleryDetail() {
   const navigate = useNavigate();
+  const titleRef = useRef();
   const { fbuser, setTotalData, setIsLoading } = useOutletContext();
   const preventClose = (e) => {
     e.preventDefault();
@@ -52,8 +53,8 @@ export default function GalleryDetail() {
   let slide1 = useRef();
   let slide2 = useRef();
   useEffect(() => {
+    titleRef?.current.scrollIntoView(true);
     setSlide({ nav1: slide1, nav2: slide2 });
-    //const arr = Object.keys(value).filter((v) => "date" !== v && "title" !== v);
     const arr = [tumbnailUrl, subUrl1, subUrl2, subUrl3, subUrl4, subUrl5];
     setImg(arr.filter((v) => v !== ""));
   }, [tumbnailUrl, subUrl1, subUrl2, subUrl3, subUrl4, subUrl5]);
@@ -95,7 +96,9 @@ export default function GalleryDetail() {
   return (
     <>
       <div className="galleryDetail">
-        <h1 className="galleryTitle">{title}</h1>
+        <h1 className="galleryTitle" ref={titleRef}>
+          {title}
+        </h1>
         <Slider
           asNavFor={slide.nav2}
           ref={(slider) => (slide1 = slider)}
@@ -122,8 +125,8 @@ export default function GalleryDetail() {
           </Slider>
         </div>
       </div>
-      <div className={styles.deskTopBtn}>
-        {fbuser && fbuser.isAdmin && (
+      {fbuser && fbuser.isAdmin && (
+        <div className={styles.deskTopBtn}>
           <div className={styles.deskTopBtn}>
             <MoveControl
               imgId={id}
@@ -139,10 +142,10 @@ export default function GalleryDetail() {
               deleteHandler={deleteHandler}
             />
           </div>
-        )}
-      </div>
-      <div className={styles.mobileBtn}>
-        {fbuser && fbuser.isAdmin && (
+        </div>
+      )}
+      {fbuser && fbuser.isAdmin && (
+        <div className={styles.mobileBtn}>
           <div className={styles.mobileBtn}>
             <MoveControl
               imgId={id}
@@ -158,8 +161,8 @@ export default function GalleryDetail() {
               deleteHandler={deleteHandler}
             />
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

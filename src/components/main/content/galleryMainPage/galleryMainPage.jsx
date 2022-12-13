@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Slider from "react-slick";
 import { firstRead } from "../../../../service/database";
 import Loading from "../../../common/loading/loading";
 import styles from "./galleryMainPage.module.css";
@@ -20,6 +21,16 @@ export default function GalleryMainPage() {
       });
     }
   }, []);
+  const mainSettings = {
+    centerMode: true,
+    centerPadding: "-5px",
+    speed: 1500,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    slidesToShow: 1,
+    nextArrow: <ArrowNone />,
+    prevArrow: <ArrowNone />,
+  };
 
   return (
     <>
@@ -31,7 +42,6 @@ export default function GalleryMainPage() {
               className={styles.container}
               onClick={() => {
                 const { id, value } = data;
-                console.log(id);
                 navigate(`/gallery/${id}`, { state: { id, value } });
               }}
             >
@@ -44,6 +54,26 @@ export default function GalleryMainPage() {
             </div>
           </div>
         ))}
+      <div className={styles.mbImgs}>
+        <Slider {...mainSettings}>
+          {pageData.map((data) => (
+            <div key={data.id} className={styles.mbImgDiv}>
+              <img
+                src={data.value.tumbnailUrl}
+                className={styles.mbImg}
+                alt="img"
+                onClick={() => {
+                  const { id, value } = data;
+                  navigate(`/gallery/${id}`, { state: { id, value } });
+                }}
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
     </>
   );
+}
+function ArrowNone() {
+  return <></>;
 }

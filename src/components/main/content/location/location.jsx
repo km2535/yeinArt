@@ -23,7 +23,10 @@ export default function Location() {
       function (result, status) {
         // 정상적으로 검색이 완료됐으면
         if (status === window.kakao.maps.services.Status.OK) {
-          let coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
+          let coords = new window.kakao.maps.LatLng(
+            37.597414142094905,
+            127.01305621352618
+          );
           let content = '<div class="overlay_info">';
           content +=
             '    <a href="http://kko.to/1iu2Akb-jO" target="_blank"><strong>예 인 아 트</strong></a>';

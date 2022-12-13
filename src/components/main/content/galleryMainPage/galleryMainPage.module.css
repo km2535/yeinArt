@@ -1,4 +1,5 @@
 .imgContent{
+  display: block;
   position: relative;
   width: 30%;
   height: 400px;
@@ -33,7 +34,9 @@
   font-weight: 500;
   transition: all 0.2s;
 }
-
+.mbImgs{
+  display: none;
+}
 /* 테블릿 가로 버전 */
 @media screen and (max-width:1240px){
   .imgContent, .container, .img, .des{
@@ -73,5 +76,23 @@
 }
 .container:hover .des{
   transform: translateY(-180px);
+}
+.imgContent{
+  display: none;
+}
+.mbImgs{
+  display: block;
+  width: 100%;
+  height: 300px;
+}
+.mbImgDiv{
+  width: 350px;
+  height: 260px;
+}
+.mbImg{
+  width: 350px;
+  height: 260px;
+  margin: 0 auto;
+  cursor: pointer;
 }
 }
