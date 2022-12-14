@@ -73,12 +73,13 @@
   font-size: 28px;
   font-family: var(--font-basic);
   font-weight: 600;
+  margin-bottom: 20px;
 }
 .passwordInput{
   width: 300px;
   height: 20px;
   margin: 0 auto;
-  margin-top: 20px;
+  
 }
 .passwordBtns{
   display: flex;
@@ -118,7 +119,11 @@
   color: var(--bs-btn-hover-color);
   background-color: #f00;
 }
-
+.passwordWarnning{
+  color: #f00;
+  margin-left: 60px;
+  margin-bottom: 5px;
+}
 /* 테블릿 가로 버전 */
 @media screen and (max-width:1240px){
 
@@ -164,5 +169,10 @@
 }
 .passwordInput{
   width: 200px;
+}
+.passwordWarnning{
+  color: #f00;
+  font-size: 12px;
+  margin-left: 45px;
 }
 }

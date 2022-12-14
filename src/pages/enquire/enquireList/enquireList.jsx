@@ -62,7 +62,11 @@ export default function EnquireList() {
         <div className={styles.modalContainer}>
           <div className={styles.isModal}>
             <div className={styles.passwordTitle}>비밀번호를 입력하세요</div>
-            {alerts && <div>비밀번호가 일치하지 않습니다.</div>}
+            {alerts && (
+              <div className={styles.passwordWarnning}>
+                비밀번호가 일치하지 않습니다.
+              </div>
+            )}
             <input
               type="password"
               onChange={passwordHandler}

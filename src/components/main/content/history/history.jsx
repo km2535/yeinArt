@@ -66,38 +66,42 @@ export default function History({ workList, historiesRef }) {
           ))}
         </div>
         <div className={styles.description}>
-          <div
-            className={styles.mainTitle}
-            style={
-              mainTitle ? { opacity: "1", transform: "translateY(-50%)" } : {}
-            }
-            id="historyTitle"
-          >
-            <p className={styles.txt}>
-              당신이 원하는 곳<br />
-            </p>
-            <p className={styles.mainSub}>어디든 함께합니다.</p>
+          <div className={styles.mainTitle}>
+            <div
+              className={styles.mainInnerTitle}
+              style={
+                mainTitle ? { opacity: "1", transform: "translateY(10%)" } : {}
+              }
+              id="historyTitle"
+            >
+              <p className={styles.txt}>
+                당신이 원하는 곳<br />
+              </p>
+              <p className={styles.mainSub}>어디든 함께합니다.</p>
+            </div>
           </div>
-          <div
-            className={styles.subTitle}
-            style={
-              subTitle
-                ? {
-                    opacity: "1",
-                    marginRight: " 5rem",
-                  }
-                : {}
-            }
-            id="subTitle"
-          >
-            <p>
-              작품운송은 전국 어디에나 가능하며,
-              <br /> 지방전시를 끝내고 이동할 때도
-              <br /> 차량이용 가능합니다.
-              <br /> 또한 지방 작가님들의 서울 전시에도
-              <br />
-              차량 예약 받고 있으니 상담바랍니다.
-            </p>
+          <div className={styles.subTitle}>
+            <div
+              className={styles.subInnerTitle}
+              style={
+                subTitle
+                  ? {
+                      opacity: "1",
+                      marginRight: " 5rem",
+                    }
+                  : {}
+              }
+              id="subTitle"
+            >
+              <p>
+                작품운송은 전국 어디에나 가능하며,
+                <br /> 지방전시를 끝내고 이동할 때도
+                <br /> 차량이용 가능합니다.
+                <br /> 또한 지방 작가님들의 서울 전시에도
+                <br />
+                차량 예약 받고 있으니 상담바랍니다.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -42,41 +42,49 @@
   overflow: hidden;
 }
 .description{
-  width: 50%;
-  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  color: #fff;
+  z-index: 3;
 }
-
-.mainTitle{
+.mainInnerTitle{
   opacity: 0;
-  transform: translateY(-40%);
+  height: 100%;
+  transform: translateY(15%);
+  transition: opacity, transform 0.8s, 0.5s ;
 }
 .mainTitle, .subTitle{
   font-family: var(--font-sub);
   position: relative;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
-  transition: opacity,transform 0.8s, 0.5s ; 
-  
+  width: 100%;
+  padding: 30px;
+  color: #fff;
 }
+
 .mainTitle{
-  font-size: 80px;
-  top: 30%;
   text-align: left;
-  line-height: 20px;
+  font-size: 80px;
   font-weight: 500;
+  line-height: 50px;
 }
 .subTitle{
-  opacity: 0;
-}
-.subTitle{
-  font-size: 24px;
-  top: 40%;
   text-align: right;
+  line-height: 40px;
+  font-size: 25px;
+  top: 0;
+}
+.subInnerTitle{
+  opacity: 0;
   margin-right: 0rem;
-  transform: translateY(-50%) ;
+  transition: opacity, margin 0.5s, 0.8s;
+}
+.historieNone{
+  display: none;
 }
 
 @keyframes wave {
@@ -122,22 +130,37 @@
 }
 /* 모바일 버전 */
 @media screen and (max-width:768px){
-.histories{
-  display: none;
-}
-.palleraxImg{
-  background: center no-repeat;
-  background-size: 100% 80vh;
-}
-.description{
-  width: 100%;
-}
-.txt, .mainSub{
-  font-size: 45px;
-  margin-left: 10px;
-}
-.subTitle{
-  font-size: 20px;
-  text-align: right;
-}
+  .histories{
+    display: none;
+  }
+  .palleraxImg{
+    min-height: 60vh; 
+    background: center no-repeat;
+    background-size: 100% 80vh;
+  }
+  .background::before{
+    height: 60vh;
+  }
+  .description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-weight: 500;
+    line-height: 50px;
+    z-index: 3;
+  }
+  .mainTitle{
+    font-size: 35px;
+    margin-left: 10px;
+    height: 200px;
+  }
+  .txt,.mainSub{
+    height: 50px;
+  }
+  .subTitle{
+    width: 420px;
+    font-size: 14px;
+    text-align: right;
+    margin-right: 0;
+  }
 }

@@ -7,7 +7,10 @@ import { ko } from "date-fns/esm/locale";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarDays } from "@fortawesome/free-regular-svg-icons";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { faMagnifyingGlassLocation } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlassLocation,
+  faCirclePlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../../../components/context/AuthContext";
 import { kakaoPostcode } from "../../../service/address";
 import { useNavigate } from "react-router-dom";
@@ -196,7 +199,7 @@ export default function AddEnquire() {
                   onChange={textHandler}
                 />
               </div>
-              <div className={styles.name}>이미지 / 파일 첨부</div>
+              <div className={styles.fileName}>이미지 / 파일 첨부</div>
               <div className={styles.fileInputs}>
                 {inputLength.map((v) => (
                   <div className={styles.input} key={v}>
@@ -215,7 +218,12 @@ export default function AddEnquire() {
                       name={`file${v}`}
                       id={`file${v}`}
                     />
-                    <label htmlFor={`file${v}`}>+</label>
+                    <label htmlFor={`file${v}`}>
+                      <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faCirclePlus}
+                      />
+                    </label>
                   </div>
                 ))}
               </div>

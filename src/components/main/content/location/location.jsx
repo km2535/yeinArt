@@ -10,7 +10,7 @@ export default function Location() {
         37.597414142094905,
         127.01305621352618
       ),
-      level: 5,
+      level: 6,
     };
 
     let map = new window.kakao.maps.Map(container, options);

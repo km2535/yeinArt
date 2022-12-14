@@ -38,7 +38,7 @@
   width: 100%;
   margin-bottom: 10px;
 }
-.name, .totalInfo,.passwordTitle {
+.name, .totalInfo,.passwordTitle,.fileName {
   width: 25%;
   font-family: var(--font-sub);
   font-size: 20px;
@@ -192,28 +192,48 @@
   font-weight: 500;
   width: 30px;
   height: 30px;
-  color: #fff;
-  border-radius: 50%;
+  color: rgb(168, 164, 164);
   margin-left: 20px;
   line-height: 23px;
   text-align: center;
-  background: rgb(168, 164, 164);
   cursor: pointer;
   transition: background .2s;
 }
 .input label:hover {
-  color: #fff;
-  background: #000;
+  color: #000;
 }
 
-
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+  .form{
+    width: 85%;
+  }
+}
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+  .form{
+    width: 90%;
+  }
+  .name,.passwordTitle,.fileName{
+    width: 30%;
+    font-size: 18px;
+  }
+  .datePicker input[type="text"]{
+    font-size: 16px;
+  }
+  .fileName{
+    width: 100%;
+    font-size: 18px;
+    text-align: left;
+  }
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
   .container,.content, .form,.contentInput{
     touch-action: pan-y;
   }
-  .name,.passwordTitle{
-    width: 18%;
+  .name,.passwordTitle,.fileName{
+    width: 20%;
     font-size: 15px;
   }
   .form{
@@ -248,5 +268,9 @@
   }
   .datePicker input[type="text"]{
     font-size: 16px;
+  }
+  .fileName{
+    width: 100%;
+    text-align: left;
   }
 }
