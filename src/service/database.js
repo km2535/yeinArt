@@ -13,10 +13,11 @@ import {
 import db from "./firebase";
 import moment from "moment/moment";
 
-export const writeImage = async (id, title, url, date) => {
+export const writeImage = async (id, title, content, url, date) => {
   await setDoc(doc(db, "gallery", id), {
     title: title,
     date: date,
+    content: content,
     tumbnailUrl: url[0],
     subUrl1: url[1] || "",
     subUrl2: url[2] || "",
@@ -65,36 +66,6 @@ export const deleteImg = async (id) => {
   }).then(() => deleteDoc(doc(db, "gallery", id)));
 };
 
-export const dbNotice = async (id, title, date, content, num, urls) => {
-  await setDoc(doc(db, "notice", id), {
-    id: id,
-    title: title,
-    date: date || "",
-    urls: urls || "",
-    content: content,
-    num: num,
-    read: 0,
-  });
-};
-
-export const deleteNotice = async (id) => {
-  await updateDoc(doc(db, "notice", id), {
-    id: deleteField(),
-    title: deleteField(),
-    date: deleteField(),
-    urls: deleteField(),
-    content: deleteField(),
-    num: deleteField(),
-    read: deleteField(),
-  }).then(() => deleteDoc(doc(db, "notice", id)));
-};
-
-// 조회수 상승 함수
-export const noticeRead = async (id, readcnt) => {
-  await updateDoc(doc(db, "notice", id), {
-    read: readcnt,
-  });
-};
 export const readProduct = async (collectionName, sessionName) => {
   console.log("reading readProduct[0] 발생");
   const q = query(collection(db, collectionName));

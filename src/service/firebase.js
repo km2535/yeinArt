@@ -7,10 +7,10 @@ const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: "yein-bc06d.appspot.com",
-  messagingSenderId: "201806451274",
-  appId: "1:201806451274:web:e722b445b3e3a086e98cb3",
-  measurementId: "G-J6W95HTSXB",
+  storageBucket: "yeinart-cba41.appspot.com",
+  messagingSenderId: "737793589786",
+  appId: "1:737793589786:web:03d49ac32cd20dd112c7a3",
+  measurementId: "G-G2DSV6Z12T",
 };
 
 const app = initializeApp(firebaseConfig);

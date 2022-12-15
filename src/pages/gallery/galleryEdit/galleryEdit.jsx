@@ -5,15 +5,40 @@ import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import { upload } from "../../../service/upload";
 import { deleteImage } from "../../../service/delete";
 import { readData } from "../../../service/database";
+import { useEffect } from "react";
 export default function GalleryEdit() {
-  const { setTotalData, setIsLoading } = useOutletContext();
+  const { setTotalData, setIsLoading, setDelay, delay } = useOutletContext();
   const navigate = useNavigate();
   const valueRef = useRef([]);
+  const titleRef = useRef();
   const [file, setFile] = useState([]);
   const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const {
     state: { imgId },
   } = useLocation();
+
+  useEffect(() => {
+    titleRef?.current.scrollIntoView(true);
+    setFile([]);
+    if (delay) {
+      setTimeout(
+        () =>
+          readData("gallery", "allImgs")
+            .then((v) => {
+              setTotalData(v);
+              window.sessionStorage?.setItem(
+                "firstRead",
+                JSON.stringify(v.slice(0, 6))
+              );
+              navigate("/gallery");
+              setDelay(false);
+            })
+            .finally(() => setIsLoading(false)),
+        1000
+      );
+    }
+  }, [delay, setDelay, setIsLoading, setTotalData, navigate]);
   //기존의 자료를 전부 지우고 새로운 데이터로 대체함.
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -35,46 +60,49 @@ export default function GalleryEdit() {
           : [...prev, option]
       );
       return;
+    } else if (name === "title") {
+      setTitle(value);
+    } else if (name === "content") {
+      setContent(value);
     }
-    setTitle(value);
   };
   const uploadHandler = async (e) => {
     e.preventDefault();
     //수정하는 함수
     setIsLoading(true);
     deleteImage(imgId).then(() =>
-      upload(file, title, imgId).then(() => {
+      upload(file, title, imgId, setDelay).then(() => {
         window.sessionStorage?.removeItem("allImgs");
         window.sessionStorage?.removeItem("firstRead");
-        navigate("/gallery");
-        setTimeout(
-          () =>
-            readData("gallery", "allImgs")
-              .then((v) => {
-                setTotalData(v);
-                window.sessionStorage?.setItem(
-                  "firstRead",
-                  JSON.stringify(v.slice(0, 5))
-                );
-              })
-              .finally(() => setIsLoading(false)),
-          4500
-        );
       })
     );
   };
   return (
     <div className={styles.container}>
       <form onSubmit={uploadHandler}>
-        <div className={styles.subject}>
+        <div className={styles.subject} ref={titleRef}>
           <span className={styles.title}>제목 :</span>
           <div className={styles.input}>
             <input
               className={styles.inputTitle}
               type="text"
+              placeholder="제목을 입력하세요"
               name="title"
               value={title ?? ""}
               required
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        <div className={styles.content}>
+          <span className={styles.title}>내용 :</span>
+          <div className={styles.input}>
+            <textarea
+              className={styles.contentInput}
+              type="content"
+              placeholder="내용을 입력하세요"
+              name="content"
+              value={content ?? ""}
               onChange={handleChange}
             />
           </div>

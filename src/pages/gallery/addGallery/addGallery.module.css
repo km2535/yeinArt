@@ -11,12 +11,20 @@
   text-align: left;
   height: 80px;
 }
+.content{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width:  800px;
+  margin: 0 auto;
+  text-align: left;
+  height: 200px;
+}
 .otherwise{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
 }
 .title{
   font-size: 30px;
@@ -25,6 +33,11 @@
   text-align: left;
   width: 200px;
   height: 50px;
+}
+.contentInput{
+  width: 600px;
+  height: 150px;
+  resize: none;
 }
 .inputTitle{
   width: 600px;
@@ -94,9 +107,13 @@ input[type=text] {
 .form{
   width: 100vw;
 }
-.subject{
+.subject, .content{
+  justify-content: flex-start;
   flex-direction: column;
   width: 90%;
+}
+.content .input{
+  text-align: left;
 }
 .otherwise{
   width: 100vw;
@@ -117,6 +134,12 @@ input[type=text] {
 .subject .title{
   width: 100%;
   text-align: left;
+}
+.contentInput{
+  text-align: left;
+  width: 85%;
+  height: 100px;
+  margin-left: 20px;
 }
 .inputTitle{
   width: 85%;

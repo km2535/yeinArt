@@ -33,6 +33,7 @@ export default function AddEnquire() {
   const [password, setPassword] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState([]);
+  const [delay, setDelay] = useState(false);
   const [products, setProducts] = useState({
     workdate: "",
     title: "",
@@ -57,7 +58,16 @@ export default function AddEnquire() {
     kauser && setUserName(kauser.properties.nickname);
     fbuser && setUserEmail(fbuser.email);
     kauser && setUserEmail(kauser.kakao_account.email);
-  }, [fbuser, kauser, navigate, enquire, setEnquire]);
+    setFile([]);
+    if (delay) {
+      setTimeout(() => {
+        setEnquire(false);
+        setIsBtn(false);
+        navigate("/enquire");
+        setDelay(false);
+      }, 1000);
+    }
+  }, [fbuser, kauser, navigate, enquire, setEnquire, delay]);
 
   const departHandle = () => {
     kakaoPostcode(setAddressDepart);
@@ -97,15 +107,9 @@ export default function AddEnquire() {
   const uploadHandler = async (e) => {
     e.preventDefault();
     //문의하기 올리기
-    let delay = file.length * 1000 + 500;
     setIsBtn(true);
-    enquireUpload(file, products).finally(() => {
+    enquireUpload(file, products, setDelay).then(() => {
       window.sessionStorage.removeItem("allEnquire");
-      setTimeout(() => {
-        setEnquire(false);
-        setIsBtn(false);
-        navigate("/enquire");
-      }, delay);
     });
   };
   const fileHandler = (e) => {

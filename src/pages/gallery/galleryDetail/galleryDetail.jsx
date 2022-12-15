@@ -39,6 +39,7 @@ export default function GalleryDetail() {
       id,
       value: {
         title,
+        content,
         subUrl1,
         subUrl2,
         subUrl3,
@@ -99,6 +100,9 @@ export default function GalleryDetail() {
         <h1 className="galleryTitle" ref={titleRef}>
           {title}
         </h1>
+        <div className={styles.content}>
+          <div>{content}</div>
+        </div>
         <Slider
           asNavFor={slide.nav2}
           ref={(slider) => (slide1 = slider)}

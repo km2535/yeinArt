@@ -13,6 +13,7 @@ export default function Gallery() {
   const [totalData, setTotalData] = useState([]);
   const [bg, setBg] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [delay, setDelay] = useState(false);
 
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
@@ -82,7 +83,15 @@ export default function Gallery() {
           </div>
         </div>
         <Outlet
-          context={{ totalData, setTotalData, fbuser, isLoading, setIsLoading }}
+          context={{
+            totalData,
+            setTotalData,
+            fbuser,
+            isLoading,
+            setIsLoading,
+            setDelay,
+            delay,
+          }}
         />
         <GalleryLists
           totalData={totalData}
