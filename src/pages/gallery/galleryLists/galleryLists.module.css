@@ -98,7 +98,7 @@
     transform: none;
     text-align: center;
     color: #000;
-    font-size: 20px;
+    font-size: 18px;
     font-family: var(--font-basic);
     font-weight: 600;
   }
@@ -133,6 +133,9 @@
   }
   .des{
    font-size: 12px;
+  }
+  .container:hover .des{
+    font-size: 12px;
   }
   .container{
     height: 100%;

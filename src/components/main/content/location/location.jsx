@@ -24,8 +24,8 @@ export default function Location() {
         // 정상적으로 검색이 완료됐으면
         if (status === window.kakao.maps.services.Status.OK) {
           let coords = new window.kakao.maps.LatLng(
-            37.59456266592958,
-            127.01150159830301
+            37.595513219184554,
+            127.01142814249927
           );
           let content = '<div class="overlay_info">';
           content +=
