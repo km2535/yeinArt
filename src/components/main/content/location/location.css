@@ -49,9 +49,10 @@
       content:'';
       position: absolute; 
       margin-left: -11px; 
-      left: 50%; 
-      bottom: -12px; 
-      width: 22px; 
-      height: 12px; 
-      background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png) no-repeat 0 bottom;
+      left: 50%;
+      top: -11px;  
+      width: 25px; 
+      height: 15px; 
+      background:url("../../../../../public/images/arrow_top.png") no-repeat  center;
+      background-size: cover;
     }

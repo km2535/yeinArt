@@ -7,8 +7,8 @@ export default function Location() {
 
     let options = {
       center: new window.kakao.maps.LatLng(
-        37.597414142094905,
-        127.01305621352618
+        37.59456266592958,
+        127.01150159830301
       ),
       level: 6,
     };
@@ -24,8 +24,8 @@ export default function Location() {
         // 정상적으로 검색이 완료됐으면
         if (status === window.kakao.maps.services.Status.OK) {
           let coords = new window.kakao.maps.LatLng(
-            37.597414142094905,
-            127.01305621352618
+            37.59456266592958,
+            127.01150159830301
           );
           let content = '<div class="overlay_info">';
           content +=
@@ -37,14 +37,14 @@ export default function Location() {
           content += "    </div>";
           content += "</div>";
           let position = new window.kakao.maps.LatLng(
-            37.5944725333435,
-            127.012706037821
+            37.59456266592958,
+            127.01150159830301
           );
           let mapCustomOverlay = new window.kakao.maps.CustomOverlay({
             position: position,
             content: content,
             xAnchor: 0.5,
-            yAnchor: 1, // 커스텀 오버레이의 y축 위치입니다. 1에 가까울수록 위쪽에 위치합니다. 기본값은 0.5 입니다
+            yAnchor: -0.15, // 커스텀 오버레이의 y축 위치입니다. 1에 가까울수록 위쪽에 위치합니다. 기본값은 0.5 입니다
           });
           mapCustomOverlay.setMap(map);
           // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다

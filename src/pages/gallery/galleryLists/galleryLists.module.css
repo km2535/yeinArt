@@ -104,7 +104,7 @@
   }
   .des{
     opacity: 1;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 0;
     font-family: var(--font-basic);
     font-weight: 600;
@@ -130,6 +130,9 @@
     width: 95%;
     margin-right: 5px;
     height: 80%;
+  }
+  .des{
+   font-size: 12px;
   }
   .container{
     height: 100%;
