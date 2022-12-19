@@ -2,7 +2,7 @@
   position: relative;
 }
 .palleraxImg{
-  min-height: 80vh; 
+  min-height: 800px; 
   filter: brightness(60%);
   background-attachment: fixed;
   background-position: center;
@@ -16,7 +16,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 80vh;
+  height: 800px;
   backdrop-filter: blur(4px);
 }
 .title{
@@ -86,10 +86,19 @@
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(0, -151%, 0);
+    transform: translate3d(0, -1175px, 0);
   }
 }
 
+
+@media screen and (max-width:1450px){
+  .mainTitle{
+   font-size: 70px;
+  }
+  .subTitle{
+    font-size: 20px;
+  }
+}
 
 /* 테블릿 가로 버전 */
 @media screen and (max-width:1240px){
@@ -104,7 +113,7 @@
   }
   .palleraxImg{
   background: center no-repeat;
-  background-size: 100% 80vh;
+  background-size: 100% 800px;
   }
   .mainTitle{
     font-size: 80px;
@@ -128,12 +137,12 @@
     display: none;
   }
   .palleraxImg{
-    min-height: 60vh; 
+    min-height: 600px; 
     background: center no-repeat;
     background-size: 100% 80vh;
   }
   .background::before{
-    height: 60vh;
+    height: 60px;
   }
   .description{
     display: flex;

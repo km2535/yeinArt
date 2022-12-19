@@ -43,6 +43,7 @@
   color: #fff;
 }
 .ftCont, .ftIndi{
+  font-size: 16px;
   cursor: pointer;
 }
 .ftCont::after{
@@ -80,6 +81,11 @@
   margin: 0 10px;
 }
 
+@media screen and (max-width:1024px) {
+  .ftCont, .ftIndi{
+    font-size: 14px;
+}
+}
 /* 모바일 버전 */
 @media screen and (max-width:768px){
 .ftCopy{
