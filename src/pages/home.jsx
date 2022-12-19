@@ -5,7 +5,6 @@ import { useEnquireContext } from "../components/context/EnquireContext";
 import Content from "../components/main/content/content";
 import Footer from "../components/main/footer/footer";
 import Header from "../components/main/header/header";
-import workList from "../service/workList";
 import AddEnquire from "./enquire/addEnquire/addEnquire";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -44,11 +43,7 @@ export default function Home() {
           />
         </header>
         <section>
-          <Content
-            workList={workList}
-            historiesRef={historiesRef}
-            majorWorkRef={majorWorkRef}
-          />
+          <Content historiesRef={historiesRef} majorWorkRef={majorWorkRef} />
         </section>
         <footer>
           <Footer />

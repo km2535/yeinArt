@@ -65,9 +65,9 @@ export default function Head({
             ) : (
               <div onClick={sessionLogout}>
                 <span className={styles.welcome}>
-                  {kauser.properties.nickname
-                    ? kauser.properties.nickname
-                    : kauser.kakao_account.email}
+                  {kauser.properties?.nickname
+                    ? kauser.properties?.nickname
+                    : kauser.kakao_account?.email}
                   님 환영합니다.{" "}
                 </span>
                 |{" "}
@@ -106,9 +106,9 @@ export default function Head({
           ) : (
             <div onClick={sessionLogout}>
               <span className={styles.welcome}>
-                {kauser.properties.nickname
-                  ? kauser.properties.nickname
-                  : kauser.kakao_account.email}
+                {kauser.properties?.nickname
+                  ? kauser.properties?.nickname
+                  : kauser.kakao_account?.email}
                 님 환영합니다.{" "}
               </span>
               |{" "}

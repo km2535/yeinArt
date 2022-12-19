@@ -15,7 +15,7 @@ export default function Mail({ setIsMail }) {
     emailjs
       .sendForm(
         process.env.REACT_APP_EMAILJS_SERVICEC_KEY,
-        "template_hj89gv4",
+        "template_ei1d4fh",
         form.current,
         process.env.REACT_APP_EMAILJS_PUBLICK_KEY
       )

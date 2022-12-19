@@ -22,7 +22,7 @@ export default function Pagination({ totalData, setPageDate, showCnt }) {
         previousLinkClassName="page-link"
         nextLinkClassName="page-link"
         pageRangeDisplayed={4}
-        marginPagesDisplayed={2}
+        marginPagesDisplayed={3}
         pageCount={totalPage}
         containerClassName="pagination"
         pageClassName="page-item"

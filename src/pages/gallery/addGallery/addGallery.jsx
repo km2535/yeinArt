@@ -12,7 +12,8 @@ export default function AddGallery() {
   const [file, setFile] = useState([]);
   const titleRef = useRef();
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState([]);
+  const [cont, setCont] = useState([]);
   const valueRef = useRef([]);
   useEffect(() => {
     titleRef?.current.scrollIntoView(true);
@@ -58,13 +59,16 @@ export default function AddGallery() {
     } else if (name === "title") {
       setTitle(value);
     } else if (name === "content") {
-      setContent(value);
+      setContent(() => [value]);
     }
   };
+  useEffect(() => {
+    setCont(content.map((v) => v.replaceAll("\n", "<br/>")));
+  }, [content]);
   const uploadHandler = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    upload(file, title, content, undefined, setDelay).then(() => {
+    upload(file, title, cont, undefined, setDelay).then(() => {
       window.sessionStorage?.removeItem("allImgs");
       window.sessionStorage?.removeItem("firstRead");
     });

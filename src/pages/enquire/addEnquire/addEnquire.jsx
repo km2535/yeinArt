@@ -31,7 +31,8 @@ export default function AddEnquire() {
   const [startDate, setStartDate] = useState(new Date());
   const [title, setTitle] = useState("");
   const [password, setPassword] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState([]);
+  const [cont, setCont] = useState([]);
   const [file, setFile] = useState([]);
   const [delay, setDelay] = useState(false);
   const [products, setProducts] = useState({
@@ -79,15 +80,18 @@ export default function AddEnquire() {
     const { id, value } = e.target;
     id === "title" && setTitle(value);
     id === "userName" && setUserName(value);
-    id === "textarea" && setContent(value);
+    id === "textarea" && setContent(() => [value]);
     id === "password" && setPassword(value);
   };
+  useEffect(() => {
+    setCont(content.map((v) => v.replaceAll("\n", "<br/>")));
+  }, [content]);
   useEffect(() => {
     const date = moment(startDate).format("YYYY년MM월DD일");
     setProducts({
       workdate: date,
       title,
-      content,
+      cont,
       userEmail,
       userName,
       departAddress,
@@ -97,7 +101,7 @@ export default function AddEnquire() {
   }, [
     startDate,
     title,
-    content,
+    cont,
     userEmail,
     userName,
     departAddress,

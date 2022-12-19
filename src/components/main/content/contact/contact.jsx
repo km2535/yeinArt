@@ -8,8 +8,10 @@ import Mail from "../../../mail/mail";
 import Copy from "../../../common/copy/copy";
 import kakaoMessage from "../../../../service/kakaoChannel";
 import MessageLoading from "../../../common/messageLoading/messageLoading";
+import { useNavigate } from "react-router-dom";
 
 export default function Contact() {
+  const navigate = useNavigate();
   const [isMail, setIsMail] = useState(false);
   const [copy, setCopy] = useState("");
   const [isCopy, setisCopy] = useState(false);
@@ -34,7 +36,7 @@ export default function Contact() {
   };
   const sendingMessage = () => {
     setIsSendingMessage(true);
-    kakaoMessage(setIsSendingMessage);
+    kakaoMessage(setIsSendingMessage, navigate);
   };
   return (
     <>

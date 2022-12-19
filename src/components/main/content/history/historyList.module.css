@@ -1,0 +1,6 @@
+.workList{
+  position: relative;
+  font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+}

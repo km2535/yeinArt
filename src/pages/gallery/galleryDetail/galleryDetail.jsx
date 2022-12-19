@@ -16,6 +16,7 @@ import styles from "./galleryDetail.module.css";
 export default function GalleryDetail() {
   const navigate = useNavigate();
   const titleRef = useRef();
+  const [cont, setCont] = useState([]);
   const { fbuser, setTotalData, setIsLoading } = useOutletContext();
   const preventClose = (e) => {
     e.preventDefault();
@@ -59,7 +60,9 @@ export default function GalleryDetail() {
     const arr = [tumbnailUrl, subUrl1, subUrl2, subUrl3, subUrl4, subUrl5];
     setImg(arr.filter((v) => v !== ""));
   }, [tumbnailUrl, subUrl1, subUrl2, subUrl3, subUrl4, subUrl5]);
-
+  useEffect(() => {
+    setCont(content[0]?.split("<br/>"));
+  }, [content]);
   const subSettings = {
     slidesToShow: img.length > 3 ? 3 : img.length > 1 ? 2 : 1,
     swipeToSlide: true,
@@ -101,7 +104,9 @@ export default function GalleryDetail() {
           {title}
         </h1>
         <div className={styles.content}>
-          <div>{content}</div>
+          {cont?.map((v, i) => (
+            <div key={i}>{v}</div>
+          ))}
         </div>
         <Slider
           asNavFor={slide.nav2}

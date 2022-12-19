@@ -8,7 +8,7 @@
     transform: translateX(-50%);
     z-index: 99;
     width: 500px;
-    height: 50%;
+    height: 500px;
     margin: 0;
     font-family: -apple-system, Arial, sans-serif;
     font-size: 1rem;
@@ -168,7 +168,7 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 .fcf-closeBtn{
     position: absolute;
     right: 5%;
-    top: 2%;
+    top: 10px;
     cursor: pointer;
 }
 #Message{
@@ -179,8 +179,8 @@ input[type="submit"].fcf-btn-block, input[type="reset"].fcf-btn-block, input[typ
 @media screen and (max-width:768px){
 .fcf-container{
     touch-action: pan-y;
-    width: 80vw;
-    height: 70vh;
+    width: 80%;
+    height: 500px;
 }
 .fcf-closeBtn{
     font-size: 30px

@@ -85,7 +85,7 @@ export const writeEnquire = async (id, imgUrls, fileUrls, product) => {
     date: now,
     workdate: product.workdate,
     title: product.title,
-    content: product.content,
+    content: product.cont,
     userEmail: product.userEmail,
     userName: product.userName,
     departAddress: product.departAddress,
@@ -93,7 +93,7 @@ export const writeEnquire = async (id, imgUrls, fileUrls, product) => {
     password: product.password,
     imgUrls,
     fileUrls,
-  });
+  }).catch((e) => console.log(e));
 };
 export const deleteEnquire = async (id) => {
   await updateDoc(doc(db, "enquire", id), {

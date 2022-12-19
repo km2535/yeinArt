@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./history.module.css";
+import HistoryList from "./historyList";
 
-export default function History({ workList, historiesRef }) {
+export default function History({ historiesRef }) {
   const [historyView, setIshistoryView] = useState(false);
   const [mainTitle, setmainTitle] = useState(false);
   const [subTitle, setsubTitle] = useState(false);
@@ -54,16 +55,8 @@ export default function History({ workList, historiesRef }) {
           className={historyView ? styles.histories : styles.historieNone}
           id="histories"
         >
-          {workList.map((workList) => (
-            <p className={styles.workList} key={workList.id}>
-              {workList.workplace}
-            </p>
-          ))}
-          {workList.map((workList) => (
-            <p className={styles.workList} key={workList.id}>
-              {workList.workplace}
-            </p>
-          ))}
+          <HistoryList />
+          <HistoryList />
         </div>
         <div className={styles.description}>
           <div className={styles.mainTitle}>

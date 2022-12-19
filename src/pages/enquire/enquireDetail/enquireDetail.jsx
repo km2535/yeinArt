@@ -6,10 +6,12 @@ import { deleteEnquire, readData } from "../../../service/database";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import EmailLoading from "../../../components/common/emailLoading/emailLoading";
+import { useEffect } from "react";
 
 export default function EnquireDetail() {
   const { setTotalData, setIsLoading } = useOutletContext();
   const navigate = useNavigate();
+  const [cont, setCont] = useState([]);
   const [isBtn, setIsBtn] = useState(false);
   const {
     state: {
@@ -40,6 +42,9 @@ export default function EnquireDetail() {
       });
     }
   };
+  useEffect(() => {
+    setCont(content[0]?.split("<br/>"));
+  }, [content]);
   return (
     <>
       <div className={styles.container}>
@@ -58,7 +63,11 @@ export default function EnquireDetail() {
           </div>
           <div className={styles.enquireContent}>
             <div className={styles.name}>작업내용</div>
-            <div className={styles.contContent}>{content}</div>
+            <div className={styles.contContent}>
+              {cont?.map((v, i) => (
+                <div key={i}>{v}</div>
+              ))}
+            </div>
           </div>
           <div className={styles.departure}>
             <div className={styles.name}>출발지</div>

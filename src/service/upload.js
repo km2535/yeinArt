@@ -2,10 +2,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import imageCompression from "browser-image-compression";
 import { writeEnquire, writeImage } from "./database";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment/moment";
 
 export const upload = async (file, title, content, uid, setDelay) => {
   const id = uid || uuidv4();
   const storage = getStorage();
+  const now = moment().format("YY-MM-DD HH:mm:ss");
   const fileLength = file.length;
   console.log(fileLength);
   file.map((file) =>
@@ -16,7 +18,7 @@ export const upload = async (file, title, content, uid, setDelay) => {
           title,
           content,
           id,
-          file.date,
+          now,
           fileLength,
           setDelay
         )
@@ -26,7 +28,7 @@ export const upload = async (file, title, content, uid, setDelay) => {
           title,
           content,
           id,
-          file.date,
+          now,
           fileLength,
           setDelay
         )
@@ -89,6 +91,11 @@ export const enquireUpload = async (file, products, setDelay) => {
   const imgUrls = [];
   const fileUrls = [];
   const fileLength = file.length;
+  if (file.length === 0) {
+    console.log("파일이 없는 함수");
+    writeEnquire(id, imgUrls, fileUrls, products);
+    setDelay(true);
+  }
   file.map((file) =>
     fileUpload(
       id,
@@ -115,10 +122,6 @@ const fileUpload = async (
   fileLength,
   setDelay
 ) => {
-  if (file.length === 0) {
-    writeEnquire(id, imgUrls, fileUrls, products);
-    setDelay(true);
-  }
   file.type.includes("image")
     ? imageCompression(file, options).then((v) => {
         uploadBytes(ref(storage, `enquire/${id}/image/${file.name}`), v).then(
