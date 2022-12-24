@@ -53,6 +53,17 @@ export default function Header({
       <div className={styles.btnContent}>
         <Reqbtn />
       </div>
+      <div className={styles.contactInfo}>
+        <p className={styles.phoneNumber}>
+          <a className={styles.phone1} href="tel:02-764-3931">
+            (02)764-3931
+          </a>
+          |
+          <a className={styles.phone2} href="tel:010-3725-2211">
+            010-3725-2211
+          </a>
+        </p>
+      </div>
       <div className={styles.nav}>
         <NewNavbar
           navigationTo={[

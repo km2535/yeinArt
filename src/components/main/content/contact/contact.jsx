@@ -17,7 +17,7 @@ export default function Contact() {
   const [isCopy, setisCopy] = useState(false);
   const [isSendingMessage, setIsSendingMessage] = useState(false);
   const copySomting = () => {
-    setCopy("yeinartdev");
+    setCopy("dinelkim");
   };
   useEffect(() => {
     copy && navigator.clipboard?.writeText(copy);
@@ -96,7 +96,7 @@ export default function Contact() {
                 ></div>
               )}
               <div className={styles.kakaoId} onClick={copySomting} id="kakao">
-                yeinartdev
+                dinelkim
               </div>
             </div>
           </div>
