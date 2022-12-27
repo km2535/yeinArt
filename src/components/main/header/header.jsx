@@ -64,7 +64,7 @@ export default function Header({
           </a>
         </p>
       </div>
-      <div className={styles.nav}>
+      <div className={styles.nav} id="gnb">
         <NewNavbar
           navigationTo={[
             {
