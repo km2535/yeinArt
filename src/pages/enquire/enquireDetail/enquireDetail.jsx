@@ -7,9 +7,10 @@ import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import EmailLoading from "../../../components/common/emailLoading/emailLoading";
 import { useEffect } from "react";
+import EnquireRep from "../enquireRep/enquireRep";
 
 export default function EnquireDetail() {
-  const { setTotalData, setIsLoading } = useOutletContext();
+  const { setTotalData, setIsLoading, data, setData } = useOutletContext();
   const navigate = useNavigate();
   const [cont, setCont] = useState([]);
   const [isBtn, setIsBtn] = useState(false);
@@ -119,6 +120,12 @@ export default function EnquireDetail() {
           </div>
         </div>
       </div>
+      <EnquireRep
+        data={data}
+        setData={setData}
+        enquireId={id}
+        userName={userName}
+      />
     </>
   );
 }

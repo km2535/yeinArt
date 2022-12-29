@@ -151,6 +151,13 @@
   width: 30%;
   font-size: 15px;
 }
+.title{
+  overflow: hidden;
+}
+.titleContent{
+  width: 60%;
+  font-size: 15px;
+}
 .productsInfo{
   width: 100%;
   margin: 0;
