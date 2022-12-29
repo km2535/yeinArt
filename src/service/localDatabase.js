@@ -9,7 +9,6 @@ export const readDataRepeat = (setData, enquireNum) => {
     .then((data) => setData(data.result))
     .catch((err) => {
       console.log(err, "초기 화면 돌아가기");
-      window.location.href = "/";
     });
 };
 export const insertDataRepeat = (now, formElem, setData, enquireNum) => {
@@ -26,7 +25,6 @@ export const insertDataRepeat = (now, formElem, setData, enquireNum) => {
     })
     .catch(() => {
       console.log("초기 화면 돌아가기");
-      window.location.href = "/";
     });
 };
 
@@ -44,6 +42,5 @@ export const deleteDataRepeat = (repeatId, setData, enquireNum) => {
     })
     .catch(() => {
       console.log("초기 화면 돌아가기");
-      window.location.href = "/";
     });
 };

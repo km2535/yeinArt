@@ -28,7 +28,7 @@ export default function ViewRep({ setData, data, enquireNum }) {
             <p className={styles.date}>{item.date}</p>
           </div>
           <div className={styles.content}>
-            {item.content.split("\r\n").map((p) => (
+            {item.content?.split("\r\n").map((p) => (
               <p className={styles.txt}>{p}</p>
             ))}
           </div>
