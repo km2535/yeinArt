@@ -131,7 +131,9 @@ export default function EnquireList() {
                 </td>
                 <td className={styles.userName}>
                   {v.value.userName &&
-                    v.value.userName.replace(v.value.userName.charAt(1), "*")}
+                    v.value.userName
+                      .slice(-v.value.userName.length, 2)
+                      .padEnd(v.value.userName.length, "*")}
                 </td>
                 <td className={styles.date}>{v.value.date}</td>
                 <td className={styles.workdate}>{v.value.workdate}</td>
