@@ -19,6 +19,7 @@ import crypto from "crypto-js";
 import EmailLoading from "../../../components/common/emailLoading/emailLoading";
 import { useRef } from "react";
 import { enquireUpload } from "../../../service/upload";
+import { mailfromEnquire } from "../../../service/sendMail";
 
 export default function AddEnquire() {
   const valueRef = useRef([]);
@@ -112,9 +113,14 @@ export default function AddEnquire() {
     e.preventDefault();
     //문의하기 올리기
     setIsBtn(true);
-    enquireUpload(file, products, setDelay).then(() => {
-      window.sessionStorage.removeItem("allEnquire");
-    });
+    enquireUpload(file, products, setDelay)
+      .then(() => {
+        window.sessionStorage.removeItem("allEnquire");
+      })
+      .then(() => {
+        //알람메일 보내기
+        mailfromEnquire(title, cont, userName);
+      });
   };
   const fileHandler = (e) => {
     const { name, files } = e.target;

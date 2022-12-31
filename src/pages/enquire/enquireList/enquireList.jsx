@@ -8,11 +8,15 @@ import styles from "./enquireList.module.css";
 import crypto from "crypto-js";
 import { useAuthContext } from "../../../components/context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCommentDots } from "@fortawesome/free-regular-svg-icons";
+import { readReplyCnt } from "../../../service/localDatabase";
 
 export default function EnquireList() {
   const { fbuser } = useAuthContext();
   const { totalData, isLoading } = useOutletContext();
   const [pageData, setPageDate] = useState([]);
+  const [reply, setReply] = useState([]);
   const [isModal, setIsModal] = useState(false);
   const [inputPassword, setInputPassword] = useState("");
   const [originPassword, setOriginPassword] = useState("");
@@ -20,12 +24,13 @@ export default function EnquireList() {
   const [value, setValue] = useState("");
   const [alerts, setAlerts] = useState(false);
   const navigate = useNavigate();
-
   useEffect(() => {
     const firstData = totalData.slice(0, 10);
     setPageDate(firstData);
   }, [totalData]);
-
+  useEffect(() => {
+    pageData.map((v) => readReplyCnt(setReply, v.id));
+  }, [pageData]);
   const detailCheckHandler = (id, v) => {
     setIsModal(true);
     setOriginPassword(
@@ -89,6 +94,7 @@ export default function EnquireList() {
           <thead className={styles.thead}>
             <tr>
               <th>제목</th>
+              <th></th>
               <th>글쓴이</th>
               <th>작성일</th>
               <th>작업요청일</th>
@@ -106,6 +112,22 @@ export default function EnquireList() {
                   }}
                 >
                   {v.value.title}
+                </td>
+                <td>
+                  {reply
+                    .map((data) =>
+                      data.result.filter((item) => item.enquireNum === v.id)
+                    )
+                    .filter((result) => result.length > 0).length > 0 ? (
+                    <>
+                      <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faCommentDots}
+                      />
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </td>
                 <td className={styles.userName}>
                   {v.value.userName &&

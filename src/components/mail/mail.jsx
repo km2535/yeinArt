@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
-
+//import emailjs from "@emailjs/browser";
 import "./mail.css";
 import EmailLoading from "../common/emailLoading/emailLoading";
+import { sendingMail } from "../../service/sendMail";
+
 export default function Mail({ setIsMail }) {
   const [isBtn, setIsBtn] = useState(true);
   const form = useRef();
@@ -12,25 +13,8 @@ export default function Mail({ setIsMail }) {
   const sendMail = (e) => {
     e.preventDefault();
     setIsBtn(false);
-    emailjs
-      .sendForm(
-        process.env.REACT_APP_EMAILJS_SERVICEC_KEY,
-        "template_ei1d4fh",
-        form.current,
-        process.env.REACT_APP_EMAILJS_PUBLICK_KEY
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      )
-      .finally(() => {
-        setIsMail(false);
-        setIsBtn(true);
-      });
+    let formElem = document.getElementById("fcf-form-id");
+    sendingMail(setIsMail, setIsBtn, formElem);
   };
   return (
     <>
@@ -45,14 +29,14 @@ export default function Mail({ setIsMail }) {
           onSubmit={sendMail}
         >
           <div className="fcf-form-group">
-            <label htmlFor="Name" className="fcf-label">
-              이름
+            <label htmlFor="subject" className="fcf-label">
+              제목
             </label>
             <div className="fcf-input-group">
               <input
                 type="text"
-                id="Name"
-                name="Name"
+                id="subject"
+                name="subject"
                 className="fcf-form-control"
                 required
               />
@@ -61,11 +45,11 @@ export default function Mail({ setIsMail }) {
 
           <div className="fcf-form-group">
             <label htmlFor="Email" className="fcf-label">
-              이메일
+              상담받을 이메일이나 전화번호
             </label>
             <div className="fcf-input-group">
               <input
-                type="email"
+                type="text"
                 id="Email"
                 name="Email"
                 className="fcf-form-control"

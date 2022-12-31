@@ -11,6 +11,19 @@ export const readDataRepeat = (setData, enquireNum) => {
       console.log(err, "초기 화면 돌아가기");
     });
 };
+export const readReplyCnt = async (setReply, enquireNum) => {
+  const formData = new FormData();
+  formData.append("enquireNum", enquireNum);
+  await fetch("/service/repeat/selectRepeat.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => setReply((prev) => [...prev, data]))
+    .catch((err) => {
+      console.log(err, "초기 화면 돌아가기");
+    });
+};
 export const insertDataRepeat = (now, formElem, setData, enquireNum) => {
   const formData = new FormData(formElem);
   formData.append("date", now);

@@ -77,14 +77,36 @@
 }
 .btnContent{
   position: absolute;
-  top: 550px;
+  top: 500px;
   left: 50vw;
   transform: translateX(-50%);
   z-index: 99;
 }
 .contactInfo{
-  display: none;
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 600px;
+  z-index: 99;
 }
+.phoneNumber{
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    margin: 10px 10px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .phone1,.phone2{
+    color: #fff;
+    text-decoration: none;
+  }
+  .phone1{
+    margin-right: 10px;
+  }
+  .phone2{
+    margin-left: 10px;
+  }
 @keyframes mainTitle {
   0%{
     opacity: 0;
@@ -182,7 +204,14 @@
   }
   .nav{
     width: 90%;
-    top: 400px;
+    top: 420px;
+  }
+  .contactInfo{
+    top: 380px;
+}
+
+  .phoneNumber{
+   font-size: 20px;
   }
 }
 /* 모바일 버전 */
@@ -222,28 +251,6 @@
     top: 300px;
   }
   .contactInfo{
-    display: block;
-    position: absolute;
-    width: 100%;
     top: 350px;
-    z-index: 99;
-  }
-  .phoneNumber{
-    text-decoration: none;
-    text-align: center;
-    color: #fff;
-    margin: 10px 10px;
-    font-size: 20px;
-    font-weight: 600;
-  }
-  .phone1,.phone2{
-    color: #fff;
-    text-decoration: none;
-  }
-  .phone1{
-    margin-right: 10px;
-  }
-  .phone2{
-    margin-left: 10px;
   }
 }
