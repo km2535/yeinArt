@@ -5,7 +5,6 @@ import { useAuthContext } from "../../components/context/AuthContext";
 import { useEnquireContext } from "../../components/context/EnquireContext";
 import Footer from "../../components/main/footer/footer";
 import Head from "../../components/main/header/head/head";
-import { readData } from "../../service/database";
 import AddEnquire from "./addEnquire/addEnquire";
 import styles from "./enquire.module.css";
 export default function Enquire() {
@@ -17,15 +16,6 @@ export default function Enquire() {
 
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/contract.png")' });
-    const session = window.sessionStorage.getItem("allEnquire");
-    if (JSON.parse(session) !== null) {
-      setTotalData(JSON.parse(session));
-    } else if (JSON.parse(session) === null) {
-      setIsLoading(true);
-      readData("enquire", "allEnquire")
-        .then((v) => setTotalData(v))
-        .then(() => setIsLoading(false));
-    }
   }, [fbuser, kauser, enquire]);
   return (
     <div className={enquire ? styles.rockPage : styles.release}>

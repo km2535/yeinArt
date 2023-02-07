@@ -28,7 +28,6 @@ export const writeImage = async (id, title, content, url, date) => {
 };
 
 export const readData = async (collectionName, sessionName) => {
-  console.log("reading 발생");
   const q = query(collection(db, collectionName), orderBy("date", "desc"));
   const querySnapshot = await getDocs(q);
   const data = [];
@@ -41,7 +40,6 @@ export const readData = async (collectionName, sessionName) => {
 };
 
 export const firstRead = async (setPageData) => {
-  console.log("처음 reading 발생");
   const q = query(collection(db, "gallery"), orderBy("date", "desc"), limit(6));
   const querySnapshot = await getDocs(q);
   const data = [];
@@ -67,7 +65,6 @@ export const deleteImg = async (id) => {
 };
 
 export const readProduct = async (collectionName, sessionName) => {
-  console.log("reading readProduct[0] 발생");
   const q = query(collection(db, collectionName));
   const querySnapshot = await getDocs(q);
   const data = [];

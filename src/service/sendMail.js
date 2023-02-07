@@ -14,11 +14,12 @@ export const sendingMail = async (setIsMail, setIsBtn, formElem) => {
     });
 };
 
-export const mailfromEnquire = async (subject, Message, Email) => {
+export const mailfromEnquire = async (enquireData) => {
+  const { TITLE, DESCRIPTION, WRITER } = enquireData;
   const formData = new FormData();
-  formData.append("subject", subject);
-  formData.append("Message", Message);
-  formData.append("Email", Email);
+  formData.append("subject", TITLE);
+  formData.append("Message", DESCRIPTION);
+  formData.append("Email", WRITER);
   await fetch("/service/PHPMailer/mailer.php", {
     method: "POST",
     body: formData,

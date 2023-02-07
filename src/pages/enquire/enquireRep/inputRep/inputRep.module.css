@@ -1,76 +1,137 @@
 .form{
+  position: relative;
+  z-index: 7;
+}
+.container{
+  width: 800px;
+  margin: 50px auto;
+}
+.detail{
+  width: 100%;
   display: flex;
-  margin: 0 auto;
-  width: 1000px;
-  height: 70px;
-  justify-content: center;
+  align-items: center;
 }
-.title{
-  width: 80px;
-  text-align: center;
-}
-.inputContainer{
-  width: 600px;
-}
-.textarea {
-  width: 595px;
+.detailInput{
   resize: none;
-  height: 60px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  width: 80%;
+  height: 100px;
+  font-size: 20px;
+  padding: 10px;
+  white-space: pre-wrap;
+}
+.downloadFile{
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.inputFile{
+  display: none;
+}
+.downloadTitle,.files{
+  margin-right: 4px;
+  color: #030303;
+  margin-bottom: 2px;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.8rem;
+}
+.fileTitle{
+  display: flex;
+  align-items: center;
+}
+.downloadTitle{
+  margin-right: 20px;
+}
+.plusBtn{
+  cursor: pointer;
+  margin-right: 20px;
+}
+.fileList{
+  display: flex;
+}
+.fileContent{
+  display: flex;
+  align-items: center;
+}
+.imgList{
+  display: flex;
+}
+.imgContent{
+  width: 150px;
+  display: flex;
+}
+.imgs{
+  width: 100px;
+}
+.img{
+  width: 100%;
+}
+.close{
+  margin-right: 20px;
+  cursor: pointer;
+  color: #e10505;
 }
 .btn{
-  width: 100px;
-  cursor: pointer;
-  height: 66px;
-  border: 1px solid #000;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background-color: #f0f0f0;
-  color: #000;
-  font-size: 15px;
+  text-align: right;
 }
-.btn:hover{
-  background-color: #e9e9e9; 
-}
-
-
 /* 테블릿 가로 버전 */
 @media screen and (max-width:1240px){
- 
+ .container{
+  width: 800px;
+  margin: 50px auto;
+}
+  .imgContent{
+    width: 150px;
+  }
+  .imgList{
+    flex-wrap: wrap;
+  }
 }
 /* 테블릿 세로 버전 */
 @media screen and (max-width:1024px){
-  .form{
-  width: 800px;
+ .container{
+  width: 700px;
+  margin: 50px auto;
 }
-  .inputContainer{
-  width: 500px;
+.detail{
+  width: 100%;
 }
-.textarea {
-  width: 495px;
+.detailInput{
+  resize: none;
+  width: 80%;
+  white-space: pre-wrap;
 }
-.btn{
-  width: 80px;
+.detail{
+  justify-content: center;
 }
 }
 
 /* 모바일 버전 */
 @media screen and (max-width:768px){
-   .form{
-  width: 400px;
-}
-.title{
-  width: 50px;
-}
-  .inputContainer{
-  width: 300px;
-}
-.textarea {
-  width: 295px;
-}
-.btn{
-  width: 60px;
-  font-size: 12px;
-}
+  .container{
+  width: 90%;
+  }
+  .downloadTitle{
+    width: 100%;
+    margin:0;
+    font-size: 12px;
+  }
+  .detailInput{
+    height: auto;
+    width: 70%;
+    font-size: 16px;
+  }
+  .imgContent,.fileContent{
+    width: 120px;
+  }
+  .imgList,.fileList{
+    flex-wrap: wrap;
+  }
+  .close{
+    margin-right: 5px;
+  }
 }

@@ -20,6 +20,8 @@ import GalleryEdit from "./pages/gallery/galleryEdit/galleryEdit";
 import EnquireList from "./pages/enquire/enquireList/enquireList";
 import EnquireDetail from "./pages/enquire/enquireDetail/enquireDetail";
 import NotFound from "./pages/notFound/notFound";
+import GalleryLists from "./pages/gallery/galleryLists/galleryLists";
+import EnquireEdit from "./pages/enquire/enquireEdit/enquireEdit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
@@ -41,6 +43,10 @@ const router = createBrowserRouter([
             element: <EnquireList />,
           },
           {
+            path: "/enquire/:id/enquireEdit",
+            element: <EnquireEdit />,
+          },
+          {
             path: "/enquire/:id",
             element: <EnquireDetail />,
           },
@@ -50,6 +56,11 @@ const router = createBrowserRouter([
         path: "/gallery",
         element: <Gallery />,
         children: [
+          {
+            index: true,
+            path: "/gallery",
+            element: <GalleryLists />,
+          },
           {
             path: "/gallery/addGallery",
             element: (

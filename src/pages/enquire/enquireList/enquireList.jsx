@@ -2,45 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import EnquireBtn from "../../../components/common/btns/enquireBtn/enquireBtn";
 import Loading from "../../../components/common/loading/loading";
-import Pagination from "../../../components/common/pagination/pagination";
-import Search from "../../../components/common/search/search";
 import styles from "./enquireList.module.css";
 import crypto from "crypto-js";
 import { useAuthContext } from "../../../components/context/AuthContext";
+import { readEnquire } from "../../../service/enquire/readEnquire";
+import ReactPaginate from "react-paginate";
+import { readEnquireCnt } from "../../../service/enquire/readEnquireCnt";
+import { useEnquireContext } from "../../../components/context/EnquireContext";
+import { readReplyListCnt } from "../../../service/reply/readReplyListCnt";
+import { BiMessageDetail } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCommentDots } from "@fortawesome/free-regular-svg-icons";
-import { readReplyCnt } from "../../../service/localDatabase";
 
 export default function EnquireList() {
   const { fbuser } = useAuthContext();
-  const { totalData, isLoading } = useOutletContext();
-  const [pageData, setPageDate] = useState([]);
-  const [reply, setReply] = useState([]);
+  const { boards, setBoards } = useEnquireContext();
+  const { isLoading } = useOutletContext();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCnt, setTotalCnt] = useState(0);
   const [isModal, setIsModal] = useState(false);
   const [inputPassword, setInputPassword] = useState("");
   const [originPassword, setOriginPassword] = useState("");
   const [id, setId] = useState("");
-  const [value, setValue] = useState("");
+  const [Item, setValue] = useState([]);
   const [alerts, setAlerts] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
-    const firstData = totalData.slice(0, 10);
-    setPageDate(firstData);
-  }, [totalData]);
-  useEffect(() => {
-    pageData.map((v) => readReplyCnt(setReply, v.id));
-  }, [pageData]);
-  const detailCheckHandler = (id, v) => {
-    setIsModal(true);
-    setOriginPassword(
-      crypto.AES.decrypt(v.value.password, "abcd").toString(crypto.enc.Utf8)
-    );
-    setId(id);
-    setValue(v);
-    if (fbuser?.isAdmin === true) {
-      navigate(`/enquire/${id}`, { state: v });
-    }
+    readEnquireCnt(setTotalCnt);
+  }, []);
+
+  const handlePageClick = (e) => {
+    setCurrentPage(e.selected + 1);
   };
 
   const passwordHandler = (e) => {
@@ -51,8 +43,7 @@ export default function EnquireList() {
       setAlerts(true);
       navigate("/enquire");
     } else {
-      console.log("환영합니다.");
-      navigate(`/enquire/${id}`, { state: value });
+      navigate(`/enquire/${id}`, { state: { Item } });
       setIsModal(false);
     }
   };
@@ -101,49 +92,21 @@ export default function EnquireList() {
             </tr>
           </thead>
           <tbody className={styles.tbody}>
-            {pageData.map((v) => (
-              <tr key={v.id}>
-                <td
-                  className={styles.title}
-                  id={v.id}
-                  key={uuidv4()}
-                  onClick={() => {
-                    detailCheckHandler(v.id, v);
-                  }}
-                >
-                  {v.value.title}
-                </td>
-                <td>
-                  {reply
-                    .map((data) =>
-                      data.result.filter((item) => item.enquireNum === v.id)
-                    )
-                    .filter((result) => result.length > 0).length > 0 ? (
-                    <>
-                      <FontAwesomeIcon
-                        className={styles.icon}
-                        icon={faCommentDots}
-                      />
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </td>
-                <td className={styles.userName}>
-                  {v.value.userName &&
-                    v.value.userName
-                      .slice(-v.value.userName.length, 2)
-                      .padEnd(v.value.userName.length, "*")}
-                </td>
-                <td className={styles.date}>{v.value.date}</td>
-                <td className={styles.workdate}>{v.value.workdate}</td>
-              </tr>
-            ))}
+            <EnquireListItems
+              page={currentPage}
+              setIsModal={setIsModal}
+              setOriginPassword={setOriginPassword}
+              setValue={setValue}
+              setId={setId}
+              fbuser={fbuser}
+              boards={boards}
+              setBoards={setBoards}
+            />
           </tbody>
           <tfoot className={styles.tfoot}>
             <tr className={styles.search}>
               <td colSpan={5}>
-                <Search totalData={totalData} setPageDate={setPageDate} />
+                {/* <Search totalData={boards} setPageDate={setBoards} /> */}
               </td>
               <td></td>
               <td></td>
@@ -163,10 +126,19 @@ export default function EnquireList() {
             </tr>
             <tr>
               <td colSpan={5}>
-                <Pagination
-                  totalData={totalData}
-                  setPageDate={setPageDate}
-                  showCnt={10}
+                <ReactPaginate
+                  breakLabel={"..."}
+                  previousLabel={"<"}
+                  nextLabel={">"}
+                  onPageChange={handlePageClick}
+                  pageCount={Math.ceil(totalCnt / 10)}
+                  pageRangeDisplayed={3}
+                  marginPagesDisplayed={2}
+                  containerClassName={styles.pagination}
+                  activeClassName={styles.current}
+                  pageClassName={styles.item}
+                  previousClassName={styles.prev}
+                  nextClassName={styles.next}
                 />
               </td>
               <td></td>
@@ -178,5 +150,92 @@ export default function EnquireList() {
         </table>
       </div>
     </>
+  );
+}
+
+function EnquireListItems({
+  page,
+  setIsModal,
+  setOriginPassword,
+  setId,
+  setValue,
+  fbuser,
+  setBoards,
+  boards,
+}) {
+  useEffect(() => {
+    const startPage = (page - 1) * 10;
+    const endPage = 10;
+    readEnquire(startPage, endPage, setBoards);
+  }, [page, setBoards]);
+  return (
+    <>
+      {boards?.map((Item) => (
+        <List
+          key={Item?.ID}
+          Item={Item}
+          setIsModal={setIsModal}
+          setOriginPassword={setOriginPassword}
+          setValue={setValue}
+          setId={setId}
+          fbuser={fbuser}
+        />
+      ))}
+    </>
+  );
+}
+
+function List({
+  Item,
+  setIsModal,
+  setOriginPassword,
+  setId,
+  setValue,
+  fbuser,
+}) {
+  const { ID, TITLE, WRITER, DATE, WORK_DATE, PASSWORD } = Item;
+  const navigate = useNavigate();
+  const [isReply, setIsReply] = useState([]);
+  useEffect(() => {
+    readReplyListCnt(ID, setIsReply);
+  }, [ID]);
+  const detailCheckHandler = (id) => {
+    setIsModal(true);
+    setOriginPassword(
+      crypto.AES.decrypt(PASSWORD, ID).toString(crypto.enc.Utf8)
+    );
+    setId(ID);
+    setValue(Item);
+    if (fbuser?.isAdmin === true) {
+      navigate(`/enquire/${id}`, { state: { Item } });
+    }
+  };
+  return (
+    <tr>
+      <td
+        className={styles.title}
+        id={ID}
+        onClick={() => {
+          detailCheckHandler(ID);
+        }}
+      >
+        {TITLE}
+      </td>
+      <td>
+        {isReply?.map(
+          (v) =>
+            v?.COUNT > 0 && (
+              <div key={uuidv4()}>
+                <BiMessageDetail />
+              </div>
+            )
+        )}
+      </td>
+      <td className={styles.userName}>
+        {WRITER && WRITER.slice(-WRITER.length, 2).padEnd(WRITER.length, "*")}
+      </td>
+      <td className={styles.date}>{DATE}</td>
+      <td className={styles.workdate}>{WORK_DATE}</td>
+    </tr>
   );
 }

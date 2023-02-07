@@ -17,9 +17,7 @@ export default function Search({ totalData, setPageDate }) {
   const searchFunc = () => {
     switch (searchMethod) {
       case "title":
-        setPageDate(
-          totalData.filter((v) => v.value.title.includes(searchValue))
-        );
+        setPageDate(totalData.filter((v) => v.TITLE.includes(searchValue)));
         break;
       case "userName":
         setPageDate(

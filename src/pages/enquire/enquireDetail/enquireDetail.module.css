@@ -59,6 +59,7 @@
   width: 50%;
   border: none;
   background-color:#f0f0f0;
+  white-space: pre-wrap;
   color: #000;
 }
 .enquireContent{
@@ -95,6 +96,7 @@
 }.img{
   width: 95%;
   height: 95%;
+  max-height: 500px;
 }
 .files{
   width: 90%;
@@ -110,7 +112,11 @@
   line-height: 37px;
   padding: 0;
 }
-
+.deletBtn{
+  width: 100%;
+  justify-content: center;
+  display: flex;
+}
 
 
 
@@ -179,10 +185,6 @@
 .totalInfoContent{
   width: 35%;
   font-size: 24px;
-}
-.deletBtn{
-  margin-top: 20px;
-  width: 90%;
 }
 .file{
   width: 50%;

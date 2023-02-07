@@ -4,9 +4,7 @@ import NewNavbar from "../../components/common/navbar/newNavbar";
 import { useAuthContext } from "../../components/context/AuthContext";
 import Footer from "../../components/main/footer/footer";
 import Head from "../../components/main/header/head/head";
-import { readData } from "../../service/database";
 import styles from "./gallery.module.css";
-import GalleryLists from "./galleryLists/galleryLists";
 
 export default function Gallery() {
   const { fbuser, kauser, firebaseLogout, sessionLogout } = useAuthContext();
@@ -17,16 +15,6 @@ export default function Gallery() {
 
   useEffect(() => {
     setBg({ backgroundImage: 'url("./images/gallery.jpg")' });
-    const session = window.sessionStorage.getItem("allImgs");
-
-    if (JSON.parse(session) !== null) {
-      setTotalData(JSON.parse(session));
-    } else if (JSON.parse(session) === null) {
-      setIsLoading(true);
-      readData("gallery", "allImgs")
-        .then((v) => setTotalData(v))
-        .then(() => setIsLoading(false));
-    }
   }, [fbuser, kauser]);
   return (
     <>
@@ -92,11 +80,6 @@ export default function Gallery() {
             setDelay,
             delay,
           }}
-        />
-        <GalleryLists
-          totalData={totalData}
-          fbuser={fbuser}
-          isLoading={isLoading}
         />
         <div className={styles.footer}>
           <Footer />

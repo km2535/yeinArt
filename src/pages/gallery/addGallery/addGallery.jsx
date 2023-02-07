@@ -1,227 +1,168 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { upload } from "../../../service/upload";
 import styles from "./addGallery.module.css";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { readData } from "../../../service/database";
 import { useEffect } from "react";
+import { AiOutlineCloseSquare } from "react-icons/ai";
+import { FaPlusSquare } from "react-icons/fa";
+import imageCompression from "browser-image-compression";
+import { uploadGallery } from "../../../service/gallery/uploadGallery";
+import { uploadGalleryFile } from "../../../service/gallery/uploadGalleryFile";
 
 export default function AddGallery() {
-  const { setTotalData, setIsLoading, delay, setDelay } = useOutletContext();
   const navigate = useNavigate();
-  const [file, setFile] = useState([]);
-  const titleRef = useRef();
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState([]);
-  const [cont, setCont] = useState([]);
-  const valueRef = useRef([]);
-  useEffect(() => {
-    titleRef?.current.scrollIntoView(true);
-    setFile([]);
-    if (delay) {
-      setTimeout(
-        () =>
-          readData("gallery", "allImgs")
-            .then((v) => {
-              setTotalData(v);
-              window.sessionStorage?.setItem(
-                "firstRead",
-                JSON.stringify(v.slice(0, 6))
-              );
-              navigate("/gallery");
-              setDelay(false);
-            })
-            .finally(() => setIsLoading(false)),
-        1000
-      );
-    }
-  }, [delay, setDelay, setIsLoading, setTotalData, navigate]);
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    valueRef.current.forEach((v) =>
-      name === v.name ? (v.value = files[0].name) : ""
-    );
+  const { setIsLoading, fbuser } = useOutletContext();
+  const [previewImg, setPreviewImg] = useState([]);
+  const [imgUrl, setImgUrl] = useState([]);
+  const [imgFiles, setImgFiles] = useState([]);
+  const [gallery, setGallery] = useState([]);
 
-    if (name !== "title" && name !== "content") {
-      const option = {
-        id: uuidv4(),
-        date: Date(),
-        loader: name,
-        file: files[0],
-        thumbnail: name === "thumbnailImg" ? true : false,
+  useEffect(() => {
+    const ID = uuidv4();
+    setGallery((prev) => ({ ...prev, ID: ID, WRITER: fbuser?.email }));
+  }, [fbuser.email]);
+
+  useEffect(() => {
+    setGallery((prev) => ({ ...prev, IMAGE_URLS: imgUrl }));
+  }, [imgUrl]);
+
+  useEffect(() => {
+    setImgUrl([]);
+    for (let i = 0; i < previewImg.length; i++) {
+      setImgUrl((prev) => [...prev, `${previewImg[i]?.name}`]);
+    }
+    setGallery((product) => ({
+      ...product,
+      THUMBNAIL_IMG: `${previewImg[0]?.name}`,
+    }));
+  }, [previewImg, previewImg.length]);
+
+  const handleChange = (e) => {
+    const { id, value, files } = e.target;
+    if (id === "images") {
+      const options = {
+        maxSizeMb: 1,
+        maxWidthOrHeight: 800,
       };
-      setFile((prev) =>
-        file.length > 3
-          ? [...prev.filter((v) => v.loader !== name), option]
-          : [...prev, option]
-      );
-      return;
-    } else if (name === "title") {
-      setTitle(value);
-    } else if (name === "content") {
-      setContent(() => [value]);
+      for (let i = 0; i < files.length; i++) {
+        //이미지의 경로를 지정함.
+        setImgUrl((prev) => [...prev, `${files[i]?.name}`]);
+        //이미지 압축하고 이미지를 나열함.
+        const uuid = uuidv4();
+        imageCompression(files[i], options).then((v) => {
+          setPreviewImg((prev) => [
+            ...prev,
+            {
+              url: URL.createObjectURL(v),
+              name: v.name,
+              uuid: uuid,
+              lastModified: v.lastModified,
+            },
+          ]);
+          setImgFiles((prev) => [...prev, v]);
+        });
+      }
+      setGallery((product) => ({
+        ...product,
+        THUMBNAIL_IMG: `${files[0]?.name}`,
+      }));
+    } else {
+      setGallery((product) => ({ ...product, [id]: value }));
     }
   };
-  useEffect(() => {
-    setCont(content.map((v) => v.replaceAll("\n", "<br/>")));
-  }, [content]);
-  const uploadHandler = async (e) => {
+
+  const removeImg = (e) => {
+    const { id } = e.target;
+    setImgFiles((prev) =>
+      [...prev].filter((v) => v.lastModified !== Number(id))
+    );
+    setPreviewImg((prev) =>
+      [...prev].filter((v) => v.lastModified !== Number(id))
+    );
+  };
+  const uploadHandler = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    upload(file, title, cont, undefined, setDelay).then(() => {
-      window.sessionStorage?.removeItem("allImgs");
-      window.sessionStorage?.removeItem("firstRead");
-    });
+    uploadGalleryFile(imgFiles, gallery);
+    uploadGallery(gallery).then(() => setIsLoading(false));
+    alert("게시글이 추가되었습니다.");
+    navigate(-1);
   };
   return (
-    <div className={styles.container} ref={titleRef}>
+    <div className={styles.container}>
       <form onSubmit={uploadHandler} className={styles.form}>
         <div className={styles.subject}>
-          <span className={styles.title}>제목 :</span>
+          <div className={styles.title}>제목 :</div>
           <div className={styles.input}>
             <input
               className={styles.inputTitle}
               type="text"
-              name="title"
-              value={title ?? ""}
+              id="TITLE"
               placeholder="제목을 입력하세요"
               required
               onChange={handleChange}
             />
           </div>
         </div>
-        <div className={styles.content}>
+        <div className={styles.textContent}>
           <span className={styles.title}>내용 :</span>
           <div className={styles.input}>
             <textarea
               className={styles.contentInput}
-              type="content"
+              type="text"
+              id="DESCRIPTION"
               placeholder="내용을 입력하세요"
               name="content"
-              value={content ?? ""}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className={styles.otherwise}>
-          <span className={styles.title}> 메인 / 썸네일 사진 :</span>
-          <div className={styles.input}>
-            <input
-              className={styles.inputFile}
-              type="text"
-              disabled
-              name="thumbnailImg"
-              ref={(el) => (valueRef.current[0] = el)}
-            />
-            <input
-              className={styles.file}
-              style={{ display: "none" }}
-              type="file"
-              accept="image/*"
-              id="thumbnail"
-              name="thumbnailImg"
               required
               onChange={handleChange}
             />
-            <label htmlFor="thumbnail">+</label>
           </div>
         </div>
-        <div className={styles.otherwise}>
-          <span className={styles.title}> 기타 사진 :</span>
-          <div className={styles.input}>
-            <input
-              type="text"
-              name="subImg1"
-              disabled
-              className={styles.inputFile}
-              ref={(el) => (valueRef.current[1] = el)}
-            />
-            <input
-              type="file"
-              style={{ display: "none" }}
-              accept="image/*"
-              id="subImg1"
-              name="subImg1"
-              onChange={handleChange}
-            />
-            <label htmlFor="subImg1">+</label>
+        <div className={styles.content}>
+          <div className={styles.downloadFile}>
+            <div className={styles.downloadTitle}>이미지 추가</div>
+            <div className={styles.imgSub}>※ 첫 이미지가 썸네일 사진</div>
           </div>
-          <div className={styles.input}>
-            <input
-              type="text"
-              disabled
-              className={styles.inputFile}
-              name="subImg2"
-              ref={(el) => (valueRef.current[2] = el)}
-            />
-            <input
-              type="file"
-              style={{ display: "none" }}
-              accept="image/*"
-              name="subImg2"
-              id="subImg2"
-              onChange={handleChange}
-            />
-            <label htmlFor="subImg2">+</label>
-          </div>
-          <div className={styles.input}>
-            <input
-              type="text"
-              disabled
-              name="subImg3"
-              className={styles.inputFile}
-              ref={(el) => (valueRef.current[3] = el)}
-            />
-            <input
-              type="file"
-              style={{ display: "none" }}
-              accept="image/*"
-              name="subImg3"
-              id="subImg3"
-              onChange={handleChange}
-            />
-            <label htmlFor="subImg3">+</label>
-          </div>
-          <div className={styles.input}>
-            <input
-              type="text"
-              disabled
-              name="subImg4"
-              className={styles.inputFile}
-              ref={(el) => (valueRef.current[4] = el)}
-            />
-            <input
-              type="file"
-              style={{ display: "none" }}
-              accept="image/*"
-              name="subImg4"
-              id="subImg4"
-              onChange={handleChange}
-            />
-            <label htmlFor="subImg4">+</label>
-          </div>
-          <div className={styles.input}>
-            <input
-              type="text"
-              disabled
-              name="subImg5"
-              className={styles.inputFile}
-              ref={(el) => (valueRef.current[5] = el)}
-            />
-            <input
-              type="file"
-              accept="image/*"
-              style={{ display: "none" }}
-              name="subImg5"
-              id="subImg5"
-              onChange={handleChange}
-            />
-            <label htmlFor="subImg5">+</label>
+          <input
+            className={styles.inputFile}
+            type={"file"}
+            id="images"
+            name="files[]"
+            accept="image/*"
+            multiple={"multiple"}
+            required
+            onChange={handleChange}
+          />
+          <div className={styles.uploadContainer}>
+            <div className={styles.boarder}>
+              <div className={styles.imgList}>
+                {previewImg.map((v) => (
+                  <div key={v.uuid} className={styles.imgContent}>
+                    <div className={styles.imgs}>
+                      <img src={v?.url} alt="" className={styles.img} />
+                    </div>
+                    <AiOutlineCloseSquare
+                      id={v.lastModified}
+                      onClick={removeImg}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <label className={styles.plusBtn} htmlFor="images">
+              <FaPlusSquare />
+            </label>
           </div>
         </div>
         <div className={styles.btnContainer}>
           <button type="submit" className={styles.uploadBtn}>
             업로드하기
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className={styles.uploadBtn}
+          >
+            목록가기
           </button>
         </div>
       </form>

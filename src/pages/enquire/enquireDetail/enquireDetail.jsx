@@ -1,131 +1,147 @@
 import React from "react";
-import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./enquireDetail.module.css";
-import MoveControl from "../../../components/common/btns/addContents/addContents";
-import { deleteEnquire, readData } from "../../../service/database";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import EmailLoading from "../../../components/common/emailLoading/emailLoading";
 import { useEffect } from "react";
 import EnquireRep from "../enquireRep/enquireRep";
+import { removeEnquireItem } from "../../../service/enquire/removeEnquireItem";
+import { removeEnquireImg } from "../../../service/enquire/removeEnquireImg";
+import { removeEnquireFile } from "../../../service/enquire/removeEnquireFile";
+import Button from "../../../ui/Button";
+import { useAuthContext } from "../../../components/context/AuthContext";
 
 export default function EnquireDetail() {
-  const { setTotalData, setIsLoading, data, setData } = useOutletContext();
-  const navigate = useNavigate();
-  const [cont, setCont] = useState([]);
+  const { fbuser } = useAuthContext();
   const [isBtn, setIsBtn] = useState(false);
+  const navigate = useNavigate();
   const {
     state: {
-      id,
-      value: {
-        title,
-        workdate,
-        userName,
-        content,
-        arrivalAddress,
-        departAddress,
-        fileUrls,
-        imgUrls,
+      Item: {
+        ID,
+        TITLE,
+        WORK_DATE,
+        WRITER,
+        DESCRIPTION,
+        DEPART_ADDRESS,
+        ARRIVAL_ADDRESS,
+        FILE_URLS,
+        IMAGE_URLS,
       },
+      Item,
     },
   } = useLocation();
+  const [img, setImg] = useState([]);
+  const [file, setfile] = useState([]);
+  useEffect(() => {
+    setImg(() => IMAGE_URLS?.split(","));
+    setfile(() => FILE_URLS?.split(","));
+  }, [IMAGE_URLS, FILE_URLS]);
   const deleteHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       setIsBtn(true);
-      deleteEnquire(id).finally(() => {
-        setTimeout(() => {
-          setIsBtn(false);
-          navigate("/enquire");
-          readData("enquire", "allEnquire")
-            .then((v) => setTotalData(v))
-            .finally(() => setIsLoading(false));
-        }, 1500);
-      });
+      removeEnquireImg(Item);
+      removeEnquireFile(Item);
+      removeEnquireItem(Item).finally(() => setIsBtn(false));
+      navigate(-1);
     }
   };
-  useEffect(() => {
-    setCont(content[0]?.split("<br/>"));
-  }, [content]);
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.title}>
             <div className={styles.name}>제목</div>
-            <div className={styles.titleContent}>{title}</div>
+            <div className={styles.titleContent}>{TITLE}</div>
           </div>
           <div className={styles.date}>
             <div className={styles.name}>작업요청일</div>
-            <div className={styles.workdateContent}>{workdate}</div>
+            <div className={styles.workdateContent}>{WORK_DATE}</div>
           </div>
           <div className={styles.user}>
             <div className={styles.name}>의뢰인</div>
-            <div className={styles.userEmail}>{userName}</div>
+            <div className={styles.userEmail}>{WRITER}</div>
           </div>
           <div className={styles.enquireContent}>
             <div className={styles.name}>작업내용</div>
-            <div className={styles.contContent}>
-              {cont?.map((v, i) => (
-                <div key={i}>{v}</div>
-              ))}
-            </div>
+            <div className={styles.contContent}>{DESCRIPTION}</div>
           </div>
           <div className={styles.departure}>
             <div className={styles.name}>출발지</div>
-            <div className={styles.arrAddrContent}>{arrivalAddress}</div>
+            <div className={styles.arrAddrContent}>{DEPART_ADDRESS || ""}</div>
           </div>
           <div className={styles.arrival}>
             <div className={styles.name}>도착지</div>
-            <div className={styles.depAddrContent}>{departAddress}</div>
+            <div className={styles.depAddrContent}>{ARRIVAL_ADDRESS || ""}</div>
           </div>
           <div className={styles.name}>이미지 목록</div>
           <div className={styles.imgs}>
-            {imgUrls.map((v) => (
-              <div className={styles.imgFiles} key={uuidv4()}>
-                <a href={v.imgUrl} target="_blank" rel="noreferrer">
-                  <img className={styles.img} src={v.imgUrl} alt=""></img>
-                </a>
-              </div>
-            ))}
+            {IMAGE_URLS &&
+              img?.map((v) => (
+                <div className={styles.imgFiles} key={uuidv4()}>
+                  <a
+                    href={`${process.env.REACT_APP_API_ENQUIRE}/images/${ID}/${v}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      className={styles.img}
+                      src={`${process.env.REACT_APP_API_ENQUIRE}/images/${ID}/${v}`}
+                      alt=""
+                    ></img>
+                  </a>
+                </div>
+              ))}
           </div>
           <div className={styles.name}>파일 목록</div>
           <div className={styles.files}>
             <ul className={styles.file}>
-              {fileUrls?.map((v) => (
-                <li className={styles.fileList} key={uuidv4()}>
-                  <a
-                    href={v?.fileUrl[1]}
-                    target="_blank"
-                    rel="noreferrer"
-                    download
-                  >
-                    {v?.fileUrl[0]}
-                  </a>
-                </li>
-              ))}
+              {FILE_URLS &&
+                file?.map((v) => (
+                  <li className={styles.fileList} key={uuidv4()}>
+                    <a
+                      href={`${process.env.REACT_APP_API_ENQUIRE}/images/${ID}/${v}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      download
+                    >
+                      {v}
+                    </a>
+                  </li>
+                ))}
             </ul>
           </div>
-
-          <div className={styles.deletBtn}>
+          <div>
             {isBtn ? (
               <EmailLoading />
             ) : (
-              <MoveControl
-                doNotMove={true}
-                styleOption={[{ top: "0" }, { left: "80%" }]}
-                buttonName={"삭제하기"}
-                deleteHandler={deleteHandler}
-              />
+              <div className={styles.deletBtn}>
+                <Button
+                  title="수정하기"
+                  type={"button"}
+                  sub={true}
+                  callback={() => navigate(`enquireEdit`, { state: { Item } })}
+                />
+                <Button
+                  sub={true}
+                  title="삭제하기"
+                  type={"button"}
+                  callback={deleteHandler}
+                />
+                <Button
+                  title="목 록"
+                  type={"button"}
+                  sub={false}
+                  callback={() => navigate(-1)}
+                />
+              </div>
             )}
           </div>
         </div>
       </div>
-      <EnquireRep
-        data={data}
-        setData={setData}
-        enquireId={id}
-        userName={userName}
-      />
+      <EnquireRep enquireId={ID} userName={WRITER} fbuser={fbuser} />
     </>
   );
 }

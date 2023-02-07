@@ -1,4 +1,4 @@
-export function kakaoPostcode(address) {
+export function kakaoPostcode(id, address) {
   new window.daum.Postcode({
     oncomplete: function (data) {
       var addr = ""; // 주소 변수
@@ -17,28 +17,10 @@ export function kakaoPostcode(address) {
       let geocoder = new window.kakao.maps.services.Geocoder();
       geocoder.addressSearch(addr, function (result, status) {
         if (status === window.kakao.maps.services.Status.OK) {
-          let coords = result[0].y + "," + result[0].x;
-          address({ coords: coords, addr: addr });
+          // let coords = result[0].y + "," + result[0].x;
+          address((prev) => ({ ...prev, [id]: addr }));
         }
       });
     },
   }).open();
 }
-
-// export const calDistance = async (arr, dest, setDistance) => {
-//   const gooleMapAPI = process.env.REACT_APP_GOOGLE_MAP_KEY;
-//   const config = {
-//     method: "get",
-//     url: `https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&mode=transit&origins=${arr}&destinations=${dest}&region=KR&key=${gooleMapAPI}`,
-//   };
-//   await axios(config)
-//     .then(function (response) {
-//       return response.data.rows[0].elements[0];
-//     })
-//     .then((v) =>
-//       setDistance({ distance: v.distance.text, duration: v.duration.text })
-//     )
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// };

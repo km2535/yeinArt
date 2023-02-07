@@ -15,6 +15,7 @@
   margin: 50px 100px;
   font-size: 24px;
   font-weight: 600;
+  white-space: pre-wrap;
   overflow: hidden;
 }
 

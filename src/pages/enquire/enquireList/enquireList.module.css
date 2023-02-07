@@ -124,6 +124,47 @@
   margin-left: 60px;
   margin-bottom: 5px;
 }
+.pagination{
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+}
+.item a {
+  position: relative;
+  display: block;
+  font-size: 20px;
+  padding: 0.375rem 0.8rem;
+  color: #0d6efd;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  margin: 0 5px;
+}
+
+.item a:hover {
+  z-index: 2;
+  color: rgb(253, 254, 255);
+  background-color: #859aaf;
+  border-color: #dee2e6;
+}
+.current a{
+  z-index: 3;
+  color: #fff;
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+.break{
+  color: #0a58ca;
+  font-size: 20px;
+  margin: 0 5px;
+}
+.next, .prev{
+  margin: 0 20px;
+}
 /* 테블릿 가로 버전 */
 @media screen and (max-width:1240px){
 

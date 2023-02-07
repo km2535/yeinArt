@@ -1,7 +1,7 @@
 export const readDataRepeat = (setData, enquireNum) => {
   const formData = new FormData();
   formData.append("enquireNum", enquireNum);
-  fetch("/service/repeat/selectRepeat.php", {
+  fetch(`${process.env.REACT_APP_API_REPEAT_URL}/selectRepeat.php`, {
     method: "POST",
     body: formData,
   })
@@ -14,7 +14,7 @@ export const readDataRepeat = (setData, enquireNum) => {
 export const readReplyCnt = async (setReply, enquireNum) => {
   const formData = new FormData();
   formData.append("enquireNum", enquireNum);
-  await fetch("/service/repeat/selectRepeat.php", {
+  await fetch(`${process.env.REACT_APP_API_REPEAT_URL}/selectRepeat.php`, {
     method: "POST",
     body: formData,
   })
@@ -27,7 +27,7 @@ export const readReplyCnt = async (setReply, enquireNum) => {
 export const insertDataRepeat = (now, formElem, setData, enquireNum) => {
   const formData = new FormData(formElem);
   formData.append("date", now);
-  fetch("/service/repeat/insertRepeat.php", {
+  fetch(`${process.env.REACT_APP_API_REPEAT_URL}/insertRepeat.php`, {
     method: "POST",
     body: formData,
   })
@@ -44,7 +44,7 @@ export const insertDataRepeat = (now, formElem, setData, enquireNum) => {
 export const deleteDataRepeat = (repeatId, setData, enquireNum) => {
   const formData = new FormData();
   formData.append("repeatId", repeatId);
-  fetch("/service/repeat/deleteRepeat.php", {
+  fetch(`${process.env.REACT_APP_API_REPEAT_URL}/deleteRepeat.php`, {
     method: "POST",
     body: formData,
   })

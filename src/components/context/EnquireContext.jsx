@@ -5,9 +5,12 @@ const EnquireContext = createContext();
 
 export default function EnquireContextProvider({ children }) {
   const [enquire, setEnquire] = useState(false);
+  const [boards, setBoards] = useState([]);
   return (
     <>
-      <EnquireContext.Provider value={{ enquire, setEnquire }}>
+      <EnquireContext.Provider
+        value={{ enquire, setEnquire, boards, setBoards }}
+      >
         {children}
       </EnquireContext.Provider>
     </>

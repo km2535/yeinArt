@@ -1,0 +1,31 @@
+.container{
+  margin-bottom: 50px;
+}
+
+/* 테블릿 가로 버전 */
+@media screen and (max-width:1240px){
+ .container{
+  width: 600px;
+  margin: 50px auto;
+}
+}
+/* 테블릿 세로 버전 */
+@media screen and (max-width:1024px){
+ .container{
+  width:90%;
+  margin: 50px auto;
+}
+.detailInput{
+  resize: none;
+  width: 55%;
+  white-space: pre-wrap;
+}
+.detail{
+  justify-content: center;
+}
+}
+
+/* 모바일 버전 */
+@media screen and (max-width:768px){
+
+}

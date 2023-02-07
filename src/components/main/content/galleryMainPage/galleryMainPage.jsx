@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-import { firstRead } from "../../../../service/database";
+import { readGallery } from "../../../../service/gallery/readGallery";
 import Loading from "../../../common/loading/loading";
 import styles from "./galleryMainPage.module.css";
 
@@ -11,15 +11,10 @@ export default function GalleryMainPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const session = window.sessionStorage?.getItem("firstRead");
-    if (JSON.parse(session) !== null) {
-      setPageData(JSON.parse(session));
-    } else if (JSON.parse(session) === null) {
-      setIsLoading(true);
-      firstRead(setPageData).then(() => {
-        setIsLoading(false);
-      });
-    }
+    setIsLoading(true);
+    readGallery(0, 6, setPageData).then(() => {
+      setIsLoading(false);
+    });
   }, []);
   const mainSettings = {
     centerMode: true,
@@ -36,37 +31,38 @@ export default function GalleryMainPage() {
     <>
       {isLoading && <Loading />}
       {pageData &&
-        pageData.map((data) => (
-          <div className={styles.imgContent} key={data.id}>
+        pageData.map((Item) => (
+          <div className={styles.imgContent} key={Item.ID}>
             <div
               className={styles.container}
               onClick={() => {
-                const { id, value } = data;
-                navigate(`/gallery/${id}`, { state: { id, value } });
+                const { ID } = Item;
+                navigate(`/gallery/${ID}`, { state: { Item } });
               }}
             >
               <img
                 className={styles.img}
-                src={data.value.tumbnailUrl}
-                alt={data.value.title}
+                src={`${process.env.REACT_APP_API_GALLERY}/${Item.ID}/${Item.THUMBNAIL_IMG}`}
+                alt={Item.TITLE}
               />
-              <p className={styles.des}>{data.value.title}</p>
+              <p className={styles.des}>{Item.TITLE}</p>
             </div>
           </div>
         ))}
       <div className={styles.mbImgs}>
         <Slider {...mainSettings}>
-          {pageData.map((data) => (
-            <div key={data.id} className={styles.mbImgDiv}>
+          {pageData.map((Item) => (
+            <div key={Item.ID} className={styles.mbImgDiv}>
               <img
-                src={data.value.tumbnailUrl}
+                src={`${process.env.REACT_APP_API_GALLERY}/${Item.ID}/${Item.THUMBNAIL_IMG}`}
                 className={styles.mbImg}
                 alt="img"
                 onClick={() => {
-                  const { id, value } = data;
-                  navigate(`/gallery/${id}`, { state: { id, value } });
+                  const { ID } = Item;
+                  navigate(`/gallery/${ID}`, { state: { Item } });
                 }}
               />
+              <div>{Item.TITLE}</div>
             </div>
           ))}
         </Slider>

@@ -4,34 +4,21 @@ import Logo from "../../common/logo/logo";
 import styles from "./login.module.css";
 import { useAuthContext } from "../../context/AuthContext";
 import KAKAO_AUTH_URL from "../../../service/login";
-import { firstRead } from "../../../service/database";
 import Slider from "react-slick";
+import { readGallery } from "../../../service/gallery/readGallery";
 
 export default function Login() {
   const { googleLogin, user } = useAuthContext();
   const [pageData, setPageData] = useState([]);
-  const [img, setImg] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
-    const session = window.sessionStorage.getItem("firstImgs");
-    if (JSON.parse(session) !== null && JSON.parse(session).length > 0) {
-      setPageData(JSON.parse(session));
-    } else {
-      firstRead(setPageData);
-    }
+    readGallery(0, 6, setPageData);
   }, [user, navigate]);
 
-  useEffect(() => {
-    if (pageData.length !== 0) {
-      const arr = [];
-      pageData.map((v) => arr.push(v.value.tumbnailUrl));
-      setImg(arr);
-    }
-  }, [pageData]);
   const mainSettings = {
     centerMode: true,
     centerPadding: "-5px",
@@ -50,15 +37,14 @@ export default function Login() {
   return (
     <div className={styles.background}>
       <div className={styles.imgContainer}>
-        {img.length !== 0 && (
+        {pageData?.length !== 0 && (
           <Slider {...mainSettings}>
-            {img.map((v) => (
-              <div key={v} className={styles.imgContent}>
+            {pageData?.map((Item) => (
+              <div key={Item.ID} className={styles.imgContent}>
                 <img
-                  src={v}
+                  src={`${process.env.REACT_APP_API_GALLERY}/${Item.ID}/${Item.THUMBNAIL_IMG}`}
                   alt="img"
                   className="img"
-                  // style={{ width: "750px", height: "800px" }}
                 />
               </div>
             ))}
