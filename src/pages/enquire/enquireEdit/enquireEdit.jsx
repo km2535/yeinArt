@@ -31,14 +31,14 @@ export default function EnquireEdit() {
   const navigate = useNavigate();
   const {
     state: {
-      Item: { ID, TITLE, WRITER, DESCRIPTION, FILE_URLS, IMAGE_URLS },
-      Item,
+      enquireItem: { ID, TITLE, WRITER, DESCRIPTION, FILE_URLS, IMAGE_URLS },
+      enquireItem,
     },
   } = useLocation();
 
   useEffect(() => {
-    setEnquireData(Item);
-  }, [Item]);
+    setEnquireData(enquireItem);
+  }, [enquireItem]);
 
   useEffect(() => {
     setEnquireData((service) => ({

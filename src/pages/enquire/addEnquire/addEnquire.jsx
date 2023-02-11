@@ -158,7 +158,12 @@ export default function AddEnquire() {
     setIsBtn(true);
     uploadEnquireFile(file, imgFiles, enquireData);
     uploadEnquire(enquireData)
-      .then(() => navigate("/enquire"))
+      .then(() =>
+        navigate(`/enquire/${enquireId}`, {
+          replace: true,
+          state: { enquireId },
+        })
+      )
       .finally(() => mailfromEnquire(enquireData));
     alert("문의 내용이 추가되었습니다.");
     readEnquire(0, 10, setBoards);

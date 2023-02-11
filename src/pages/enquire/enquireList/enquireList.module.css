@@ -13,7 +13,7 @@
   font-family: var(--font-sub);
   font-size: 24px;
 }
-.thead tr th{
+.thead tr{
   border-bottom: 4px solid #000; 
 }
 
@@ -25,12 +25,27 @@
   font-weight: 800;
   font-family: var(--font-sub);
 }
-.title{
-  width: 40%;
+.number{
+  width: 10%;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-sub);
+}
+.title{ 
+  width: 30%;
   cursor: pointer;
 }
 .title:hover{
   color:#0d6efd;
+}
+.reply{
+  width: 5%;
+}
+.userName{
+  width: 10%;
+}
+.date,.workdate{
+  width: 10%;
 }
 .enquireBtn{
   width: 80vw;
@@ -40,7 +55,7 @@
 .search{
   height: 80px;
 }
-.tfoot tr:first-child td{
+.tfoot tr:first-child{
   border-top: 4px solid #000;
 }
 .editBtn{
@@ -165,6 +180,9 @@
 .next, .prev{
   margin: 0 20px;
 }
+.trData{
+  border-bottom: 1px solid #dee2e6;
+}
 /* 테블릿 가로 버전 */
 @media screen and (max-width:1240px){
 
@@ -178,7 +196,9 @@
 
 /* 모바일 버전 */
 @media screen and (max-width:768px){
-
+.item a{
+    padding: 0.1rem 0.4rem;
+}
 .thead{
   font-size: 18px;
 }
@@ -191,14 +211,21 @@
 .title, .userName {
   font-size: 12px;
 }
-.date, .workdate{
+.date{
   font-size: 10px;
+}
+.userName, .date,.workdate{
+  width: 15%;
+}
+.workdate{
+  font-size: 12px;
 }
 .editBtn{
   height: 30px;
 }
 .enquireBtn{
   text-align: right;
+  margin-top: 10px;
 }
 .isModal{
   width: 300px;
@@ -215,5 +242,8 @@
   color: #f00;
   font-size: 12px;
   margin-left: 45px;
+}
+.number{
+  font-size: 12px;
 }
 }

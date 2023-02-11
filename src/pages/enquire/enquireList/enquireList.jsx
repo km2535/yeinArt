@@ -12,6 +12,7 @@ import { useEnquireContext } from "../../../components/context/EnquireContext";
 import { readReplyListCnt } from "../../../service/reply/readReplyListCnt";
 import { BiMessageDetail } from "react-icons/bi";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 export default function EnquireList() {
   const { fbuser } = useAuthContext();
@@ -29,7 +30,7 @@ export default function EnquireList() {
 
   useEffect(() => {
     readEnquireCnt(setTotalCnt);
-  }, []);
+  }, [totalCnt]);
 
   const handlePageClick = (e) => {
     setCurrentPage(e.selected + 1);
@@ -84,15 +85,17 @@ export default function EnquireList() {
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr>
+              <th>번호</th>
               <th>제목</th>
               <th></th>
               <th>글쓴이</th>
               <th>작성일</th>
-              <th>작업요청일</th>
+              <th>조회수</th>
             </tr>
           </thead>
           <tbody className={styles.tbody}>
             <EnquireListItems
+              totalCnt={totalCnt}
               page={currentPage}
               setIsModal={setIsModal}
               setOriginPassword={setOriginPassword}
@@ -104,28 +107,25 @@ export default function EnquireList() {
             />
           </tbody>
           <tfoot className={styles.tfoot}>
-            <tr className={styles.search}>
-              <td colSpan={5}>
-                {/* <Search totalData={boards} setPageDate={setBoards} /> */}
+            {/* <tr className={styles.search}>
+              <td colSpan={6}>
+                <Search totalData={boards} setPageDate={setBoards} />
               </td>
               <td></td>
               <td></td>
               <td></td>
               <td></td>
-            </tr>
+              <td></td>
+            </tr> */}
             <tr className={styles.editBtn}>
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <div className={styles.enquireBtn}>
                   <EnquireBtn />
                 </div>
               </td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
             </tr>
             <tr>
-              <td colSpan={5}>
+              <td colSpan={6}>
                 <ReactPaginate
                   breakLabel={"..."}
                   previousLabel={"<"}
@@ -141,6 +141,7 @@ export default function EnquireList() {
                   nextClassName={styles.next}
                 />
               </td>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>
@@ -161,6 +162,7 @@ function EnquireListItems({
   setValue,
   fbuser,
   setBoards,
+  totalCnt,
   boards,
 }) {
   useEffect(() => {
@@ -170,10 +172,13 @@ function EnquireListItems({
   }, [page, setBoards]);
   return (
     <>
-      {boards?.map((Item) => (
+      {boards?.map((Item, index) => (
         <List
           key={Item?.ID}
           Item={Item}
+          page={page}
+          totalCnt={totalCnt}
+          index={index}
           setIsModal={setIsModal}
           setOriginPassword={setOriginPassword}
           setValue={setValue}
@@ -192,11 +197,17 @@ function List({
   setId,
   setValue,
   fbuser,
+  page,
+  index,
+  totalCnt,
 }) {
-  const { ID, TITLE, WRITER, DATE, WORK_DATE, PASSWORD } = Item;
+  const { ID, TITLE, WRITER, DATE, READ_CNT, PASSWORD } = Item;
+  const [boardNum, setBoardNum] = useState(totalCnt);
   const navigate = useNavigate();
   const [isReply, setIsReply] = useState([]);
+  const [enquireId, setEnquireId] = useState("");
   useEffect(() => {
+    setEnquireId(ID);
     readReplyListCnt(ID, setIsReply);
   }, [ID]);
   const detailCheckHandler = (id) => {
@@ -207,11 +218,18 @@ function List({
     setId(ID);
     setValue(Item);
     if (fbuser?.isAdmin === true) {
-      navigate(`/enquire/${id}`, { state: { Item } });
+      navigate(`/enquire/${id}`, { state: { enquireId } });
     }
   };
+  useEffect(() => {
+    const boardNumber = totalCnt - (page - 1) * 10 - index;
+    if (boardNumber > 0) {
+      setBoardNum(boardNumber);
+    }
+  }, [totalCnt, index, page]);
   return (
-    <tr>
+    <tr className={styles.trData}>
+      <td className={styles.number}>{boardNum}</td>
       <td
         className={styles.title}
         id={ID}
@@ -221,7 +239,7 @@ function List({
       >
         {TITLE}
       </td>
-      <td>
+      <td className={styles.reply}>
         {isReply?.map(
           (v) =>
             v?.COUNT > 0 && (
@@ -234,8 +252,10 @@ function List({
       <td className={styles.userName}>
         {WRITER && WRITER.slice(-WRITER.length, 2).padEnd(WRITER.length, "*")}
       </td>
-      <td className={styles.date}>{DATE}</td>
-      <td className={styles.workdate}>{WORK_DATE}</td>
+      <td className={styles.date}>
+        {moment(new Date(DATE)).format("YYYY-MM-DD")}
+      </td>
+      <td className={styles.workdate}>{READ_CNT}</td>
     </tr>
   );
 }
